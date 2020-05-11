@@ -1,0 +1,42 @@
+#:include game_screen.kv
+
+ScreenManager:
+    id: manager
+
+    HomeScreen:
+        name: "home_screen"
+        id: home_screen
+        MDRectangleFlatButton:
+            text: "Create a match"
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            on_release: manager.current = "input_screen"
+
+    InputScreen:
+        name : "input_screen"
+        id: input_screen
+        MDBoxLayout:
+            size_hint: .6, .6
+            pos_hint: {'center_x': .5, 'center_y': .8}
+            spacing: dp(20)
+            orientation: 'vertical'
+            MDTextField:
+                id: entry1
+                hint_text: "First player name"
+                helper_text_mode: "on_focus"
+            MDTextField:
+                id: entry2
+                hint_text: "Second player name"
+                helper_text_mode: "on_focus"
+        CreateButton:
+            text: "Create a match"
+            pos_hint: {'center_x': .5, 'center_y': .2}
+            on_release: manager.current = "game_screen"
+            #on_release: self.create_match()
+            player1_name: entry1.text
+            player2_name: entry2.text
+
+    GameScreen:
+
+
+
+

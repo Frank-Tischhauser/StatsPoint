@@ -1,0 +1,96 @@
+
+
+<GameScreen>:
+    name: "game_screen"
+    id: second_screen
+    on_pre_enter: player2_name.text = root.player2.get_name()
+    on_pre_enter: player1_name.text = root.player1.get_name()
+    on_pre_enter: button1.text = root.player1.get_name()
+    on_pre_enter: button2.text = root.player2.get_name()
+    MDBoxLayout:
+        orientation: 'vertical'
+        pos_hint: {'top': 1}
+        adaptive_height: True
+        MDBoxLayout:
+            orientation: 'horizontal'
+            pos_hint: {'center_y': .9}
+            adaptive_height: True
+            md_bg_color: app.theme_cls.primary_color
+            MDLabel:
+                text: "Players"
+                halign: 'center'
+            MDLabel:
+                text: "Points"
+                halign: 'center'
+            MDLabel:
+                text: "Games"
+                halign: 'center'
+            MDLabel:
+                text: "Sets"
+                halign: 'center'
+
+        MDBoxLayout:
+            orientation: 'horizontal'
+            pos_hint: {'center_y': .8}
+            adaptive_height: True
+
+            MDLabel:
+                id: player1_name
+                text: ""
+                halign: 'center'
+            MDLabel:
+                id: points_label1
+                text: '0'
+                halign: 'center'
+            MDLabel:
+                id: games_label1
+                text: "0"
+                halign: 'center'
+            MDLabel:
+                id: sets_label1
+                text: "0"
+                halign: 'center'
+        MDBoxLayout:
+            adaptive_height: True
+            orientation: 'horizontal'
+            pos_hint: {'center_y': .7}
+
+            MDLabel:
+                id: player2_name
+                text: "Player1"
+                halign: 'center'
+            MDLabel:
+                id: points_label2
+                text: "0"
+                halign: 'center'
+            MDLabel:
+                id: games_label2
+                text: "0"
+                halign: 'center'
+            MDLabel:
+                id: sets_label2
+                text: "0"
+                halign: 'center'
+
+    MDRectangleFlatButton:
+        id: button1
+        text: "{} wins the point".format(root.player1.get_name())
+        pos_hint: {'center_x': .7, 'center_y':.2}
+        on_press: root.player1.points_win(root.player2)
+        on_release: points_label1.text = root.player1.get_points_amount()
+        on_release: points_label2.text = root.player2.get_points_amount()
+        on_release: games_label2.text = root.player2.get_games_amount()
+        on_release: games_label1.text = root.player1.get_games_amount()
+        on_release: sets_label2.text = root.player2.get_sets_amount()
+        on_release: sets_label1.text = root.player1.get_sets_amount()
+    MDRectangleFlatButton:
+        id: button2
+        text: "Player2 wins the point".format(root.player2.get_name())
+        pos_hint: {'center_x': .2, 'center_y':.2}
+        on_press: root.player2.points_win(root.player1)
+        on_release: points_label2.text = root.player2.get_points_amount()
+        on_release: points_label1.text = root.player1.get_points_amount()
+        on_release: games_label2.text = root.player2.get_games_amount()
+        on_release: games_label1.text = root.player1.get_games_amount()
+        on_release: sets_label2.text = root.player2.get_sets_amount()
+        on_release: sets_label1.text = root.player1.get_sets_amount()
