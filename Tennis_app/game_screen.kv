@@ -86,7 +86,7 @@
     MDRectangleFlatButton:
         id: button2
         text: "Player2 wins the point".format(root.player2.get_name())
-        pos_hint: {'center_x': .2, 'center_y':.2}
+        pos_hint: {'center_x': .3, 'center_y':.2}
         on_press: root.player2.points_win(root.player1)
         on_release: points_label2.text = root.player2.get_points_amount()
         on_release: points_label1.text = root.player1.get_points_amount()
