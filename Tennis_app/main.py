@@ -18,8 +18,6 @@ class InputScreen(Screen):
 
 
 class CreateButton(MDRectangleFlatButton, Player):
-    def __init__(self, **kwargs):
-        super(CreateButton, self).__init__(**kwargs)
 
     def on_press(self):
         player1 = Player(self.player1_name)
@@ -31,9 +29,6 @@ class CreateButton(MDRectangleFlatButton, Player):
 class GameScreen(Screen):
     player1 = Player()
     player2 = Player()
-
-    def __init__(self, **kwargs):
-        super(GameScreen, self).__init__(**kwargs)
 
 
 class TennisApp(MDApp):
