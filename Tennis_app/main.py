@@ -4,7 +4,8 @@ from kivy.uix.screenmanager import Screen
 from kivy.core.window import Window
 from kivymd.uix.button import MDRectangleFlatButton
 
-from Tennis_app.score import Player
+from Tennis_app.player import Player
+from Tennis_app.match import Match
 
 Window.size = 350, 500
 
@@ -17,18 +18,18 @@ class InputScreen(Screen):
     pass
 
 
-class CreateButton(MDRectangleFlatButton, Player):
+class CreateButton(MDRectangleFlatButton):
 
     def on_press(self):
         player1 = Player(self.player1_name)
         player2 = Player(self.player2_name)
         GameScreen.player1 = player1
         GameScreen.player2 = player2
+        GameScreen.match = Match(player1, player2)
 
 
 class GameScreen(Screen):
-    player1 = Player()
-    player2 = Player()
+    pass
 
 
 class TennisApp(MDApp):
