@@ -25,7 +25,7 @@ class CreateButton(MDRectangleFlatButton):
         player2 = Player(self.player2_name)
         GameScreen.player1 = player1
         GameScreen.player2 = player2
-        GameScreen.match = Match(player1, player2)
+        GameScreen.match = Match(player1, player2, self.match_name)
 
 
 class GameScreen(Screen):

@@ -4,11 +4,14 @@ class Match:
     games = [0, 1, 2, 3, 4, 5, 6, 7]
     sets = [0, 1, 2]
 
-    def __init__(self, player1, player2):
+    def __init__(self, player1, player2, match_name):
 
         self.player1 = player1
         self.player2 = player2
-        print(player1.get_name())
+        self.match_name = match_name
+
+    def get_match_name(self):
+        return self.match_name
 
     def points_win(self, winner, opponent):
         if winner.games_amount == 6 and opponent.games_amount == 6:
