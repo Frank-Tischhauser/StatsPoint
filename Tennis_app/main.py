@@ -3,9 +3,12 @@ from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
 from kivy.core.window import Window
 from kivymd.uix.button import MDRectangleFlatButton
+from kivymd.uix.list import OneLineListItem
 
 from Tennis_app.player import Player
 from Tennis_app.match import Match
+
+import json
 
 Window.size = 350, 500
 
@@ -15,6 +18,10 @@ class HomeScreen(Screen):
 
 
 class InputScreen(Screen):
+    pass
+
+
+class SaveScreen(Screen):
     pass
 
 
@@ -37,6 +44,19 @@ class TennisApp(MDApp):
     def build(self):
         self.theme_cls.primary_palette = "Teal"
         return Builder.load_file("main.kv")
+
+    def get_json(self):
+
+        with open('data.json', 'r') as file:
+            return json.load(file)
+
+    def on_start(self):
+
+        data = self.get_json()
+        for dict in data:
+            self.root.ids.match_list.add_widget(
+                OneLineListItem(text='{} : {} vs {}'.format(
+                    dict['match_name'], dict['winner_name'], dict['looser_name'])))
 
 
 if __name__ == "__main__":

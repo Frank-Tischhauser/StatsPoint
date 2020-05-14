@@ -10,6 +10,11 @@ ScreenManager:
             text: "Create a match"
             pos_hint: {'center_x': .5, 'center_y': .5}
             on_release: manager.current = "input_screen"
+        MDRectangleFlatButton:
+            text: "Get Saves"
+            pos_hint: {'center_x': .5, 'center_y': .3}
+            on_release: manager.current = "save_screen"
+
     InputScreen:
         name : "input_screen"
         id: input_screen
@@ -39,6 +44,13 @@ ScreenManager:
             match_name: entry3.text
 
     GameScreen:
+
+    SaveScreen:
+        name: 'save_screen'
+        id: save_screen
+        ScrollView:
+            MDList:
+                id: match_list
 
 
 
