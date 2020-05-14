@@ -1,3 +1,6 @@
+import json
+
+
 class Match:
 
     points = [0, 15, 30, 40]
@@ -23,7 +26,7 @@ class Match:
                 opponent.points_amount = 0
                 winner.games_amount = 0
                 opponent.games_amount = 0
-                self.sets_win(winner)
+                self.sets_win(winner, opponent)
         elif winner.points_amount == 40 and opponent.points_amount != 40 and opponent.points_amount != 'AD' \
                 or winner.points_amount == 'AD':
             winner.points_amount = 0
@@ -46,7 +49,7 @@ class Match:
         if winner.games_amount == 5 and opponent.games_amount < 5:
             winner.games_amount = 0
             opponent.games_amount = 0
-            return self.sets_win(winner)
+            return self.sets_win(winner, opponent)
 
         elif winner.games_amount == 5 and opponent.games_amount == 6:
             winner.games_amount = 6
@@ -54,17 +57,31 @@ class Match:
         elif winner.games_amount == 6 and opponent.games_amount == 5:
             winner.games_amount = 0
             opponent.games_amount = 0
-            return self.sets_win(winner)
+            return self.sets_win(winner, opponent)
         else:
             index = Match.games.index(winner.games_amount)
             winner.games_amount = Match.games[index + 1]
 
-    def sets_win(self, winner):
+    def sets_win(self, winner, opponent):
         index = Match.sets.index(winner.sets_amount)
         winner.sets_amount = Match.sets[index + 1]
         if winner.sets_amount == 2:
-            print('Fin du match')
+            return self.end_match(winner, opponent)
 
     def tie_break(self, winner, opponent):
         winner.points_amount = 0
         opponent.points_amount = 0
+
+    def end_match(self, winner, opponent):
+        winner = winner.get_name()
+        looser = opponent.get_name()
+        dict = {"match_name": self.get_match_name(), "winner_name": winner, "looser_name": looser}
+        return self.write_json(dict)
+
+    def write_json(self, data):
+
+        with open('data.json', 'r') as file:
+            existant_data = json.load(file)
+            existant_data.append(data)
+        with open('data.json', 'w') as js:
+            json.dump(existant_data, js)
