@@ -1,1 +1,1 @@
-[{"match_name": "Test", "winner_name": "Frank", "looser_name": "Daniel"}, {"match_name": "Test2", "winner_name": "Federer", "looser_name": "Nadal"}]
+[{"match_name": "Test", "winner_name": "Frank", "winner_set1": "23", "winner_set2": "24", "winner_total": "[23, 24]", "looser_name": "Trump", "looser_set1": "16", "looser_set2": "0", "looser_total": "[16, 0]"}]

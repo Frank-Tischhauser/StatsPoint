@@ -1,56 +1,33 @@
 #:include game_screen.kv
+#:include input_screen.kv
+#:include home_screen.kv
+#:include data_screen.kv
+#:include save_screen.kv
+
 
 ScreenManager:
     id: manager
 
     HomeScreen:
-        name: "home_screen"
+        name: 'home_screen'
         id: home_screen
-        MDRectangleFlatButton:
-            text: "Create a match"
-            pos_hint: {'center_x': .5, 'center_y': .5}
-            on_release: manager.current = "input_screen"
-        MDRectangleFlatButton:
-            text: "Get Saves"
-            pos_hint: {'center_x': .5, 'center_y': .3}
-            on_release: manager.current = "save_screen"
 
     InputScreen:
-        name : "input_screen"
         id: input_screen
-        MDBoxLayout:
-            size_hint: .6, .6
-            pos_hint: {'center_x': .5, 'center_y': .8}
-            spacing: dp(20)
-            orientation: 'vertical'
-            MDTextField:
-                id: entry3
-                hint_text: "Match name"
-                helper_text_mode: "on_focus"
-            MDTextField:
-                id: entry1
-                hint_text: "First player name"
-                helper_text_mode: "on_focus"
-            MDTextField:
-                id: entry2
-                hint_text: "Second player name"
-                helper_text_mode: "on_focus"
-        CreateButton:
-            text: "Create a match"
-            pos_hint: {'center_x': .5, 'center_y': .2}
-            on_release: manager.current = "game_screen"
-            player1_name: entry1.text
-            player2_name: entry2.text
-            match_name: entry3.text
+        name : 'input_screen'
 
     GameScreen:
-
+        name: "game_screen"
+        id: second_screen
     SaveScreen:
         name: 'save_screen'
         id: save_screen
-        ScrollView:
-            MDList:
-                id: match_list
+
+    DataScreen:
+        name : 'data_screen'
+        id: data_screen
+
+
 
 
 

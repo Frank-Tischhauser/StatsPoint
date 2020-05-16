@@ -1,0 +1,25 @@
+<InputScreen>
+    MDBoxLayout:
+        size_hint: .6, .6
+        pos_hint: {'center_x': .5, 'center_y': .8}
+        spacing: dp(20)
+        orientation: 'vertical'
+        MDTextField:
+            id: entry3
+            hint_text: "Match name"
+            helper_text_mode: "on_focus"
+        MDTextField:
+            id: entry1
+            hint_text: "First player name"
+            helper_text_mode: "on_focus"
+        MDTextField:
+            id: entry2
+            hint_text: "Second player name"
+            helper_text_mode: "on_focus"
+    CreateButton:
+        text: "Create a match"
+        pos_hint: {'center_x': .5, 'center_y': .2}
+        on_release: app.change_screen('game_screen')
+        player1_name: entry1.text
+        player2_name: entry2.text
+        match_name: entry3.text

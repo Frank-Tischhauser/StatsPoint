@@ -1,0 +1,9 @@
+<HomeScreen>
+    MDRectangleFlatButton:
+        text: "Create a match"
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        on_release: app.change_screen('input_screen')
+    MDRectangleFlatButton:
+        text: "Get Saves"
+        pos_hint: {'center_x': .5, 'center_y': .3}
+        on_release: app.change_screen('save_screen')

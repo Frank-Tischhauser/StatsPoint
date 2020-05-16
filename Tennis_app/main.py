@@ -25,6 +25,10 @@ class SaveScreen(Screen):
     pass
 
 
+class ListItem(OneLineListItem):
+    pass
+
+
 class CreateButton(MDRectangleFlatButton):
 
     def on_press(self):
@@ -36,6 +40,10 @@ class CreateButton(MDRectangleFlatButton):
 
 
 class GameScreen(Screen):
+    pass
+
+
+class DataScreen(Screen):
     pass
 
 
@@ -53,10 +61,14 @@ class TennisApp(MDApp):
     def on_start(self):
 
         data = self.get_json()
+
         for dict in data:
-            self.root.ids.match_list.add_widget(
-                OneLineListItem(text='{} : {} vs {}'.format(
+            self.root.ids.save_screen.ids.match_list.add_widget(
+                ListItem(text='{} : {} vs {}'.format(
                     dict['match_name'], dict['winner_name'], dict['looser_name'])))
+
+    def change_screen(self, screen_name):
+        self.root.current = screen_name
 
 
 if __name__ == "__main__":
