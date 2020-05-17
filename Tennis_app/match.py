@@ -13,11 +13,13 @@ class Match:
         self.player2 = player2
         self.match_name = match_name
 
-    def points_counter(self, winner):
-        if winner.sets_amount == 0:
+    def points_counter(self, winner, opponent):
+        if winner.sets_amount == 0 and opponent.sets_amount == 0:
             winner.total_points[0] += 1
-        else:
+        elif winner.sets_amount == 1 and opponent.sets_amount == 0 or winner.sets_amount == 0 and opponent.sets_amount == 1:
             winner.total_points[1] += 1
+        else:
+            winner.total_points[2] += 1
 
     def get_match_name(self):
         return self.match_name
@@ -49,7 +51,7 @@ class Match:
                 index = Match.points.index(winner.points_amount)
                 winner.points_amount = Match.points[index + 1]
                 print('{} a {}pts'.format(winner.get_name(), winner.get_points_amount()))
-        self.points_counter(winner)
+        self.points_counter(winner, opponent)
         print(winner.get_total_points_amount())
 
     def games_win(self, winner, opponent):
@@ -69,14 +71,14 @@ class Match:
         else:
             index = Match.games.index(winner.games_amount)
             winner.games_amount = Match.games[index + 1]
-        self.points_counter(winner)
+        self.points_counter(winner, opponent)
 
     def sets_win(self, winner, opponent):
         index = Match.sets.index(winner.sets_amount)
         winner.sets_amount = Match.sets[index + 1]
         if winner.sets_amount == 2:
             return self.end_match(winner, opponent)
-        self.points_counter(winner)
+        self.points_counter(winner, opponent)
 
     def tie_break(self, winner, opponent):
         winner.points_amount = 0
@@ -84,22 +86,12 @@ class Match:
 
     def end_match(self, winner, opponent):
         winner_name = winner.get_name()
-        winner_total = winner.get_total_points_amount()
-        winner_total_set1 = winner_total[0]
-        winner_total_set2 = winner_total[1]
         looser_name = opponent.get_name()
-        looser_total = opponent.get_total_points_amount()
-        looser_total_set1 = looser_total[0]
-        looser_total_set2 = looser_total[1]
         dict = {"match_name": self.get_match_name(),
                 "winner_name": winner_name,
-                "winner_set1": str(winner_total_set1),
-                "winner_set2": str(winner_total_set2),
-                "winner_total": str(winner_total),
+                "winner_points": winner.total_points,
                 "looser_name": looser_name,
-                "looser_set1": str(looser_total_set1),
-                "looser_set2": str(looser_total_set2),
-                "looser_total": str(looser_total),
+                "looser_points": opponent.total_points
                 }
         return self.write_json(dict)
 

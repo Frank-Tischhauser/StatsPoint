@@ -5,7 +5,7 @@ class Player:
         self.points_amount = 0
         self.games_amount = 0
         self.sets_amount = 0
-        self.total_points = [0, 0]
+        self.total_points = [0, 0, 0]
 
     def get_name(self):
         return self.name

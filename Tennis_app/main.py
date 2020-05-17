@@ -63,12 +63,22 @@ class TennisApp(MDApp):
         data = self.get_json()
 
         for dict in data:
-            self.root.ids.save_screen.ids.match_list.add_widget(
-                ListItem(text='{} : {} vs {}'.format(
-                    dict['match_name'], dict['winner_name'], dict['looser_name'])))
+            result = ListItem(text='{} : {} vs {}'.format(
+                    dict['match_name'], dict['winner_name'], dict['looser_name']))
+            result.bind(on_press=lambda a: self.change_screen('data_screen'))
+            winner_points = dict['winner_points']
+            looser_points = dict['looser_points']
+            result.bind(on_press= lambda a: self.print_value(dict['winner_name'], dict['looser_name'], str(winner_points[0]), str(looser_points[0])))
+            self.root.ids.save_screen.ids.match_list.add_widget(result)
 
     def change_screen(self, screen_name):
         self.root.current = screen_name
+
+    def print_value(self, player1, player2, points1, points2):
+        self.root.ids.data_screen.ids.player1.text = player1
+        self.root.ids.data_screen.ids.player2.text = player2
+        self.root.ids.data_screen.ids.points1.text = points1
+        self.root.ids.data_screen.ids.points2.text = points2
 
 
 if __name__ == "__main__":
