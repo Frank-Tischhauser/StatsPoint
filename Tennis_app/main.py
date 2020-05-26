@@ -32,6 +32,7 @@ class ListItem(OneLineListItem):
 class CreateButton(MDRectangleFlatButton):
 
     def on_press(self):
+        """Create a match when button pressed"""
         player1 = Player(self.player1_name)
         player2 = Player(self.player2_name)
         GameScreen.player1 = player1
@@ -50,10 +51,13 @@ class DataScreen(Screen):
 class TennisApp(MDApp):
 
     def build(self):
+        """Creates the app"""
         self.theme_cls.primary_palette = "Teal"
         return Builder.load_file("main.kv")
 
     def get_json(self):
+
+        """Gets the data from the JSON file"""
 
         with open('data.json', 'r') as file:
             return json.load(file)
@@ -62,9 +66,9 @@ class TennisApp(MDApp):
 
         data = self.get_json()
 
-        for dict in data:
+        for dict in data:  # For every match saved in the JSON file
             result = ListItem(text='{} : {} vs {}'.format(
-                    dict['match_name'], dict['winner_name'], dict['looser_name']))
+                    dict['match_name'], dict['winner_name'], dict['looser_name']))  # Add a OneListItem widget (UI)
             result.bind(on_press=lambda a: self.change_screen('data_screen'))
             winner_points = dict['winner_points']
             looser_points = dict['looser_points']
@@ -72,6 +76,7 @@ class TennisApp(MDApp):
             self.root.ids.save_screen.ids.match_list.add_widget(result)
 
     def change_screen(self, screen_name):
+        """Change the current screen using the ScreenManager"""
         self.root.current = screen_name
 
     def print_value(self, player1, player2, points1, points2):

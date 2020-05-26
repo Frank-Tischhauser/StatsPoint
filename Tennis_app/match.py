@@ -3,6 +3,38 @@ import json
 
 class Match:
 
+    """
+    A class to represent a Tennis Match and its rules.
+    ...
+    Attributes
+    ----------
+    player1 : object
+        Instance of the class Player. It is the player 1 of the match.
+    player2 : object
+        Instance of the class Player. It is the player 2 of the match.
+    match_name : str
+        Name of the match
+
+    Methods
+    -------
+    points_counter(winner, opponent):
+        Counts the total point number of a player for each set.
+    get_match_name():
+        returns the name of the match.
+    points_win(winner, opponent):
+        Is called each time a player wins a point. Returns the appropriate method depending on the scoreboard.
+    games_win(winner, opponent):
+        Is called each time a player wins a game. Returns the appropriate method depending on the scoreboard.
+    sets_win(winner, opponent):
+        Is called each time a player wins a set. Returns the appropriate method depending on the scoreboard.
+    tie_break(winner, opponent):
+        Is called at the start of a Tie-Break. Resets all the points_amount.
+    end_match(winner, opponent):
+        Is called at the end of a match. Creates a dict with the data of the match. Returns write_json method.
+    write_json(data):
+        Appends the data to a json file.
+    """
+
     points = [0, 15, 30, 40]
     games = [0, 1, 2, 3, 4, 5, 6, 7]
     sets = [0, 1, 2]
