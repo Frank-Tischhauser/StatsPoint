@@ -4,7 +4,7 @@ import json
 class Match:
 
     """
-    A class to represent a Tennis Match and its rules.
+    A class to represent a Tennis model and its rules.
     ...
     Attributes
     ----------
@@ -39,11 +39,12 @@ class Match:
     games = [0, 1, 2, 3, 4, 5, 6, 7]
     sets = [0, 1, 2]
 
-    def __init__(self, player1, player2, match_name):
+    def __init__(self, player1, player2, match_name, end=0):
 
         self.player1 = player1
         self.player2 = player2
         self.match_name = match_name
+        self.end = end
 
     def points_counter(self, winner, opponent):
         if winner.sets_amount == 0 and opponent.sets_amount == 0:
@@ -129,8 +130,8 @@ class Match:
 
     def write_json(self, data):
 
-        with open('data.json', 'r') as file:
+        with open('../Tennis_app/data.json', 'r') as file:
             existant_data = json.load(file)
             existant_data.append(data)
-        with open('data.json', 'w') as js:
+        with open('../Tennis_app/data.json', 'w') as js:
             json.dump(existant_data, js)

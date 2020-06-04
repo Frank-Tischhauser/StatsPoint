@@ -1,9 +1,24 @@
 <HomeScreen>
-    MDRectangleFlatButton:
-        text: "Create a match"
-        pos_hint: {'center_x': .5, 'center_y': .5}
-        on_release: app.change_screen('input_screen')
-    MDRectangleFlatButton:
-        text: "Get Saves"
-        pos_hint: {'center_x': .5, 'center_y': .3}
-        on_release: app.change_screen('save_screen')
+    MDBoxLayout:
+        orientation: 'vertical'
+        spacing: 30
+        MDLabel:
+            text: 'Welcome to the Tennis Tracker App!'
+            halign: 'center'
+            font_name: "C:/Users/frank/PycharmProjects/TennisApp/Roboto-Light.ttf"
+            font_size: "30sp"
+            theme_text_color: "Primary"
+            pos_hint: {'center_y': .8}
+        MDBoxLayout:
+            orientation: 'vertical'
+            spacing: dp(30)
+            padding: [0, 0, 0, 100]
+            MDRectangleFlatButton:
+                text: "Create a match"
+                pos_hint: {'center_x': .5}
+                on_release: app.change_screen('input_screen')
+            MDRectangleFlatButton:
+                text: "Saved Match"
+                pos_hint: {'center_x': .5}
+                on_release: app.saved_match_list()
+                on_release: app.change_screen('save_screen')

@@ -71,22 +71,9 @@
     MDRectangleFlatButton:
         id: button1
         pos_hint: {'center_x': .3, 'center_y':.2}
-        on_press: root.match.points_win(root.player1, root.player2)
-        on_release: points_label2.text = root.match.player2.get_points_amount()
-        on_release: points_label1.text = root.match.player1.get_points_amount()
-        on_release: games_label2.text = root.match.player2.get_games_amount()
-        on_release: games_label1.text = root.match.player1.get_games_amount()
-        on_release: sets_label2.text = root.match.player2.get_sets_amount()
-        on_release: sets_label1.text = root.match.player1.get_sets_amount()
+        on_release: app.update_scoreboard(root.player1, root.player2, root.match)
 
     MDRectangleFlatButton:
         id: button2
         pos_hint: {'center_x': .7, 'center_y':.2}
-        on_press: root.match.points_win(root.player2, root.player1)
-        on_release: points_label1.text = root.match.player1.get_points_amount()
-        on_release: points_label2.text = root.match.player2.get_points_amount()
-        on_release: games_label2.text = root.match.player2.get_games_amount()
-        on_release: games_label1.text = root.match.player1.get_games_amount()
-        on_release: sets_label2.text = root.match.player2.get_sets_amount()
-        on_release: sets_label1.text = root.match.player1.get_sets_amount()
-
+        on_release: app.update_scoreboard(root.player2, root.player1, root.match)
