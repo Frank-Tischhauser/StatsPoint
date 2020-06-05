@@ -4,8 +4,8 @@ from kivy.uix.screenmanager import Screen, SlideTransition
 from kivy.core.window import Window
 from kivymd.uix.list import OneLineListItem
 
-from model.player import Player
-from model.match import Match
+from Tennis_app.player import Player
+from Tennis_app.match import Match
 
 import json
 

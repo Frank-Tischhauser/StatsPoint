@@ -130,8 +130,8 @@ class Match:
 
     def write_json(self, data):
 
-        with open('../Tennis_app/data.json', 'r') as file:
+        with open('data.json', 'r') as file:
             existant_data = json.load(file)
             existant_data.append(data)
-        with open('../Tennis_app/data.json', 'w') as js:
+        with open('data.json', 'w') as js:
             json.dump(existant_data, js)
