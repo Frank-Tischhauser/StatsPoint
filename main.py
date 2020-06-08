@@ -9,7 +9,6 @@ from match import Match
 
 import json
 
-
 Window.size = (350, 500)
 
 
@@ -57,12 +56,6 @@ class TennisApp(MDApp):
         self.root.transition = SlideTransition(direction=direction)
         self.root.current = screen_name
 
-    def print_value(self, player1, player2, points1, points2):
-        self.root.ids.data_screen.ids.player1.text = player1
-        self.root.ids.data_screen.ids.player2.text = player2
-        self.root.ids.data_screen.ids.points1.text = points1
-        self.root.ids.data_screen.ids.points2.text = points2
-
     def win_condition(self):
         if self.root.ids.game_screen.ids.sets_label1.text == '2' or self.root.ids.game_screen.ids.sets_label2.text == '2':
             self.change_screen('home_screen', 'right')
@@ -74,6 +67,9 @@ class TennisApp(MDApp):
         GameScreen.player1 = player1
         GameScreen.player2 = player2
         GameScreen.match = Match(player1, player2, self.root.ids.input_screen.ids.entry3.text)
+        self.root.ids.input_screen.ids.entry1.text = ''
+        self.root.ids.input_screen.ids.entry2.text = ''
+        self.root.ids.input_screen.ids.entry3.text = ''
 
     def update_scoreboard(self, winner, opponent, match):
         """Updates the scoreboard each time a player wons a point"""
@@ -90,17 +86,18 @@ class TennisApp(MDApp):
         """Creates a list with all saved games"""
         self.root.ids.save_screen.ids.match_list.clear_widgets()
         data = self.get_json()
-
         for dict in data:  # For every match saved in the JSON file
             result = OneLineListItem(text='{} : {} vs {}'.format(
                 dict['match_name'], dict['winner_name'], dict['looser_name']))  # Add a OneListItem widget (UI)
-            result.bind(on_press=lambda a: self.change_screen('data_screen'))
-            winner_points = dict['winner_points']
-            looser_points = dict['looser_points']
-            result.bind(
-                on_press=lambda a: self.print_value(dict['winner_name'], dict['looser_name'], str(winner_points[0]),
-                                                    str(looser_points[0])))
-            self.root.ids.save_screen.ids.match_list.add_widget(result, 1)
+            result.bind(on_release=lambda a: self.change_screen('data_screen'))
+            result.bind(on_press=lambda a, i=dict: self.show_data(i))
+            self.root.ids.save_screen.ids.match_list.add_widget(result)
+
+    def show_data(self, data):
+        self.root.ids.data_screen.ids.player1_name.text = data['winner_name']
+        self.root.ids.data_screen.ids.player2_name.text = data['looser_name']
+        self.root.ids.data_screen.ids.points1.text = str(data['winner_points'][0])
+        self.root.ids.data_screen.ids.points2.text = str(data['looser_points'][0])
 
 
 if __name__ == "__main__":
