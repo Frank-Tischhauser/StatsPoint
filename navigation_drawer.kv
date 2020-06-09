@@ -1,6 +1,9 @@
 <NavDrawer>
     MDBoxLayout:
         id: content_drawer
+        orientation: "vertical"
+        padding: "8dp"
+        spacing: "8dp"
         ScrollView:
             MDList:
                 id: item_drawer
@@ -16,6 +19,12 @@
                     on_release: root.set_state('close')
                     IconLeftWidget:
                         icon: 'content-save'
+                OneLineAvatarListItem:
+                    text: 'Play a match'
+                    on_release: app.change_screen('input_screen')
+                    on_release: root.set_state('close')
+                    IconLeftWidget:
+                        icon: 'tennis'
         MDIconButton:
             icon: 'close'
             on_release: root.set_state('close')
