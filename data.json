@@ -1,1 +1,1 @@
-[]
+[{"match_name": "Test4", "winner_name": "Michel", "winner_points": [24, 24, 0], "looser_name": "Jean", "looser_points": [9, 0, 0]}, {"match_name": "Test1", "winner_name": "Frank", "winner_points": [23, 24, 0], "looser_name": "Nadal", "looser_points": [6, 0, 0]}, {"match_name": "Test", "winner_name": "Frank", "winner_points": [23, 26, 0], "looser_name": "Jean", "looser_points": [0, 14, 0]}]

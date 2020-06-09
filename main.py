@@ -84,13 +84,13 @@ class TennisApp(MDApp):
 
     def saved_match_list(self):
         """Creates a list with all saved games"""
-        self.root.ids.save_screen.ids.match_list.clear_widgets()
+        self.root.ids.save_screen.ids.match_list.clear_widgets()  # To avoid duplication of widgets
         data = self.get_json()
-        for dict in data:  # For every match saved in the JSON file
+        for match_info in data:  # For every match saved in the JSON file
             result = OneLineListItem(text='{} : {} vs {}'.format(
-                dict['match_name'], dict['winner_name'], dict['looser_name']))  # Add a OneListItem widget (UI)
+                match_info['match_name'], match_info['winner_name'], match_info['looser_name']))  # Add a OneListItem widget (UI)
             result.bind(on_release=lambda a: self.change_screen('data_screen'))
-            result.bind(on_press=lambda a, i=dict: self.show_data(i))
+            result.bind(on_press=lambda a, i=match_info: self.show_data(i))
             self.root.ids.save_screen.ids.match_list.add_widget(result)
 
     def show_data(self, data):
@@ -98,6 +98,18 @@ class TennisApp(MDApp):
         self.root.ids.data_screen.ids.player2_name.text = data['looser_name']
         self.root.ids.data_screen.ids.points1.text = str(data['winner_points'][0])
         self.root.ids.data_screen.ids.points2.text = str(data['looser_points'][0])
+
+    def check_text(self):
+        """Checks if a textfield is empty"""
+        condition = True
+        for text in self.root.ids.input_screen.ids.confirmation_button.checking_text:
+            if text == '' or text == ' ':
+                condition = False
+        if condition:
+            self.create_match()
+            self.change_screen('game_screen')
+        else:
+            self.root.ids.input_screen.ids.error_message.text = 'Error : A required field is missing!'
 
 
 if __name__ == "__main__":

@@ -1,4 +1,5 @@
 <InputScreen>
+    on_pre_enter: error_message.text = ''
     MDBoxLayout:
         size_hint: .6, .6
         pos_hint: {'center_x': .5, 'center_y': .8}
@@ -16,8 +17,26 @@
             id: entry2
             hint_text: "Second player name"
             helper_text_mode: "on_focus"
+    MDLabel:
+        id: error_message
+        text: ''
+        halign: 'center'
+        markup: True
+        color: (1, 0 , 0, 1)
+        pos_hint: {'center_x': .5, 'center_y': .4}
+        font_style: "H3"
+        font_size: "15sp"
+
     MDRectangleFlatButton:
+        id: confirmation_button
         text: "Create a match"
         pos_hint: {'center_x': .5, 'center_y': .2}
-        on_release: app.change_screen('game_screen')
-        on_release: app.create_match()
+        on_release: app.check_text()
+        checking_text: [entry1.text, entry2.text, entry3.text]
+
+    MDFloatingActionButton:
+        icon: "home-outline"
+        elevation_normal: 8
+        pos_hint: {"center_x": .85, "center_y":.1}
+        md_bg_color: app.theme_cls.primary_color
+        on_release: app.change_screen('home_screen', 'right')
