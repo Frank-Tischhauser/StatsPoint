@@ -3,6 +3,7 @@ from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen, SlideTransition
 from kivy.core.window import Window
 from kivymd.uix.list import OneLineListItem
+from kivymd.uix.navigationdrawer import MDNavigationDrawer
 
 from player import Player
 from match import Match
@@ -10,6 +11,11 @@ from match import Match
 import json
 
 Window.size = (350, 500)
+
+
+class NavDrawer(MDNavigationDrawer):
+    """Navigation Drawer controlled by the toolbar"""
+    pass
 
 
 class HomeScreen(Screen):
@@ -53,8 +59,8 @@ class TennisApp(MDApp):
 
     def change_screen(self, screen_name, direction='left'):
         """Changes the current screen using the ScreenManager"""
-        self.root.transition = SlideTransition(direction=direction)
-        self.root.current = screen_name
+        self.root.ids.manager.transition = SlideTransition(direction=direction)
+        self.root.ids.manager.current = screen_name
 
     def win_condition(self):
         if self.root.ids.game_screen.ids.sets_label1.text == '2' or self.root.ids.game_screen.ids.sets_label2.text == '2':

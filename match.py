@@ -107,11 +107,11 @@ class Match:
         self.points_counter(winner, opponent)
 
     def sets_win(self, winner, opponent):
+        self.points_counter(winner, opponent)
         index = Match.sets.index(winner.sets_amount)
         winner.sets_amount = Match.sets[index + 1]
         if winner.sets_amount == 2:
             return self.end_match(winner, opponent)
-        self.points_counter(winner, opponent)
 
     def tie_break(self, winner, opponent):
         winner.points_amount = 0

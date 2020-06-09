@@ -1,0 +1,22 @@
+<NavDrawer>
+    MDBoxLayout:
+        id: content_drawer
+        ScrollView:
+            MDList:
+                id: item_drawer
+                OneLineAvatarListItem:
+                    text: 'Homepage'
+                    on_release: app.change_screen('home_screen')
+                    on_release: root.set_state('close')
+                    IconLeftWidget:
+                        icon: 'home-outline'
+                OneLineAvatarListItem:
+                    text: 'Saves'
+                    on_release: app.change_screen('save_screen')
+                    on_release: root.set_state('close')
+                    IconLeftWidget:
+                        icon: 'content-save'
+        MDIconButton:
+            icon: 'close'
+            on_release: root.set_state('close')
+            user_font_size: "30sp"

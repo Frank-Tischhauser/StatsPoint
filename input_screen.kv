@@ -27,9 +27,12 @@
         font_style: "H3"
         font_size: "15sp"
 
-    MDRectangleFlatButton:
+    MDRaisedButton:
         id: confirmation_button
-        text: "Create a match"
+        text: "ENTER"
+        font_style: "H2"
+        font_size: "15sp"
+        md_bg_color: app.theme_cls.primary_color
         pos_hint: {'center_x': .5, 'center_y': .2}
         on_release: app.check_text()
         checking_text: [entry1.text, entry2.text, entry3.text]

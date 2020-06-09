@@ -3,30 +3,50 @@
 #:include home_screen.kv
 #:include data_screen.kv
 #:include save_screen.kv
+#:include navigation_drawer.kv
+
+NavigationLayout:
+
+    ScreenManager:
+
+        Screen:
+
+            MDBoxLayout:
+                orientation: 'vertical'
+
+                MDToolbar:
+                    title: "Tennis App"
+                    elevation: 10
+                    left_action_items: [['menu', lambda x: nav_drawer.set_state()]]
 
 
-ScreenManager:
-    id: manager
+                ScreenManager:
+                    id: manager
 
-    HomeScreen:
-        name: 'home_screen'
-        id: home_screen
+                    HomeScreen:
+                        name: 'home_screen'
+                        id: home_screen
 
-    InputScreen:
-        id: input_screen
-        name : 'input_screen'
+                    InputScreen:
+                        id: input_screen
+                        name : 'input_screen'
 
-    GameScreen:
-        name: "game_screen"
-        id: game_screen
+                    GameScreen:
+                        name: "game_screen"
+                        id: game_screen
 
-    SaveScreen:
-        name: 'save_screen'
-        id: save_screen
+                    SaveScreen:
+                        name: 'save_screen'
+                        id: save_screen
 
-    DataScreen:
-        name : 'data_screen'
-        id: data_screen
+                    DataScreen:
+                        name : 'data_screen'
+                        id: data_screen
+
+
+    NavDrawer:
+        id: nav_drawer
+
 
 
 
