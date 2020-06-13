@@ -1,6 +1,7 @@
 from kivymd.app import MDApp
 from kivy.lang import Builder
-from kivy.uix.screenmanager import Screen, SlideTransition
+from kivy.uix.screenmanager import SlideTransition
+from kivymd.uix.screen import MDScreen
 from kivy.core.window import Window
 from kivymd.uix.list import OneLineListItem
 from kivymd.uix.navigationdrawer import MDNavigationDrawer
@@ -10,7 +11,7 @@ from match import Match
 
 import json
 
-Window.size = (350, 500)
+#Window.size = (350, 500)
 
 
 class NavDrawer(MDNavigationDrawer):
@@ -18,27 +19,27 @@ class NavDrawer(MDNavigationDrawer):
     pass
 
 
-class HomeScreen(Screen):
+class HomeScreen(MDScreen):
     """Homepage"""
     pass
 
 
-class InputScreen(Screen):
+class InputScreen(MDScreen):
     """The user gives all the information for the creation of a match"""
     pass
 
 
-class SaveScreen(Screen):
+class SaveScreen(MDScreen):
     """Contains all the saved games on a list"""
     pass
 
 
-class GameScreen(Screen):
+class GameScreen(MDScreen):
     """Contains all the buttons that are used by the user during a match"""
     pass
 
 
-class DataScreen(Screen):
+class DataScreen(MDScreen):
     """Shows the data of a match"""
     pass
 
@@ -49,13 +50,6 @@ class TennisApp(MDApp):
         """Creates the app"""
         self.theme_cls.primary_palette = "Teal"
         return Builder.load_file("main.kv")
-
-    def get_json(self):
-
-        """Gets the data from the JSON file"""
-
-        with open('data.json', 'r') as file:
-            return json.load(file)
 
     def change_screen(self, screen_name, direction='left'):
         """Changes the current screen using the ScreenManager"""
@@ -73,9 +67,6 @@ class TennisApp(MDApp):
         GameScreen.player1 = player1
         GameScreen.player2 = player2
         GameScreen.match = Match(player1, player2, self.root.ids.input_screen.ids.entry3.text)
-        self.root.ids.input_screen.ids.entry1.text = ''
-        self.root.ids.input_screen.ids.entry2.text = ''
-        self.root.ids.input_screen.ids.entry3.text = ''
 
     def update_scoreboard(self, winner, opponent, match):
         """Updates the scoreboard each time a player wons a point"""
@@ -91,10 +82,12 @@ class TennisApp(MDApp):
     def saved_match_list(self):
         """Creates a list with all saved games"""
         self.root.ids.save_screen.ids.match_list.clear_widgets()  # To avoid duplication of widgets
-        data = self.get_json()
+        with open('data.json', 'r') as file:
+            data = json.load(file)
         for match_info in data:  # For every match saved in the JSON file
             result = OneLineListItem(text='{} : {} vs {}'.format(
-                match_info['match_name'], match_info['winner_name'], match_info['looser_name']))  # Add a OneListItem widget (UI)
+                match_info['match_name'], match_info['winner_name'],
+                match_info['looser_name']))  # Add a OneListItem widget (UI)
             result.bind(on_release=lambda a: self.change_screen('data_screen'))
             result.bind(on_press=lambda a, i=match_info: self.show_data(i))
             self.root.ids.save_screen.ids.match_list.add_widget(result)
@@ -102,8 +95,12 @@ class TennisApp(MDApp):
     def show_data(self, data):
         self.root.ids.data_screen.ids.player1_name.text = data['winner_name']
         self.root.ids.data_screen.ids.player2_name.text = data['looser_name']
-        self.root.ids.data_screen.ids.points1.text = str(data['winner_points'][0])
-        self.root.ids.data_screen.ids.points2.text = str(data['looser_points'][0])
+        self.root.ids.data_screen.ids.set1_player1.text = str(data['winner_games'][0])
+        self.root.ids.data_screen.ids.set2_player1.text = str(data['winner_games'][1])
+        self.root.ids.data_screen.ids.set3_player1.text = str(data['winner_games'][2])
+        self.root.ids.data_screen.ids.set1_player2.text = str(data['looser_games'][0])
+        self.root.ids.data_screen.ids.set2_player2.text = str(data['looser_games'][1])
+        self.root.ids.data_screen.ids.set3_player2.text = str(data['looser_games'][2])
 
     def check_text(self):
         """Checks if a textfield is empty"""
