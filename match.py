@@ -45,6 +45,8 @@ class Match:
         self.player2 = player2
         self.match_name = match_name
         self.end = end
+        self.server = player1
+        self.receiver = player2
 
     def counter(self, winner, opponent):
         if winner.sets_amount == 0 and opponent.sets_amount == 0:
@@ -62,13 +64,7 @@ class Match:
 
     def points_win(self, winner, opponent):
         if winner.games_amount == 6 and opponent.games_amount == 6:
-            winner.points_amount += 1
-            if winner.points_amount < 7 or abs(winner.points_amount - opponent.points_amount) < 2:
-                pass
-            else:
-                index = Match.games.index(winner.games_amount)
-                winner.games_amount = Match.games[index + 1]
-                self.sets_win(winner, opponent)
+            self.tie_break(winner, opponent)
         elif winner.points_amount == 40 and opponent.points_amount != 40 and opponent.points_amount != 'AD' \
                 or winner.points_amount == 'AD':
             winner.points_amount = 0
@@ -90,7 +86,6 @@ class Match:
         print(winner.get_total_games_amount())
 
     def games_win(self, winner, opponent):
-
         if winner.games_amount == 5 and opponent.games_amount < 5:
             index = Match.games.index(winner.games_amount)
             winner.games_amount = Match.games[index + 1]
@@ -98,7 +93,9 @@ class Match:
 
         elif winner.games_amount == 5 and opponent.games_amount == 6:
             winner.games_amount = 6
-            return self.tie_break(winner, opponent)
+            winner.points_amount = 0
+            opponent.points_amount = 0
+            self.change_server()
         elif winner.games_amount == 6 and opponent.games_amount == 5:
             index = Match.games.index(winner.games_amount)
             winner.games_amount = Match.games[index + 1]
@@ -106,12 +103,14 @@ class Match:
         else:
             index = Match.games.index(winner.games_amount)
             winner.games_amount = Match.games[index + 1]
+            self.change_server()
         self.counter(winner, opponent)
         print(winner.get_total_points_amount())
         print(winner.get_total_games_amount())
 
     def sets_win(self, winner, opponent):
         self.counter(winner, opponent)
+        self.change_server()
         print(winner.get_total_points_amount())
         print(winner.get_total_games_amount())
         index = Match.sets.index(winner.sets_amount)
@@ -124,8 +123,19 @@ class Match:
             return self.end_match(winner, opponent)
 
     def tie_break(self, winner, opponent):
-        winner.points_amount = 0
-        opponent.points_amount = 0
+        winner.points_amount += 1
+
+        if winner.points_amount < 7 or abs(winner.points_amount - opponent.points_amount) < 2:
+            if (winner.points_amount + opponent.points_amount) % 2 == 1:
+                self.change_server()
+        else:
+            index = Match.games.index(winner.games_amount)
+            winner.games_amount = Match.games[index + 1]
+            self.sets_win(winner, opponent)
+
+        self.counter(winner, opponent)
+        print(winner.get_total_points_amount())
+        print(winner.get_total_games_amount())
 
     def end_match(self, winner, opponent):
         winner_name = winner.get_name()
@@ -143,5 +153,14 @@ class Match:
             existant_data.append(dict)
         with open('data.json', 'w') as js:
             json.dump(existant_data, js)
+
+    def change_server(self):
+        if self.server == self.player1:
+            self.server = self.player2
+            self.receiver = self.player1
+        else:
+            self.server = self.player1
+            self.receiver = self.player2
+        print(self.server.get_name())
 
 

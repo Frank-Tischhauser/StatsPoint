@@ -5,13 +5,15 @@ from kivymd.uix.screen import MDScreen
 from kivy.core.window import Window
 from kivymd.uix.list import OneLineListItem
 from kivymd.uix.navigationdrawer import MDNavigationDrawer
+from kivymd.uix.dialog import MDDialog
+from kivymd.uix.button import MDFlatButton
 
 from player import Player
 from match import Match
 
 import json
 
-#Window.size = (350, 500)
+#  Window.size = (350, 500)
 
 
 class NavDrawer(MDNavigationDrawer):
@@ -45,11 +47,12 @@ class DataScreen(MDScreen):
 
 
 class TennisApp(MDApp):
+    dialog = None
 
     def build(self):
         """Creates the app"""
         self.theme_cls.primary_palette = "Teal"
-        return Builder.load_file("main.kv")
+        return Builder.load_file("kv/main.kv")
 
     def change_screen(self, screen_name, direction='left'):
         """Changes the current screen using the ScreenManager"""
@@ -77,6 +80,7 @@ class TennisApp(MDApp):
         self.root.ids.game_screen.ids.games_label2.text = match.player2.get_games_amount()
         self.root.ids.game_screen.ids.sets_label1.text = match.player1.get_sets_amount()
         self.root.ids.game_screen.ids.sets_label2.text = match.player2.get_sets_amount()
+        self.check_server(match)
         self.win_condition()
 
     def saved_match_list(self):
@@ -110,9 +114,50 @@ class TennisApp(MDApp):
                 condition = False
         if condition:
             self.create_match()
+            self.show_dialog_server()
             self.change_screen('game_screen')
         else:
             self.root.ids.input_screen.ids.error_message.text = 'Error : A required field is missing!'
+
+    def modify_fault_button(self):
+        """Modify the button (Fault / Double Fault)"""
+        if self.root.ids.game_screen.ids.fault.text == "Fault":
+            self.root.ids.game_screen.ids.fault.text = 'Double Fault'
+        elif self.root.ids.game_screen.ids.fault.text == 'Double Fault':
+            self.root.ids.game_screen.ids.fault.text = 'Fault'
+            self.update_scoreboard(self.root.ids.game_screen.match.receiver, self.root.ids.game_screen.match.server, self.root.ids.game_screen.match)
+
+    def show_dialog_server(self):
+        """Shows a dialog box to ask which player serves first"""
+        if not self.dialog:
+            self.dialog = MDDialog(title='Who serves first?', size_hint=(0.7, 1), buttons=[
+                MDFlatButton(text=self.root.ids.input_screen.ids.entry1.text, text_color=self.theme_cls.primary_color,
+                             on_release=lambda x: self.server(self.root.ids.game_screen.player1, self.root.ids.game_screen.player2)),
+                MDFlatButton(text=self.root.ids.input_screen.ids.entry2.text, text_color=self.theme_cls.primary_color,
+                             on_release=lambda x: self.server(self.root.ids.game_screen.player2, self.root.ids.game_screen.player1))])
+        self.dialog.open()
+
+    def server(self, server, receiver):
+        """Sets which player serves or receives"""
+        self.root.ids.game_screen.match.server = server
+        self.root.ids.game_screen.match.receiver = receiver
+        self.check_server(self.root.ids.game_screen.match)
+        self.dialog.dismiss()
+        print(self.root.ids.game_screen.match.server.get_name())
+
+    def check_server(self, match):
+        """Hide or show the tennis-ball icon depending on which player serves"""
+        if match.server.get_name() == match.player1.get_name():
+            self.root.ids.game_screen.ids.server2.opacity = 0
+            self.root.ids.game_screen.ids.server1.opacity = 1
+        else:
+            self.root.ids.game_screen.ids.server2.opacity = 1
+            self.root.ids.game_screen.ids.server1.opacity = 0
+
+    def set_winner(self, winner, looser):
+        """Sets which player wins the point"""
+        self.root.ids.game_screen.winner = winner
+        self.root.ids.game_screen.looser = looser
 
 
 if __name__ == "__main__":
