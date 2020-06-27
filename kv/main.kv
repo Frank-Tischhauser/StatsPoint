@@ -4,6 +4,8 @@
 #:include kv/data_screen.kv
 #:include kv/save_screen.kv
 #:include kv/navigation_drawer.kv
+#:include kv/setting_screen.kv
+
 
 NavigationLayout:
 
@@ -18,7 +20,7 @@ NavigationLayout:
                     title: "Tennis App"
                     elevation: 5
                     left_action_items: [['menu', lambda x: nav_drawer.set_state()]]
-                    right_action_items: [["settings", lambda x: x]]
+                    right_action_items: [["settings", lambda x: app.show_dialog_confirmation()]]
 
                 ScreenManager:
                     id: manager
@@ -43,6 +45,9 @@ NavigationLayout:
                         name : 'data_screen'
                         id: data_screen
 
+                    SettingScreen:
+                        name : 'setting_screen'
+                        id: setting_screen
 
     NavDrawer:
         id: nav_drawer

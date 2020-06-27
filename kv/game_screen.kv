@@ -1,21 +1,20 @@
 <GameScreen>:
     on_pre_enter: player2_name.text = root.player2.get_name()
     on_pre_enter: player1_name.text = root.player1.get_name()
+    on_pre_enter: sets_label1.text = '0'; sets_label2.text = '0'; server1.opacity = 0 ; server2.opacity = 0
     on_enter: pl1_btn.text = root.player1.get_name()
     on_enter: pl2_btn.text = root.player2.get_name()
-    winner: None
-    looser: None
     MDBoxLayout:
         orientation: 'vertical'
         spacing: dp(60)
         pos_hint: {'top': 1}
         MDGridLayout:
-            padding: [0, 30, 0, 0]
+            padding: [0, dp(30), 0, 0]
             pos_hint: {'top': 1}
             adaptive_height: True
             cols: 5
             rows: 3
-            spacing: [0, 30]
+            spacing: [0, dp(30)]
 
             MDLabel:
                 text: ''
@@ -77,14 +76,13 @@
             id: game_manager
 
             MDScreen:
-                on_pre_enter: fault.text = 'Fault'
                 name: 'service'
                 MDBoxLayout:
                     orientation: 'vertical'
                     adaptive_height: True
                     adaptive_width: True
                     pos_hint: {'top': .8, 'center_x': .5}
-                    spacing: 50
+                    spacing: dp(50)
                     MDBoxLayout:
                         id: box1
                         orientation: 'horizontal'
@@ -92,19 +90,19 @@
                         adaptive_width: True
                         #md_bg_color: app.theme_cls.primary_color
                         pos_hint: {'top': .8, 'center_x': .5}
-                        spacing: 50
+                        spacing: dp(50)
                         MDRectangleFlatButton:
                             id: ace
                             text: 'Ace'
-                            on_release: app.update_scoreboard(root.match.server, root.match.receiver, root.match)
+                            on_release: root.update_scoreboard(root.match.server, root.match.receiver, root.match)
                         MDRectangleFlatButton:
                             id: fault
                             text: 'Fault'
-                            on_release: app.modify_fault_button()
+                            on_release: root.modify_fault_button()
 
                     MDRectangleFlatButton:
                         text: 'Ball in Play'
-                        increment_width: box1.width - 50
+                        increment_width: box1.width - dp(50)
                         on_release: game_manager.current = 'on_court'
             MDScreen:
                 name: 'on_court'
@@ -113,7 +111,7 @@
                     adaptive_height: True
                     adaptive_width: True
                     pos_hint: {'top': .8, 'center_x': .5}
-                    spacing: 50
+                    spacing: dp(50)
                     MDLabel:
                         text: 'Who won the point?'
                         halign: 'center'
@@ -123,16 +121,16 @@
                         adaptive_width: True
                         #md_bg_color: app.theme_cls.primary_color
                         pos_hint: {'top': .8, 'center_x': .5}
-                        spacing: 50
+                        spacing: dp(50)
                         MDRectangleFlatButton:
                             id: pl1_btn
                             text: ''
-                            on_release: app.set_winner(root.player1, root.player2)
+                            on_release: root.set_winner(root.player1, root.player2)
                             on_release: game_manager.current ='game_details1'
                         MDRectangleFlatButton:
                             id: pl2_btn
                             text: ''
-                            on_release: app.set_winner(root.player2, root.player1)
+                            on_release: root.set_winner(root.player2, root.player1)
                             on_release: game_manager.current = 'game_details1'
             MDScreen:
                 name: 'game_details1'
@@ -141,7 +139,7 @@
                     adaptive_height: True
                     adaptive_width: True
                     pos_hint: {'top': .8, 'center_x': .5}
-                    spacing: 50
+                    spacing: dp(50)
                     MDLabel:
                         text: 'The point ended, because of a ...'
                         halign: 'center'
@@ -152,23 +150,23 @@
                         adaptive_width: True
                         #md_bg_color: app.theme_cls.primary_color
                         pos_hint: {'top': .8, 'center_x': .5}
-                        spacing: 50
+                        spacing: dp(50)
 
                         MDRectangleFlatButton:
                             id: forced_error
                             text: 'Forced Error'
-                            on_release: app.update_scoreboard(root.winner, root.looser, root.match)
+                            on_release: root.update_scoreboard(root.winner, root.looser, root.match)
                             on_release: game_manager.current = 'service'
                         MDRectangleFlatButton:
                             id: unforced_error
                             text: 'Unforced Error'
-                            on_release: app.update_scoreboard(root.winner, root.looser, root.match)
+                            on_release: root.update_scoreboard(root.winner, root.looser, root.match)
                             on_release: game_manager.current = 'service'
 
                     MDRectangleFlatButton:
                         id: winner
                         text: 'Winner'
                         pos_hint: {'center_x': .5}
-                        increment_width: box2.width - 50
-                        on_release: app.update_scoreboard(root.winner, root.looser, root.match)
+                        increment_width: box2.width - dp(50)
+                        on_release: root.update_scoreboard(root.winner, root.looser, root.match)
                         on_release: game_manager.current = 'service'

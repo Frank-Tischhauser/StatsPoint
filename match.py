@@ -1,8 +1,8 @@
 import json
+import logging as log
 
 
 class Match:
-
     """
     A class to represent a Tennis model and its rules.
     ...
@@ -80,10 +80,10 @@ class Match:
             else:
                 index = Match.points.index(winner.points_amount)
                 winner.points_amount = Match.points[index + 1]
-                print('{} a {}pts'.format(winner.get_name(), winner.get_points_amount()))
+                log.info('{} a {}pts'.format(winner.get_name(), winner.get_points_amount()))
         self.counter(winner, opponent)
-        print(winner.get_total_points_amount())
-        print(winner.get_total_games_amount())
+        log.info(winner.get_total_points_amount())
+        log.info(winner.get_total_games_amount())
 
     def games_win(self, winner, opponent):
         if winner.games_amount == 5 and opponent.games_amount < 5:
@@ -105,14 +105,14 @@ class Match:
             winner.games_amount = Match.games[index + 1]
             self.change_server()
         self.counter(winner, opponent)
-        print(winner.get_total_points_amount())
-        print(winner.get_total_games_amount())
+        log.info(winner.get_total_points_amount())
+        log.info(winner.get_total_games_amount())
 
     def sets_win(self, winner, opponent):
         self.counter(winner, opponent)
         self.change_server()
-        print(winner.get_total_points_amount())
-        print(winner.get_total_games_amount())
+        log.info(winner.get_total_points_amount())
+        log.info(winner.get_total_games_amount())
         index = Match.sets.index(winner.sets_amount)
         winner.sets_amount = Match.sets[index + 1]
         winner.points_amount = 0
@@ -134,8 +134,8 @@ class Match:
             self.sets_win(winner, opponent)
 
         self.counter(winner, opponent)
-        print(winner.get_total_points_amount())
-        print(winner.get_total_games_amount())
+        log.info(winner.get_total_points_amount())
+        log.info(winner.get_total_games_amount())
 
     def end_match(self, winner, opponent):
         winner_name = winner.get_name()
@@ -161,6 +161,4 @@ class Match:
         else:
             self.server = self.player1
             self.receiver = self.player2
-        print(self.server.get_name())
-
-
+        log.info(self.server.get_name())
