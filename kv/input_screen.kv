@@ -14,10 +14,12 @@
             id: entry1
             hint_text: "First player name"
             helper_text_mode: "on_focus"
+            max_text_length: 9
         MDTextField:
             id: entry2
             hint_text: "Second player name"
             helper_text_mode: "on_focus"
+            max_text_length: 9
     MDLabel:
         id: error_message
         text: ''
@@ -32,7 +34,7 @@
         id: confirmation_button
         text: "Next"
         pos_hint: {'center_x': .5, 'center_y': .2}
-        on_release: app.check_text()
+        on_release: root.check_text()
         checking_text: [entry1.text, entry2.text, entry3.text]
 
     MDFloatingActionButton:

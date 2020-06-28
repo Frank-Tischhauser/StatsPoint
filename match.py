@@ -10,49 +10,80 @@ class Match:
     ----------
     player1 : object
         Instance of the class Player. It is the player 1 of the match.
+
     player2 : object
         Instance of the class Player. It is the player 2 of the match.
+
     match_name : str
-        Name of the match
+        Name of the match.
+
+    server : object
+        Instance of the class Player. It is the player who serves.
+
+    receiver : object
+        Instance of the class Player. It is the player who receives.
 
     Methods
     -------
     counter(winner, opponent):
         Counts the total point number of a player for each set.
+
     get_match_name():
         returns the name of the match.
+
     points_win(winner, opponent):
-        Is called each time a player wins a point. Returns the appropriate method depending on the scoreboard.
+        Is called each time a player wins a point.
+        Returns the appropriate method depending on the scoreboard.
+
     games_win(winner, opponent):
-        Is called each time a player wins a game. Returns the appropriate method depending on the scoreboard.
+        Is called each time a player wins a game.
+        Returns the appropriate method depending on the scoreboard.
+
     sets_win(winner, opponent):
-        Is called each time a player wins a set. Returns the appropriate method depending on the scoreboard.
+        Is called each time a player wins a set.
+        Returns the appropriate method depending on the scoreboard.
+
     tie_break(winner, opponent):
-        Is called at the start of a Tie-Break. Resets all the points_amount.
+        Is called at the start of a Tie-Break.
+        Resets all the points_amount.
+
     end_match(winner, opponent):
-        Is called at the end of a match. Creates a dict with the data of the match. Returns write_json method.
-    write_json(data):
-        Appends the data to a json file.
+        Is called at the end of a match.
+        Creates a dict with the data of the match. Returns write_json method.
+
+    change_server():
+        The server becomes the receiver, and the receiver becomes the server.
     """
 
     points = [0, 15, 30, 40]
     games = [0, 1, 2, 3, 4, 5, 6, 7]
     sets = [0, 1, 2]
 
-    def __init__(self, player1, player2, match_name, end=0):
+    def __init__(self, player1, player2, match_name):
+        """
+        Parameters
+        ----------
+        player1 : object
+            Instance of the class Player. It is the player 1 of the match.
+        player2: object
+            Instance of the class Player. It is the player 2 of the match.
+        match_name : str
+            Name of the match.
+        """
 
         self.player1 = player1
         self.player2 = player2
         self.match_name = match_name
-        self.end = end
         self.server = player1
         self.receiver = player2
 
     def counter(self, winner, opponent):
+        """Counts the total point number of a player for each set."""
         if winner.sets_amount == 0 and opponent.sets_amount == 0:
             winner.total_points[0] += 1
             winner.total_games[0] = winner.get_games_amount()
-        elif winner.sets_amount == 1 and opponent.sets_amount == 0 or winner.sets_amount == 0 and opponent.sets_amount == 1:
+        elif winner.sets_amount == 1 and opponent.sets_amount == 0 or winner.sets_amount == 0 \
+                and opponent.sets_amount == 1:
             winner.total_points[1] += 1
             winner.total_games[1] = winner.get_games_amount()
         else:
@@ -63,9 +94,14 @@ class Match:
         return self.match_name
 
     def points_win(self, winner, opponent):
+        """
+        Is called each time a player wins a point.
+        Returns the appropriate method depending on the scoreboard.
+        """
         if winner.games_amount == 6 and opponent.games_amount == 6:
             self.tie_break(winner, opponent)
-        elif winner.points_amount == 40 and opponent.points_amount != 40 and opponent.points_amount != 'AD' \
+        elif winner.points_amount == 40 and opponent.points_amount != 40 \
+                and opponent.points_amount != 'AD' \
                 or winner.points_amount == 'AD':
             winner.points_amount = 0
             opponent.points_amount = 0

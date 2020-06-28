@@ -16,11 +16,11 @@ NavigationLayout:
             MDBoxLayout:
                 orientation: 'vertical'
 
-                MDToolbar:
+                MyToolbar:
                     title: "Tennis App"
                     elevation: 5
                     left_action_items: [['menu', lambda x: nav_drawer.set_state()]]
-                    right_action_items: [["settings", lambda x: app.show_dialog_confirmation()]]
+                    right_action_items: [["settings", lambda x: self.show_dialog_confirmation()]]
 
                 ScreenManager:
                     id: manager
