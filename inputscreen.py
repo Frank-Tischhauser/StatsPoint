@@ -17,23 +17,25 @@ class InputScreen(MDScreen):
         self.app.root.ids.game_screen.player1 = player1
         self.app.root.ids.game_screen.player2 = player2
         self.app.root.ids.game_screen.match = Match(player1, player2, self.ids.entry3.text)
+        self.app.root.ids.game_screen.ids.server1.opacity = 0  # Fixes small graphic bug
+        self.app.root.ids.game_screen.ids.server2.opacity = 0
 
     def check_text(self):
-        """Checks if a textfield is empty"""
+        """Checks if the text written respects the conditions"""
         player1 = self.ids.confirmation_button.checking_text[0]
         player2 = self.ids.confirmation_button.checking_text[1]
         condition = True
         for text in self.ids.confirmation_button.checking_text:
-            if text == '' or text == ' ':
+            if text == '' or text == ' ':  # If a field is empty
                 self.ids.error_message.text = 'Error : A required field is missing!'
                 condition = False
-        if player1 == player2:
+        if player1 == player2:  # If both players have the same name (creates bugs)
             condition = False
             self.ids.error_message.text = 'Error : Both players cannot have the same name!'
-        elif len(player1) > 9 or len(player2) > 9:
+        elif len(player1) > 9 or len(player2) > 9:  # If names are too long (creates graphic bugs)
             condition = False
             self.ids.error_message.text = 'Error : Names are too long!'
-        if condition:
+        if condition:  # If everything is fine, creates the match
             self.create_match()
             self.app.root.ids.game_screen.show_dialog_server()
             self.app.change_screen('game_screen')
