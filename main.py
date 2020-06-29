@@ -10,8 +10,8 @@ Example : Bob wins the first point (Backhand winner)
 Then the app saves all the data and shows interesting and useful statistics. []
 The app als helps the player by giving interesting advices depending on the results. []
 
-[] : Done
-[x] : To Do
+[x] : Done
+[] : To Do
 
 Author : Frank Tischhauser
 """
