@@ -13,12 +13,8 @@ class GameScreen(MDScreen):
         self.winner = None
         self.looser = None
         self.dialog = None
+        self.confirmation_save_match = None
         self.app = MDApp.get_running_app()
-
-    def win_condition(self):
-        if self.ids.sets_label1.text == '2' or \
-                self.ids.sets_label2.text == '2':
-            self.app.change_screen('home_screen', 'right')
 
     def update_scoreboard(self, winner, opponent, match):
         """Updates the scoreboard each time a player wons a point"""
@@ -29,9 +25,8 @@ class GameScreen(MDScreen):
         self.ids.games_label2.text = match.player2.get_games_amount()
         self.ids.sets_label1.text = match.player1.get_sets_amount()
         self.ids.sets_label2.text = match.player2.get_sets_amount()
-        self.ids.fault.text = 'Fault'
+        self.ids.fault.text = 'Fault'  # Fixes problem with Fault / DoubleFault button
         self.check_server(match)
-        self.win_condition()
 
     def check_server(self, match):
         """Hide or show the tennis-ball icon depending on which player serves"""
@@ -57,15 +52,6 @@ class GameScreen(MDScreen):
         self.looser = looser
         self.winner = winner
 
-    def server(self, server, receiver):
-        """Sets which player serves or receives"""
-        self.match.server = server
-        self.match.receiver = receiver
-        self.check_server(self.match)
-        self.dialog.dismiss()
-        self.dialog = None
-        log.info(self.match.server.get_name())
-
     def show_dialog_server(self):
         """Shows a dialog box to ask which player serves first"""
         if not self.dialog:
@@ -77,4 +63,36 @@ class GameScreen(MDScreen):
                              on_release=lambda x: self.server(
                                  self.player2, self.player1))])
         self.dialog.open()
-        log.info(self.app.root.ids.input_screen.ids.entry1.text)
+
+    def server(self, server, receiver):
+        """Sets which player serves or receives, depending on user's choice"""
+        self.match.server = server
+        self.match.receiver = receiver
+        self.check_server(self.match)
+        self.dialog.dismiss()
+        self.dialog = None
+        log.info('Le serveur est ' + self.match.server.get_name())
+
+    def show_dialog_save_match_confirmation(self):
+        """Shows a dialog box to ask if the player wants to save the match"""
+        if not self.confirmation_save_match:
+            self.confirmation_save_match = MDDialog(title='Do you want to save the match?',
+                                                    size_hint=(0.7, 1),
+                                                    buttons=[
+                                                        MDFlatButton(text='Yes',
+                                                                     text_color=self.app.theme_cls.primary_color,
+                                                                     on_release=lambda x: self.leave_match()
+                                                                     ),
+                                                        MDFlatButton(text='No, cancel',
+                                                                     text_color=self.app.theme_cls.primary_color,
+                                                                     on_release=lambda x: self.cancel())])
+        self.confirmation_save_match.open()
+
+    def cancel(self):
+        self.confirmation_save_match.dismiss()
+        self.confirmation_save_match = None
+
+    def leave_match(self):
+        self.app.change_screen('home_screen')
+        self.cancel()
+        self.match.save_match(self.match.player1, self.match.player2)

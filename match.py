@@ -59,7 +59,7 @@ class Match:
     games = [0, 1, 2, 3, 4, 5, 6, 7]
     sets = [0, 1, 2]
 
-    def __init__(self, player1, player2, match_name):
+    def __init__(self, player1, player2, match_name, server=None, receiver=None):
         """
         Parameters
         ----------
@@ -70,25 +70,32 @@ class Match:
         match_name : str
             Name of the match.
         """
-
+        if server is None:
+            server = player1
+        if receiver is None:
+            receiver = player2
+            
         self.player1 = player1
         self.player2 = player2
         self.match_name = match_name
-        self.server = player1
-        self.receiver = player2
+        self.server = server
+        self.receiver = receiver
 
     def counter(self, winner, opponent):
         """Counts the total point number of a player for each set."""
         if winner.sets_amount == 0 and opponent.sets_amount == 0:
             winner.total_points[0] += 1
-            winner.total_games[0] = winner.get_games_amount()
+            winner.total_games[0] = winner.games_amount
         elif winner.sets_amount == 1 and opponent.sets_amount == 0 or winner.sets_amount == 0 \
                 and opponent.sets_amount == 1:
             winner.total_points[1] += 1
-            winner.total_games[1] = winner.get_games_amount()
+            winner.total_games[1] = winner.games_amount
         else:
             winner.total_points[2] += 1
-            winner.total_games[2] = winner.get_games_amount()
+            winner.total_games[2] = winner.games_amount
+        log.info('{} a {}pts'.format(winner.get_name(), winner.get_points_amount()))
+        log.info('Résumé des points gagnés dans le match {}'.format(winner.get_total_points_amount()))
+        log.info('Résumé des jeux gagnés dans le match {}'.format(winner.get_total_games_amount()))
 
     def get_match_name(self):
         return self.match_name
@@ -116,10 +123,7 @@ class Match:
             else:
                 index = Match.points.index(winner.points_amount)
                 winner.points_amount = Match.points[index + 1]
-                log.info('{} a {}pts'.format(winner.get_name(), winner.get_points_amount()))
         self.counter(winner, opponent)
-        log.info(winner.get_total_points_amount())
-        log.info(winner.get_total_games_amount())
 
     def games_win(self, winner, opponent):
         if winner.games_amount == 5 and opponent.games_amount < 5:
@@ -141,14 +145,10 @@ class Match:
             winner.games_amount = Match.games[index + 1]
             self.change_server()
         self.counter(winner, opponent)
-        log.info(winner.get_total_points_amount())
-        log.info(winner.get_total_games_amount())
 
     def sets_win(self, winner, opponent):
         self.counter(winner, opponent)
         self.change_server()
-        log.info(winner.get_total_points_amount())
-        log.info(winner.get_total_games_amount())
         index = Match.sets.index(winner.sets_amount)
         winner.sets_amount = Match.sets[index + 1]
         winner.points_amount = 0
@@ -156,7 +156,7 @@ class Match:
         winner.games_amount = 0
         opponent.games_amount = 0
         if winner.sets_amount == 2:
-            return self.end_match(winner, opponent)
+            return self.save_match(winner, opponent)
 
     def tie_break(self, winner, opponent):
         winner.points_amount += 1
@@ -170,25 +170,31 @@ class Match:
             self.sets_win(winner, opponent)
 
         self.counter(winner, opponent)
-        log.info(winner.get_total_points_amount())
-        log.info(winner.get_total_games_amount())
 
-    def end_match(self, winner, opponent):
+    def save_match(self, winner, opponent):
         winner_name = winner.get_name()
         looser_name = opponent.get_name()
         dict = {"match_name": self.get_match_name(),
                 "winner_name": winner_name,
-                "winner_points": winner.total_points,
-                "winner_games": winner.get_total_games_amount(),
+                "winner_points": winner.points_amount,
+                "winner_total_points": winner.total_points,
+                "winner_games": winner.games_amount,
+                "winner_total_games": winner.total_games,
+                "winner_sets": winner.sets_amount,
                 "looser_name": looser_name,
-                "looser_points": opponent.total_points,
-                "looser_games": opponent.get_total_games_amount(),
+                "looser_points": opponent.points_amount,
+                "looser_total_points": opponent.total_points,
+                "looser_games": opponent.games_amount,
+                "looser_total_games": opponent.total_games,
+                "looser_sets": opponent.sets_amount,
+                "server": self.server.name,
+                "receiver": self.receiver.name
                 }
         with open('data.json', 'r') as file:
             existant_data = json.load(file)
             existant_data.append(dict)
         with open('data.json', 'w') as js:
-            json.dump(existant_data, js)
+            json.dump(existant_data, js, indent=4, sort_keys=True)
 
     def change_server(self):
         if self.server == self.player1:
@@ -197,4 +203,4 @@ class Match:
         else:
             self.server = self.player1
             self.receiver = self.player2
-        log.info(self.server.get_name())
+        log.info('Le serveur est ' + self.server.get_name())

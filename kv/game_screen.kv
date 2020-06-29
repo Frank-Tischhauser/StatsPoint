@@ -1,7 +1,9 @@
 <GameScreen>:
     on_pre_enter: player2_name.text = root.player2.get_name()
     on_pre_enter: player1_name.text = root.player1.get_name()
-    on_pre_enter: sets_label1.text = '0'; sets_label2.text = '0'; server1.opacity = 0 ; server2.opacity = 0
+    on_pre_enter: sets_label1.text = root.player1.get_sets_amount(); sets_label2.text = root.player2.get_sets_amount()
+    on_pre_enter: games_label1.text = root.player1.get_games_amount() ; games_label2.text = root.player2.get_games_amount()
+    on_pre_enter: points_label1.text = root.player1.get_points_amount() ; points_label2.text = root.player2.get_points_amount()
     on_enter: pl1_btn.text = root.player1.get_name()
     on_enter: pl2_btn.text = root.player2.get_name()
     MDBoxLayout:
@@ -81,7 +83,7 @@
                     orientation: 'vertical'
                     adaptive_height: True
                     adaptive_width: True
-                    pos_hint: {'top': .8, 'center_x': .5}
+                    pos_hint: {'top': .9, 'center_x': .5}
                     spacing: dp(50)
                     MDBoxLayout:
                         id: box1
@@ -89,7 +91,7 @@
                         adaptive_height: True
                         adaptive_width: True
                         #md_bg_color: app.theme_cls.primary_color
-                        pos_hint: {'top': .8, 'center_x': .5}
+                        pos_hint: {'top': .9, 'center_x': .5}
                         spacing: dp(50)
                         MDRectangleFlatButton:
                             id: ace
@@ -104,13 +106,18 @@
                         text: 'Ball in Play'
                         increment_width: box1.width - dp(50)
                         on_release: game_manager.current = 'on_court'
+                    MDRectangleFlatIconButton:
+                        icon: 'content-save'
+                        text: 'Save the match'
+                        pos_hint: {'center_x': .5}
+                        on_release: root.show_dialog_save_match_confirmation()
             MDScreen:
                 name: 'on_court'
                 MDBoxLayout:
                     orientation: 'vertical'
                     adaptive_height: True
                     adaptive_width: True
-                    pos_hint: {'top': .8, 'center_x': .5}
+                    pos_hint: {'top': .9, 'center_x': .5}
                     spacing: dp(50)
                     MDLabel:
                         text: 'Who won the point?'
@@ -120,7 +127,7 @@
                         adaptive_height: True
                         adaptive_width: True
                         #md_bg_color: app.theme_cls.primary_color
-                        pos_hint: {'top': .8, 'center_x': .5}
+                        pos_hint: {'top': .9, 'center_x': .5}
                         spacing: dp(50)
                         MDRectangleFlatButton:
                             id: pl1_btn
@@ -138,7 +145,7 @@
                     orientation: 'vertical'
                     adaptive_height: True
                     adaptive_width: True
-                    pos_hint: {'top': .8, 'center_x': .5}
+                    pos_hint: {'top': .9, 'center_x': .5}
                     spacing: dp(50)
                     MDLabel:
                         text: 'The point ended, because of a ...'
@@ -149,7 +156,7 @@
                         adaptive_height: True
                         adaptive_width: True
                         #md_bg_color: app.theme_cls.primary_color
-                        pos_hint: {'top': .8, 'center_x': .5}
+                        pos_hint: {'top': .9, 'center_x': .5}
                         spacing: dp(50)
 
                         MDRectangleFlatButton:
