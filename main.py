@@ -22,7 +22,7 @@ from kivymd.uix.navigationdrawer import MDNavigationDrawer
 
 from kivy.lang import Builder
 from kivy.uix.screenmanager import SlideTransition
-# from kivy.core.window import Window
+from kivy.core.window import Window
 
 from gamescreen import GameScreen
 from mytoolbar import MyToolbar
@@ -30,7 +30,7 @@ from inputscreen import InputScreen
 from savescreen import SaveScreen
 from datascreen import DataScreen
 
-# Window.size = (350, 500)
+Window.size = (350, 500)
 # Uncomment to simulate a phone screen
 
 
@@ -44,6 +44,15 @@ class HomeScreen(MDScreen):
 
 class SettingScreen(MDScreen):
     """Screen that contains all the settings"""
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.app = TennisApp.get_running_app()
+
+    def style_switcher(self):
+        if not self.ids.style_switch.active:
+            self.app.theme_cls.theme_style = 'Light'
+        else:
+            self.app.theme_cls.theme_style = 'Dark'
 
 
 class TennisApp(MDApp):
