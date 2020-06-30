@@ -17,6 +17,8 @@ class SaveScreen(MDScreen):
         self.app = MDApp.get_running_app()
         self.save = None
         self.empty = True  # Checks whether there are saves or not
+        self.picked_game_data = None
+        self.full_list = None
 
     def saved_match_list(self):
         """Creates a list with all saved games"""
@@ -26,9 +28,9 @@ class SaveScreen(MDScreen):
         for match_info in data:  # For every match saved in the JSON file
             self.empty = False
             result = OneLineListItem(text='{} : {} vs {}'.format(
-                match_info['match_name'], match_info['winner_name'],
-                match_info['looser_name']))  # Add a OneListItem widget (UI)
-            result.bind(on_press=lambda a, i=match_info: self.show_dialog_saves(i))
+                match_info['match_name'], match_info['player1_name'],
+                match_info['player2_name']))  # Add a OneListItem widget (UI)
+            result.bind(on_press=lambda a, i=match_info: self.show_dialog_saves(i, data))
             # Gets the information of the match which is chosen by the user
             self.ids.match_list.add_widget(result)
         if self.empty:  # Writes a message if there is not match saved
@@ -36,7 +38,7 @@ class SaveScreen(MDScreen):
         else:
             self.ids.empty_text.text = ''
 
-    def show_dialog_saves(self, data):
+    def show_dialog_saves(self, data, full_list):
         """Gives the choice to the user :
         Whether he continues the game, or he checks the data of the game"""
         if not self.save:
@@ -44,7 +46,7 @@ class SaveScreen(MDScreen):
                                  size_hint=(0.7, 1),
                                  buttons=[
                                     MDFlatButton(text='Continue game', text_color=self.app.theme_cls.primary_color,
-                                                 on_release=lambda x: self.continue_game(data)),
+                                                 on_release=lambda x: self.continue_game(data, full_list)),
                                     MDFlatButton(text='Check data', text_color=self.app.theme_cls.primary_color,
                                                  on_release=lambda x: self.data_choice(data))])
         self.save.open()
@@ -56,12 +58,14 @@ class SaveScreen(MDScreen):
         self.save.dismiss()
         self.save = None
     
-    def continue_game(self, data):
+    def continue_game(self, data, full_list):
+        self.picked_game_data = data  # To get the information from another class
+        self.full_list = full_list
         """Continues the game"""
-        player1 = Player(data['winner_name'], data['winner_points'], data['winner_games'], data['winner_sets'],
-                         data['winner_total_points'], data['winner_total_games'])
-        player2 = Player(data['looser_name'], data['looser_points'], data['looser_games'], data['looser_sets'],
-                         data['looser_total_points'], data['looser_total_games'])
+        player1 = Player(data['player1_name'], data['player1_points'], data['player1_games'], data['player1_sets'],
+                         data['player1_total_points'], data['player1_total_games'])
+        player2 = Player(data['player2_name'], data['player2_points'], data['player2_games'], data['player2_sets'],
+                         data['player2_total_points'], data['player2_total_games'])
         self.app.root.ids.game_screen.player1 = player1
         self.app.root.ids.game_screen.player2 = player2
 

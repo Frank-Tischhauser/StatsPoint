@@ -1,4 +1,5 @@
 import logging as log
+import json
 from kivymd.uix.screen import MDScreen
 from kivymd.app import MDApp
 from kivymd.uix.dialog import MDDialog
@@ -93,6 +94,16 @@ class GameScreen(MDScreen):
         self.confirmation_save_match = None
 
     def leave_match(self):
+        full_list = self.app.root.ids.save_screen.full_list  # Full json file (list format)
+        to_remove_dict = self.app.root.ids.save_screen.picked_game_data
+        # Lines that we want to remove, to avoid duplication of saves
+        if full_list is not None and to_remove_dict is not None:  # Check to avoid errors, if the file is empty
+            for i in full_list:
+                if to_remove_dict == i:
+                    full_list.remove(self.app.root.ids.save_screen.picked_game_data)
+                    with open('data.json', 'w') as file:
+                        json.dump(full_list, file, indent=4, sort_keys=True)
+                        # Rewrite the json file, without the duplication
         self.app.change_screen('home_screen')
         self.cancel()
-        self.match.save_match(self.match.player1, self.match.player2)
+        self.match.save_match()

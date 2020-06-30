@@ -38,4 +38,6 @@ class InputScreen(MDScreen):
         if condition:  # If everything is fine, creates the match
             self.create_match()
             self.app.root.ids.game_screen.show_dialog_server()
+            self.app.root.ids.save_screen.picked_game_data = None  # To avoid problems with saved games
+            self.app.root.ids.save_screen.full_list = None
             self.app.change_screen('game_screen')

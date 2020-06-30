@@ -156,7 +156,7 @@ class Match:
         winner.games_amount = 0
         opponent.games_amount = 0
         if winner.sets_amount == 2:
-            return self.save_match(winner, opponent)
+            return self.save_match()
 
     def tie_break(self, winner, opponent):
         winner.points_amount += 1
@@ -171,22 +171,22 @@ class Match:
 
         self.counter(winner, opponent)
 
-    def save_match(self, winner, opponent):
-        winner_name = winner.get_name()
-        looser_name = opponent.get_name()
+    def save_match(self):
+        player1_name = self.player1.get_name()
+        player2_name = self.player2.get_name()
         dict = {"match_name": self.get_match_name(),
-                "winner_name": winner_name,
-                "winner_points": winner.points_amount,
-                "winner_total_points": winner.total_points,
-                "winner_games": winner.games_amount,
-                "winner_total_games": winner.total_games,
-                "winner_sets": winner.sets_amount,
-                "looser_name": looser_name,
-                "looser_points": opponent.points_amount,
-                "looser_total_points": opponent.total_points,
-                "looser_games": opponent.games_amount,
-                "looser_total_games": opponent.total_games,
-                "looser_sets": opponent.sets_amount,
+                "player1_name": player1_name,
+                "player1_points": self.player1.points_amount,
+                "player1_total_points": self.player1.total_points,
+                "player1_games": self.player1.games_amount,
+                "player1_total_games": self.player1.total_games,
+                "player1_sets": self.player1.sets_amount,
+                "player2_name": player2_name,
+                "player2_points": self.player2.points_amount,
+                "player2_total_points": self.player2.total_points,
+                "player2_games": self.player2.games_amount,
+                "player2_total_games": self.player2.total_games,
+                "player2_sets": self.player2.sets_amount,
                 "server": self.server.name,
                 "receiver": self.receiver.name
                 }
