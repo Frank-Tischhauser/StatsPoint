@@ -162,17 +162,52 @@
                         MDRectangleFlatButton:
                             id: forced_error
                             text: 'Forced Error'
-                            on_release: root.update_scoreboard(root.winner, root.looser, root.match)
-                            on_release: game_manager.current = 'service'
+                            on_release: game_manager.current = 'game_details2'
                         MDRectangleFlatButton:
                             id: unforced_error
                             text: 'Unforced Error'
-                            on_release: root.update_scoreboard(root.winner, root.looser, root.match)
-                            on_release: game_manager.current = 'service'
+                            on_release: game_manager.current = 'game_details2'
 
                     MDRectangleFlatButton:
                         id: winner
                         text: 'Winner'
+                        pos_hint: {'center_x': .5}
+                        increment_width: box2.width - dp(50)
+                        on_release: game_manager.current = 'game_details2'
+            MDScreen:
+                name: 'game_details2'
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    adaptive_height: True
+                    adaptive_width: True
+                    pos_hint: {'top': .9, 'center_x': .5}
+                    spacing: dp(50)
+                    MDLabel:
+                        text: 'Which shot made the player win?'
+                        halign: 'center'
+                    MDBoxLayout:
+                        id: box2
+                        orientation: 'horizontal'
+                        adaptive_height: True
+                        adaptive_width: True
+                        #md_bg_color: app.theme_cls.primary_color
+                        pos_hint: {'top': .9, 'center_x': .5}
+                        spacing: dp(50)
+
+                        MDRectangleFlatButton:
+                            id: backhand
+                            text: 'Backhand'
+                            on_release: root.update_scoreboard(root.winner, root.looser, root.match)
+                            on_release: game_manager.current = 'service'
+                        MDRectangleFlatButton:
+                            id: forehand
+                            text: 'Forehand'
+                            on_release: root.update_scoreboard(root.winner, root.looser, root.match)
+                            on_release: game_manager.current = 'service'
+
+                    MDRectangleFlatButton:
+                        id: volley
+                        text: 'Volley / Smash'
                         pos_hint: {'center_x': .5}
                         increment_width: box2.width - dp(50)
                         on_release: root.update_scoreboard(root.winner, root.looser, root.match)
