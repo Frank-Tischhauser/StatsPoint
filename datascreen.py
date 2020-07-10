@@ -1,5 +1,10 @@
 from kivymd.app import MDApp
 from kivymd.uix.screen import MDScreen
+from kivymd.uix.boxlayout import MDBoxLayout
+
+
+class LeaderBoard(MDBoxLayout):
+    pass
 
 
 class DataScreen(MDScreen):

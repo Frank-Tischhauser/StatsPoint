@@ -1,5 +1,26 @@
-<DataScreen>
+<LeaderBoard>
+    orientation: 'horizontal'
+    spacing: dp(50)
+    MDLabel:
+        id: col1
+        text: 'Frank'
+        halign: 'center'
+    MDLabel:
+        id: col2
+        text: 'VS'
+        halign: 'center'
+    MDLabel:
+        id: col3
+        text: 'Nadal'
+        halign: 'center'
+
+
+
+<DataScreen>:
     on_pre_enter: bottom_navigation._refresh_tabs()
+    on_pre_enter: set1_scroll.scroll_y = 1
+    on_pre_enter: bottom_navigation.switch_tab('set1')
+    on_pre_enter: row1.ids.col1.text = 'Test'
     MDBoxLayout:
         orientation: 'vertical'
         pos_hint: {'top': 1}
@@ -8,7 +29,7 @@
         MDGridLayout:
             adaptive_height: True
             cols: 4
-            rows: 2
+            rows: 3
             MDLabel:
                 id: player1_name
                 halign: 'center'
@@ -36,13 +57,47 @@
 
         MDBottomNavigation:
             id: bottom_navigation
+
             MDBottomNavigationItem:
                 name: 'set1'
                 text: 'Set 1'
                 icon: 'tennis'
-                MDLabel:
-                    text: 'Set 1'
-                    halign: 'center'
+                on_pre_enter: set1_scroll.scroll_y = 1
+                MDBoxLayout:
+                    size_hint: 1, .005
+                    orientation: 'horizontal'
+                    md_bg_color: app.theme_cls.divider_color
+                    pos_hint: {'top': 1}
+                ScrollView:
+                    id: set1_scroll
+                    pos_hint: {"top": 1, "left": 1}
+                    size_hint: 1, 1
+                    MDGridLayout:
+                        cols: 1
+                        rows: 8
+                        spacing: dp(30)
+                        size_hint_y: None
+                        height: self.minimum_height
+                        row_default_height: '50dp'
+                        row_force_default: True
+                        #md_bg_color: app.theme_cls.primary_color
+                        padding: [0, dp(30)]
+                        LeaderBoard:
+                            id: row1
+                        LeaderBoard:
+                            id: row2
+                        LeaderBoard:
+                            id: row3
+                        LeaderBoard:
+                            id: row4
+                        LeaderBoard:
+                            id: row5
+                        LeaderBoard:
+                            id: row6
+                        LeaderBoard:
+                            id: row7
+                        LeaderBoard:
+                            id: row8
             MDBottomNavigationItem:
                 name: 'set2'
                 text: 'Set 2'
