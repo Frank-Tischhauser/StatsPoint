@@ -7,7 +7,7 @@ He also gives additional information on every point. [x]
 
 Example : Bob wins the first point (Backhand winner)
 
-Then the app saves all the data and shows interesting and useful statistics. []
+Then the app saves all the data [x] and shows interesting and useful statistics. []
 The app als helps the player by giving interesting advices depending on the results. []
 
 [x] : Done
@@ -15,14 +15,18 @@ The app als helps the player by giving interesting advices depending on the resu
 
 Author : Frank Tischhauser
 """
+import logging as log
 
 from kivymd.app import MDApp
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.navigationdrawer import MDNavigationDrawer
 
+
 from kivy.lang import Builder
 from kivy.uix.screenmanager import SlideTransition
 from kivy.core.window import Window
+from kivy.uix.colorpicker import get_color_from_hex
+
 
 from gamescreen import GameScreen
 from mytoolbar import MyToolbar
@@ -31,7 +35,7 @@ from savescreen import SaveScreen
 from datascreen import DataScreen
 
 Window.size = (350, 500)
-# Uncomment to simulate a phone screen
+#  Uncomment to simulate a phone screen
 
 
 class NavDrawer(MDNavigationDrawer):
@@ -84,7 +88,9 @@ class TennisApp(MDApp):
         file
             A file containing all the kv code
         """
-        self.theme_cls.primary_palette = "Teal"
+        self.theme_cls.primary_palette = 'Teal'
+        self.theme_cls.primary_hue = '400'
+        log.info(self.theme_cls.primary_color)
         return Builder.load_file("kv/main.kv")
 
     def change_screen(self, screen_name, direction='left'):
@@ -100,6 +106,9 @@ class TennisApp(MDApp):
         """
         self.root.ids.manager.transition = SlideTransition(direction=direction)
         self.root.ids.manager.current = screen_name
+
+    def get_rgba_from_hex(self, color):
+        return get_color_from_hex(color)
 
 
 if __name__ == "__main__":
