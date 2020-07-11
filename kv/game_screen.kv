@@ -96,10 +96,12 @@
                         MDRectangleFlatButton:
                             id: ace
                             text: 'Ace'
+                            on_press: root.button_ace_press()
                             on_release: root.update_scoreboard(root.match.server, root.match.receiver, root.match)
                         MDRectangleFlatButton:
                             id: fault
                             text: 'Fault'
+                            on_press: root.match.increase_double_faults()
                             on_release: root.modify_fault_button()
 
                     MDRectangleFlatButton:
@@ -132,12 +134,14 @@
                         MDRectangleFlatButton:
                             id: pl1_btn
                             text: ''
-                            on_release: root.set_winner(root.player1, root.player2)
+                            on_press: root.set_winner(root.player1, root.player2)
+                            on_release: root.service_number()
                             on_release: game_manager.current ='game_details1'
                         MDRectangleFlatButton:
                             id: pl2_btn
                             text: ''
-                            on_release: root.set_winner(root.player2, root.player1)
+                            on_press: root.set_winner(root.player2, root.player1)
+                            on_release: root.service_number()
                             on_release: game_manager.current = 'game_details1'
             MDScreen:
                 name: 'game_details1'

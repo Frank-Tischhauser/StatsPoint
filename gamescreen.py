@@ -42,6 +42,7 @@ class GameScreen(MDScreen):
         """Modify the button (Fault / Double Fault)"""
         if self.ids.fault.text == "Fault":
             self.ids.fault.text = 'Double Fault'
+            self.match.server.service_stats['second_service_number'][self.match.set_index] += 1
         elif self.ids.fault.text == 'Double Fault':
             self.ids.fault.text = 'Fault'
             self.update_scoreboard(
@@ -107,3 +108,16 @@ class GameScreen(MDScreen):
         self.app.change_screen('home_screen')
         self.cancel()
         self.match.save_match()
+
+    def service_number(self):
+        if self.winner.name == self.match.server.name:
+            if self.ids.fault.text == 'Fault':
+                self.match.server.service_stats['first_service_won'][self.match.set_index] += 1
+            elif self.ids.fault.text == 'Double Fault':
+                self.match.server.service_stats['second_service_won'][self.match.set_index] += 1
+        log.info('First Service Won {}'.format(self.match.server.service_stats['first_service_won']))
+
+    def button_ace_press(self):
+        self.set_winner(self.match.server, self.match.receiver)
+        self.service_number()
+        self.match.ace_played()

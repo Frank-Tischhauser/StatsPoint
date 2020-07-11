@@ -29,18 +29,27 @@ class Player:
         returns the total points amount of the player in the entire match
 
     """
+
     def __init__(self, name='', points_amount=0, games_amount=0, sets_amount=0,
-                 total_points=None, total_games=None):
+                 total_points=None, total_games=None, service_stats=None):
         if total_points is None:
             total_points = [0, 0, 0]
         if total_games is None:
             total_games = [0, 0, 0]
+        if service_stats is None:
+            service_stats = {'ace': [0, 0, 0],
+                             'double_faults': [0, 0, 0],
+                             'second_service_number': [0, 0, 0],
+                             'service_points_played': [0, 0, 0],
+                             'first_service_won': [0, 0, 0],
+                             'second_service_won': [0, 0, 0]}
         self.name = name
         self.points_amount = points_amount
         self.games_amount = games_amount
         self.sets_amount = sets_amount
         self.total_points = total_points
         self.total_games = total_games
+        self.service_stats = service_stats
 
     def get_name(self):
         return self.name

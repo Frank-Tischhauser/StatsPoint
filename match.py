@@ -1,6 +1,8 @@
 import json
 import logging as log
 
+from kivymd.app import MDApp
+
 
 class Match:
     """
@@ -25,7 +27,7 @@ class Match:
 
     Methods
     -------
-    counter(winner, opponent):
+    points_games_counter(winner):
         Counts the total point number of a player for each set.
 
     get_match_name():
@@ -80,19 +82,13 @@ class Match:
         self.match_name = match_name
         self.server = server
         self.receiver = receiver
+        self.set_index = self.player1.sets_amount + self.player2.sets_amount
+        self.app = MDApp.get_running_app()
 
-    def counter(self, winner, opponent):
+    def points_games_counter(self, winner):
         """Counts the total point number of a player for each set."""
-        if winner.sets_amount == 0 and opponent.sets_amount == 0:
-            winner.total_points[0] += 1
-            winner.total_games[0] = winner.games_amount
-        elif winner.sets_amount == 1 and opponent.sets_amount == 0 or winner.sets_amount == 0 \
-                and opponent.sets_amount == 1:
-            winner.total_points[1] += 1
-            winner.total_games[1] = winner.games_amount
-        else:
-            winner.total_points[2] += 1
-            winner.total_games[2] = winner.games_amount
+        winner.total_points[self.set_index] += 1
+        winner.total_games[self.set_index] = winner.games_amount
         log.info('{} a {}pts'.format(winner.get_name(), winner.get_points_amount()))
         log.info('Résumé des points gagnés dans le match {}'.format(winner.get_total_points_amount()))
         log.info('Résumé des jeux gagnés dans le match {}'.format(winner.get_total_games_amount()))
@@ -105,6 +101,7 @@ class Match:
         Is called each time a player wins a point.
         Returns the appropriate method depending on the scoreboard.
         """
+        self.server.service_stats['service_points_played'][self.set_index] += 1
         if winner.games_amount == 6 and opponent.games_amount == 6:
             self.tie_break(winner, opponent)
         elif winner.points_amount == 40 and opponent.points_amount != 40 \
@@ -123,7 +120,7 @@ class Match:
             else:
                 index = Match.points.index(winner.points_amount)
                 winner.points_amount = Match.points[index + 1]
-        self.counter(winner, opponent)
+        self.points_games_counter(winner)
 
     def games_win(self, winner, opponent):
         if winner.games_amount == 5 and opponent.games_amount < 5:
@@ -144,10 +141,10 @@ class Match:
             index = Match.games.index(winner.games_amount)
             winner.games_amount = Match.games[index + 1]
             self.change_server()
-        self.counter(winner, opponent)
+        self.points_games_counter(winner)
 
     def sets_win(self, winner, opponent):
-        self.counter(winner, opponent)
+        self.points_games_counter(winner)
         self.change_server()
         index = Match.sets.index(winner.sets_amount)
         winner.sets_amount = Match.sets[index + 1]
@@ -155,6 +152,7 @@ class Match:
         opponent.points_amount = 0
         winner.games_amount = 0
         opponent.games_amount = 0
+        self.set_index = self.player1.sets_amount + self.player2.sets_amount
         if winner.sets_amount == 2:
             return self.save_match()
 
@@ -169,7 +167,7 @@ class Match:
             winner.games_amount = Match.games[index + 1]
             self.sets_win(winner, opponent)
 
-        self.counter(winner, opponent)
+        self.points_games_counter(winner)
 
     def save_match(self):
         player1_name = self.player1.get_name()
@@ -181,12 +179,14 @@ class Match:
                 "player1_games": self.player1.games_amount,
                 "player1_total_games": self.player1.total_games,
                 "player1_sets": self.player1.sets_amount,
+                "player1_serving_stats": self.player1.service_stats,
                 "player2_name": player2_name,
                 "player2_points": self.player2.points_amount,
                 "player2_total_points": self.player2.total_points,
                 "player2_games": self.player2.games_amount,
                 "player2_total_games": self.player2.total_games,
                 "player2_sets": self.player2.sets_amount,
+                "player2_serving_stats": self.player2.service_stats,
                 "server": self.server.name,
                 "receiver": self.receiver.name
                 }
@@ -204,3 +204,15 @@ class Match:
             self.server = self.player1
             self.receiver = self.player2
         log.info('Le serveur est ' + self.server.get_name())
+
+    def ace_played(self):
+        log.info(self.server.name)
+        log.info(self.server.total_points)
+        self.server.service_stats['ace'][self.set_index] += 1
+        #  log.info(self.server.service_stats['Ace'])
+
+    def increase_double_faults(self):
+        if self.app.root.ids.game_screen.ids.fault.text == 'Double Fault':
+            self.server.service_stats['double_faults'][self.set_index] += 1
+        log.info(self.server.service_stats['double_faults'])
+
