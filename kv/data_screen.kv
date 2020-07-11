@@ -1,9 +1,33 @@
 <LeaderBoard>
+    cols: 1
+    rows: 6
+    spacing: dp(30)
+    size_hint_y: None
+    height: self.minimum_height
+    row_default_height: '50dp'
+    row_force_default: True
+    #md_bg_color: app.theme_cls.primary_color
+    padding: [0, dp(30)]
+    Rows:
+        id: row1
+    Rows:
+        id: row2
+    Rows:
+        id: row3
+    Rows:
+        id: row4
+    Rows:
+        id: row5
+    Rows:
+        id: row6
+
+
+<Rows>
     orientation: 'horizontal'
     spacing: dp(50)
     MDLabel:
         id: col1
-        text: 'Frank'
+        text: '0'
         halign: 'center'
     MDLabel:
         id: col2
@@ -11,16 +35,14 @@
         halign: 'center'
     MDLabel:
         id: col3
-        text: 'Nadal'
+        text: '0'
         halign: 'center'
-
 
 
 <DataScreen>:
     on_pre_enter: bottom_navigation._refresh_tabs()
-    on_pre_enter: set1_scroll.scroll_y = 1
+    on_pre_enter: set1_scroll.scroll_y = 1 ; set2_scroll.scroll_y = 1 ; set3_scroll.scroll_y = 1
     on_pre_enter: bottom_navigation.switch_tab('set1')
-    on_pre_enter: row1.ids.col1.text = 'Test'
     MDBoxLayout:
         orientation: 'vertical'
         pos_hint: {'top': 1}
@@ -63,52 +85,40 @@
                 text: 'Set 1'
                 icon: 'tennis'
                 on_pre_enter: set1_scroll.scroll_y = 1
-                MDBoxLayout:
-                    size_hint: 1, .005
-                    orientation: 'horizontal'
-                    md_bg_color: app.theme_cls.divider_color
+                MDSeparator:
+                    height: '1dp'
                     pos_hint: {'top': 1}
                 ScrollView:
                     id: set1_scroll
                     pos_hint: {"top": 1, "left": 1}
                     size_hint: 1, 1
-                    MDGridLayout:
-                        cols: 1
-                        rows: 8
-                        spacing: dp(30)
-                        size_hint_y: None
-                        height: self.minimum_height
-                        row_default_height: '50dp'
-                        row_force_default: True
-                        #md_bg_color: app.theme_cls.primary_color
-                        padding: [0, dp(30)]
-                        LeaderBoard:
-                            id: row1
-                        LeaderBoard:
-                            id: row2
-                        LeaderBoard:
-                            id: row3
-                        LeaderBoard:
-                            id: row4
-                        LeaderBoard:
-                            id: row5
-                        LeaderBoard:
-                            id: row6
-                        LeaderBoard:
-                            id: row7
-                        LeaderBoard:
-                            id: row8
+                    LeaderBoard:
+                        id: set1_stats
             MDBottomNavigationItem:
                 name: 'set2'
                 text: 'Set 2'
                 icon: 'tennis'
-                MDLabel:
-                    text: 'Set 2'
-                    halign: 'center'
+                on_pre_enter: set2_scroll.scroll_y = 1
+                MDSeparator:
+                    height: '1dp'
+                    pos_hint: {'top': 1}
+                ScrollView:
+                    id: set2_scroll
+                    pos_hint: {"top": 1, "left": 1}
+                    size_hint: 1, 1
+                    LeaderBoard:
+                        id: set2_stats
             MDBottomNavigationItem:
                 name: 'set3'
                 text: 'Set 3'
                 icon: 'tennis'
-                MDLabel:
-                    text: 'Set 3'
-                    halign: 'center'
+                on_pre_enter: set3_scroll.scroll_y = 1
+                MDSeparator:
+                    height: '1dp'
+                    pos_hint: {'top': 1}
+                ScrollView:
+                    id: set3_scroll
+                    pos_hint: {"top": 1, "left": 1}
+                    size_hint: 1, 1
+                    LeaderBoard:
+                        id: set3_stats
