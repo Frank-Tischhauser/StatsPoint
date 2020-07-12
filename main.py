@@ -88,8 +88,8 @@ class TennisApp(MDApp):
         file
             A file containing all the kv code
         """
-        self.theme_cls.primary_palette = 'Teal'
-        self.theme_cls.primary_hue = '400'
+        self.theme_cls.primary_palette = 'Orange'
+        self.theme_cls.primary_hue = '600'
         log.info(self.theme_cls.primary_color)
         return Builder.load_file("kv/main.kv")
 

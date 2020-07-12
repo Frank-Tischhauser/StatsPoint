@@ -1,23 +1,36 @@
 <HomeScreen>
+    FitImage:
+        source: 'tennis.jpg'
+    MDLabel:
+        text: 'Welcome to the Tennis Tracker App!'
+        halign: 'center'
+        font_style: "H2"
+        font_size: "30sp"
+        theme_text_color: 'Custom'
+        text_color: 1, 1, 1, 1
+        pos_hint: {'center_y': .8}
+
     MDBoxLayout:
         orientation: 'vertical'
-        spacing: 30
-        MDLabel:
-            text: 'Welcome to the Tennis Tracker App!'
-            halign: 'center'
-            font_style: "H2"
-            font_size: "30sp"
-            theme_text_color: "Primary"
-            pos_hint: {'center_y': .8}
-        MDBoxLayout:
-            orientation: 'vertical'
-            spacing: dp(30)
-            padding: [0, 0, 0, 100]
-            MDRectangleFlatButton:
-                text: "Create a match"
-                pos_hint: {'center_x': .5}
-                on_release: app.change_screen('input_screen')
-            MDRectangleFlatButton:
-                text: "Saved Match"
-                pos_hint: {'center_x': .5}
-                on_release: app.change_screen('save_screen')
+        spacing: dp(30)
+        padding: ['24dp', '24dp', '24dp', '32dp']
+        md_bg_color: 1, 1, 1, .2
+        size_hint_x: .75
+        pos_hint: {'center_x': .5, 'center_y': .3}
+        size_hint_y: None
+        height: self.minimum_height
+
+        MDRaisedButton:
+            text: "CREATE A MATCH"
+            pos_hint: {'center_x': .5}
+            on_release: app.change_screen('input_screen')
+            md_bg_color: 0.91, 0.46, 0.07, .8
+            theme_text_color: 'Custom'
+            text_color: 1, 1, 1, 1
+        MDRaisedButton:
+            text: "SAVED MATCH"
+            pos_hint: {'center_x': .5}
+            on_release: app.change_screen('save_screen')
+            md_bg_color: 0.91, 0.46, 0.07, .8
+            theme_text_color: 'Custom'
+            text_color: 1, 1, 1, 1                
