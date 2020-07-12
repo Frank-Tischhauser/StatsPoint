@@ -39,7 +39,8 @@ class Player:
         if service_stats is None:
             service_stats = {'ace': [0, 0, 0],
                              'double_faults': [0, 0, 0],
-                             'second_service_number': [0, 0, 0],
+                             'second_service': [0, 0, 0],
+                             'second_service_in': [0, 0, 0],
                              'service_points_played': [0, 0, 0],
                              'first_service_won': [0, 0, 0],
                              'second_service_won': [0, 0, 0]}

@@ -213,6 +213,7 @@ class Match:
 
     def increase_double_faults(self):
         if self.app.root.ids.game_screen.ids.fault.text == 'Double Fault':
+            self.server.service_stats['second_service_in'][self.set_index] -= 1
             self.server.service_stats['double_faults'][self.set_index] += 1
         log.info(self.server.service_stats['double_faults'])
 

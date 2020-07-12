@@ -42,7 +42,8 @@ class GameScreen(MDScreen):
         """Modify the button (Fault / Double Fault)"""
         if self.ids.fault.text == "Fault":
             self.ids.fault.text = 'Double Fault'
-            self.match.server.service_stats['second_service_number'][self.match.set_index] += 1
+            self.match.server.service_stats['second_service'][self.match.set_index] += 1
+            self.match.server.service_stats['second_service_in'][self.match.set_index] += 1
         elif self.ids.fault.text == 'Double Fault':
             self.ids.fault.text = 'Fault'
             self.update_scoreboard(

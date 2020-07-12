@@ -30,41 +30,41 @@ class DataScreen(MDScreen):
         self.ids.set3_player2.text = str(data['player2_total_games'][2])
 
     def show_service_stats(self, data):
-        set_widget = [self.ids.set1_stats, self.ids.set2_stats, self.ids.set3_stats]
-        for sets in range(3):
-            set_widget[sets].ids.row1.ids.col1.text = data['player1_name']
-            set_widget[sets].ids.row1.ids.col2.text = 'VS'
-            set_widget[sets].ids.row1.ids.col3.text = data['player2_name']
-            set_widget[sets].ids.row2.ids.col1.text = str(data['player1_serving_stats']['ace'][sets])
-            set_widget[sets].ids.row2.ids.col2.text = 'Aces'
-            set_widget[sets].ids.row2.ids.col3.text = str(data['player2_serving_stats']['ace'][sets])
-            set_widget[sets].ids.row3.ids.col1.text = str(data['player1_serving_stats']['double_faults'][sets])
-            set_widget[sets].ids.row3.ids.col2.text = 'Double Faults'
-            set_widget[sets].ids.row3.ids.col3.text = str(data['player2_serving_stats']['double_faults'][sets])
-            if data['player1_serving_stats']['service_points_played'][sets] > 0:
-                pl1_first_serve_number = data['player1_serving_stats']['service_points_played'][sets] - \
-                                         data['player1_serving_stats']['second_service_number'][sets]
-                pl1_first_serve_in_ratio = (pl1_first_serve_number / data['player1_serving_stats']['service_points_played'][sets]) * 100
-                pl1_first_serve_won_ratio = (data['player1_serving_stats']['first_service_won'][sets] / pl1_first_serve_number) * 100
-                set_widget[sets].ids.row4.ids.col1.text = str(int(pl1_first_serve_in_ratio)) + '%'
-                set_widget[sets].ids.row5.ids.col1.text = str(int(pl1_first_serve_won_ratio)) + '%'
-                if data['player1_serving_stats']['second_service_number'][sets] > 0:
-                    pl1_second_serve_won_ratio = (data['player1_serving_stats']['second_service_won'][sets] / data['player1_serving_stats']['second_service_number'][sets]) * 100
-                    set_widget[sets].ids.row6.ids.col1.text = str(int(pl1_second_serve_won_ratio)) + '%'
+        caption = ['VS', 'Aces', 'Double Faults', '1st Serve (%)', '1st Serve Points Won (%)',
+                   '2nd Serve Points Won (%)']
+        players = ['player1', 'player2']
+        leaderboard = [self.ids.set1_stats, self.ids.set2_stats, self.ids.set3_stats]
 
-            if data['player2_serving_stats']['service_points_played'][sets] > 0:
-                pl2_first_serve_number = data['player2_serving_stats']['service_points_played'][sets] - \
-                                         data['player2_serving_stats']['second_service_number'][sets]
-                pl2_first_serve_in_ratio = (pl2_first_serve_number / data['player2_serving_stats']['service_points_played'][sets]) \
-                                           * 100
-                set_widget[sets].ids.row4.ids.col3.text = str(int(pl2_first_serve_in_ratio)) + '%'
-                pl2_first_serve_won_ratio = (data['player2_serving_stats']['first_service_won'][sets] / pl2_first_serve_number) * 100
-                set_widget[sets].ids.row5.ids.col3.text = str(int(pl2_first_serve_won_ratio)) + '%'
+        for set in range(3):
+            i = 0
+            for row in leaderboard[set].ids.values():
+                row.ids.col2.text = caption[i]  # Writes all the captions
+                i += 1
+            for player in players:
+                name = data[str(player + '_name')]
+                serving_stats = data[str(player + '_serving_stats')]
+                double_faults = serving_stats['double_faults'][set]
+                aces = serving_stats['ace'][set]
+                service_pts_played = serving_stats['service_points_played'][set]
+                nbr_first_service_in = service_pts_played - serving_stats['second_service'][set]
+                ratio_first_service_in = safe_div(nbr_first_service_in * 100, service_pts_played)
+                ratio_first_service_won = safe_div(serving_stats['first_service_won'][set] * 100, nbr_first_service_in)
+                ratio_second_service_won = safe_div(serving_stats['second_service_won'][set] * 100,
+                                                    serving_stats['second_service_in'][set])
+                stats = [name, aces, double_faults, ratio_first_service_in, ratio_first_service_won,
+                         ratio_second_service_won]
+                stats = list(map(str, stats))
+                j = 0
+                for row in leaderboard[set].ids.values():
+                    cols = []
+                    for col in row.ids.values():
+                        cols.append(col)
+                    cols.pop(1)
+                    cols[players.index(player)].text = stats[j]
+                    j += 1
 
-                if data['player2_serving_stats']['second_service_number'][sets] > 0:
-                    pl2_second_serve_won_ratio = (data['player2_serving_stats']['second_service_won'][sets] / data['player2_serving_stats']['second_service_number'][sets]) * 100
-                    set_widget[sets].ids.row6.ids.col3.text = str(int(pl2_second_serve_won_ratio)) + '%'
-            set_widget[sets].ids.row4.ids.col2.text = '1st serve acc. (%)'
-            set_widget[sets].ids.row5.ids.col2.text = '1st serve pts won (%)'
-            set_widget[sets].ids.row6.ids.col2.text = '2nd serve pts won (%)'
 
+def safe_div(x, y):
+    if y <= 0:
+        return 0
+    return int(x / y)
