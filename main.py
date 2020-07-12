@@ -34,7 +34,7 @@ from inputscreen import InputScreen
 from savescreen import SaveScreen
 from datascreen import DataScreen
 
-Window.size = (350, 500)
+#  Window.size = (350, 500)
 #  Uncomment to simulate a phone screen
 
 
