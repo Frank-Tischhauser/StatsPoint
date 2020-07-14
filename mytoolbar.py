@@ -25,4 +25,3 @@ class MyToolbar(MDToolbar):
 
     def dismiss_confirmation(self):
         self.confirmation.dismiss()
-        self.confirmation = None

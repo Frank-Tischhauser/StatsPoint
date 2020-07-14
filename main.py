@@ -34,7 +34,7 @@ from inputscreen import InputScreen
 from savescreen import SaveScreen
 from datascreen import DataScreen
 
-#  Window.size = (350, 500)
+Window.size = (350, 500)
 #  Uncomment to simulate a phone screen
 
 
@@ -109,6 +109,9 @@ class TennisApp(MDApp):
 
     def get_rgba_from_hex(self, color):
         return get_color_from_hex(color)
+
+    def get_window_size(self):
+        return Window.size
 
 
 if __name__ == "__main__":

@@ -4,6 +4,12 @@ from kivymd.uix.screen import MDScreen
 from kivymd.app import MDApp
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
+from kivymd.uix.boxlayout import MDBoxLayout
+from kivymd.uix.behaviors import RectangularElevationBehavior
+
+
+class ScoreLine(MDBoxLayout, RectangularElevationBehavior):
+    pass
 
 
 class GameScreen(MDScreen):
@@ -17,26 +23,36 @@ class GameScreen(MDScreen):
         self.confirmation_save_match = None
         self.app = MDApp.get_running_app()
 
-    def update_scoreboard(self, winner, opponent, match):
+    def on_pre_enter(self, *args):
+        self.ids.score_line1.ids.player_name.text = self.player1.get_name()
+        self.ids.score_line2.ids.player_name.text = self.player2.get_name()
+        self.ids.pl1_btn.text = self.player1.get_name()
+        self.ids.pl2_btn.text = self.player2.get_name()
+        self.update_scoreboard(self.winner, self.looser, self.match, False)
+
+    def update_scoreboard(self, winner, opponent, match, score_change=True):
         """Updates the scoreboard each time a player wons a point"""
-        match.points_win(winner, opponent)
-        self.ids.points_label1.text = match.player1.get_points_amount()
-        self.ids.points_label2.text = match.player2.get_points_amount()
-        self.ids.games_label1.text = match.player1.get_games_amount()
-        self.ids.games_label2.text = match.player2.get_games_amount()
-        self.ids.sets_label1.text = match.player1.get_sets_amount()
-        self.ids.sets_label2.text = match.player2.get_sets_amount()
+        if score_change:
+            match.points_win(winner, opponent)
+        players = [match.player1, match.player2]
+        line_scores = [self.ids.score_line1, self.ids.score_line2]
+
+        for (player, line_score) in zip(players, line_scores):
+            line_score.ids.points_label.ids.label.text = player.get_points_amount()
+            line_score.ids.set1_label.ids.label.text = str(player.total_games[0])
+            line_score.ids.set2_label.ids.label.text = str(player.total_games[1])
+            line_score.ids.set3_label.ids.label.text = str(player.total_games[2])
         self.ids.fault.text = 'Fault'  # Fixes problem with Fault / DoubleFault button
         self.check_server(match)
 
     def check_server(self, match):
         """Hide or show the tennis-ball icon depending on which player serves"""
         if match.server.get_name() == match.player1.get_name():
-            self.ids.server2.opacity = 0
-            self.ids.server1.opacity = 1
+            self.ids.score_line2.ids.server.opacity = 0
+            self.ids.score_line1.ids.server.opacity = 1
         else:
-            self.ids.server2.opacity = 1
-            self.ids.server1.opacity = 0
+            self.ids.score_line2.ids.server.opacity = 1
+            self.ids.score_line1.ids.server.opacity = 0
 
     def modify_fault_button(self):
         """Modify the button (Fault / Double Fault)"""
@@ -69,12 +85,13 @@ class GameScreen(MDScreen):
 
     def server(self, server, receiver):
         """Sets which player serves or receives, depending on user's choice"""
-        self.match.server = server
-        self.match.receiver = receiver
-        self.check_server(self.match)
-        self.dialog.dismiss()
-        self.dialog = None
-        log.info('Le serveur est ' + self.match.server.get_name())
+        if self.dialog is not None:
+            self.match.server = server
+            self.match.receiver = receiver
+            self.check_server(self.match)
+            self.dialog.dismiss()
+            self.dialog = None
+            log.info('Le serveur est ' + self.match.server.get_name())
 
     def show_dialog_save_match_confirmation(self):
         """Shows a dialog box to ask if the player wants to save the match"""
@@ -92,23 +109,25 @@ class GameScreen(MDScreen):
         self.confirmation_save_match.open()
 
     def cancel(self):
-        self.confirmation_save_match.dismiss()
-        self.confirmation_save_match = None
+        if self.confirmation_save_match is not None:
+            self.confirmation_save_match.dismiss()
+            self.confirmation_save_match = None
 
     def leave_match(self):
-        full_list = self.app.root.ids.save_screen.full_list  # Full json file (list format)
-        to_remove_dict = self.app.root.ids.save_screen.picked_game_data
-        # Lines that we want to remove, to avoid duplication of saves
-        if full_list is not None and to_remove_dict is not None:  # Check to avoid errors, if the file is empty
-            for i in full_list:
-                if to_remove_dict == i:
-                    full_list.remove(self.app.root.ids.save_screen.picked_game_data)
-                    with open('data.json', 'w') as file:
-                        json.dump(full_list, file, indent=4, sort_keys=True)
-                        # Rewrite the json file, without the duplication
-        self.app.change_screen('home_screen')
-        self.cancel()
-        self.match.save_match()
+        if self.confirmation_save_match is not None:
+            full_list = self.app.root.ids.save_screen.full_list  # Full json file (list format)
+            to_remove_dict = self.app.root.ids.save_screen.picked_game_data
+            # Lines that we want to remove, to avoid duplication of saves
+            if full_list is not None and to_remove_dict is not None:  # Check to avoid errors, if the file is empty
+                for i in full_list:
+                    if to_remove_dict == i:
+                        full_list.remove(self.app.root.ids.save_screen.picked_game_data)
+                        with open('data.json', 'w') as file:
+                            json.dump(full_list, file, indent=4, sort_keys=True)
+                            # Rewrite the json file, without the duplication
+            self.app.change_screen('home_screen')
+            self.cancel()
+            self.match.save_match()
 
     def service_number(self):
         if self.winner.name == self.match.server.name:

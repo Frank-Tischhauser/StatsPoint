@@ -17,24 +17,30 @@ class InputScreen(MDScreen):
         self.app.root.ids.game_screen.player1 = player1
         self.app.root.ids.game_screen.player2 = player2
         self.app.root.ids.game_screen.match = Match(player1, player2, self.ids.entry3.text)
-        self.app.root.ids.game_screen.ids.server1.opacity = 0  # Fixes small graphic bug
-        self.app.root.ids.game_screen.ids.server2.opacity = 0
+        self.app.root.ids.game_screen.ids.score_line1.ids.server.opacity = 0  # Fixes small graphic bug
+        self.app.root.ids.game_screen.ids.score_line2.ids.server.opacity = 0
 
     def check_text(self):
         """Checks if the text written respects the conditions"""
-        player1 = self.ids.confirmation_button.checking_text[0]
-        player2 = self.ids.confirmation_button.checking_text[1]
         condition = True
-        for text in self.ids.confirmation_button.checking_text:
-            if text == '' or text == ' ':  # If a field is empty
-                self.ids.error_message.text = 'Error : A required field is missing!'
+        fields = [self.ids.entry1, self.ids.entry2, self.ids.entry3]
+        fields[0].error = False
+        fields[1].error = False
+        fields[2].error = False
+        if fields[0].text == fields[1].text:  # If both players have the same name (creates bugs)
+            self.ids.error_message.text = 'Both players cannot have the same name!'
+            fields[0].error = True
+            fields[1].error = True
+        for field in fields:
+            if field.text == '' or field.text == ' ':  # If a field is empty
+                self.ids.error_message.text = 'A field is empty!'
+                field.error = True
+            elif len(field.text) > 20:  # If names are too long (creates graphic bugs)
+                self.ids.error_message.text = 'Names are too long!'
+                field.error = True
+            if field.error:
                 condition = False
-        if player1 == player2:  # If both players have the same name (creates bugs)
-            condition = False
-            self.ids.error_message.text = 'Error : Both players cannot have the same name!'
-        elif len(player1) > 9 or len(player2) > 9:  # If names are too long (creates graphic bugs)
-            condition = False
-            self.ids.error_message.text = 'Error : Names are too long!'
+                field.error = False
         if condition:  # If everything is fine, creates the match
             self.create_match()
             self.app.root.ids.game_screen.show_dialog_server()

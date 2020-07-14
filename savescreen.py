@@ -1,4 +1,5 @@
 import json
+from kivy.clock import Clock
 from kivymd.app import MDApp
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.list import OneLineAvatarIconListItem, IconRightWidget, IconLeftWidget
@@ -61,33 +62,35 @@ class SaveScreen(MDScreen):
 
     def data_choice(self, data):
         """Goes to the data_screen depending on the user's choice"""
-        self.app.root.ids.data_screen.show_data(data)
-        self.app.root.ids.data_screen.show_service_stats(data)
-        self.app.change_screen('data_screen')
-        self.save.dismiss()
-        self.save = None
+        if self.save is not None:
+            self.app.root.ids.data_screen.show_data(data)
+            self.app.root.ids.data_screen.show_service_stats(data)
+            self.app.change_screen('data_screen')
+            self.save.dismiss()
+            self.save = None
 
     def continue_game(self, data, full_list):
-        self.picked_game_data = data  # To get the information from another class
-        self.full_list = full_list
-        """Continues the game"""
-        player1 = Player(data['player1_name'], data['player1_points'], data['player1_games'], data['player1_sets'],
-                         data['player1_total_points'], data['player1_total_games'], data['player1_serving_stats'])
-        player2 = Player(data['player2_name'], data['player2_points'], data['player2_games'], data['player2_sets'],
-                         data['player2_total_points'], data['player2_total_games'], data['player2_serving_stats'])
-        self.app.root.ids.game_screen.player1 = player1
-        self.app.root.ids.game_screen.player2 = player2
+        if self.save is not None:
+            self.picked_game_data = data  # To get the information from another class
+            self.full_list = full_list
+            """Continues the game"""
+            player1 = Player(data['player1_name'], data['player1_points'], data['player1_games'], data['player1_sets'],
+                             data['player1_total_points'], data['player1_total_games'], data['player1_serving_stats'])
+            player2 = Player(data['player2_name'], data['player2_points'], data['player2_games'], data['player2_sets'],
+                             data['player2_total_points'], data['player2_total_games'], data['player2_serving_stats'])
+            self.app.root.ids.game_screen.player1 = player1
+            self.app.root.ids.game_screen.player2 = player2
 
-        if data['server'] == player1.name:
-            self.app.root.ids.game_screen.match = Match(player1, player2, data['match_name'], player1, player2)
-            # Those repetitions will be removed
-        else:
-            self.app.root.ids.game_screen.match = Match(player1, player2, data['match_name'], player2, player1)
-            # Those repetitions will be removed
-        self.app.root.ids.game_screen.check_server(self.app.root.ids.game_screen.match)
-        self.app.change_screen('game_screen')
-        self.save.dismiss()
-        self.save = None
+            if data['server'] == player1.name:
+                self.app.root.ids.game_screen.match = Match(player1, player2, data['match_name'], player1, player2)
+                # Those repetitions will be removed
+            else:
+                self.app.root.ids.game_screen.match = Match(player1, player2, data['match_name'], player2, player1)
+                # Those repetitions will be removed
+            self.app.root.ids.game_screen.check_server(self.app.root.ids.game_screen.match)
+            self.app.change_screen('game_screen')
+            self.save.dismiss()
+            self.save = None
 
 
 class DeleteSave(IconRightWidget):
@@ -114,17 +117,18 @@ class DeleteSave(IconRightWidget):
 
     def cancel(self):
         """Dismisses the dialog box"""
-        self.delete_confirmation.dismiss()
-        self.delete_confirmation = None
+        if self.delete_confirmation is not None:
+            self.delete_confirmation.dismiss()
 
     def delete_data(self, to_remove_data):
         """Deletes the selected game"""
-        with open('data.json', 'r') as js:
-            file = json.load(js)
-        for game in file:
-            if to_remove_data == game:  # Removes the right dictionary
-                file.remove(to_remove_data)
-        with open('data.json', 'w') as js:  # Rewrites the file without the removed dict
-            json.dump(file, js, indent=4, sort_keys=True)
-        self.app.root.ids.save_screen.saved_match_list()  # Updates the screen
-        self.cancel()
+        if self.delete_confirmation is not None:
+            with open('data.json', 'r') as js:
+                file = json.load(js)
+            for game in file:
+                if to_remove_data == game:  # Removes the right dictionary
+                    file.remove(to_remove_data)
+            with open('data.json', 'w') as js:  # Rewrites the file without the removed dict
+                json.dump(file, js, indent=4, sort_keys=True)
+            self.app.root.ids.save_screen.saved_match_list()  # Updates the screen
+            self.cancel()
