@@ -1,84 +1,89 @@
+<GameButton@MDRaisedButton>:
+    md_bg_color: 0.91, 0.46, 0.07, 1
+    theme_text_color: 'Custom'
+    text_color: 1, 1, 1, 1
+
+<Square@MDBoxLayout>
+    #  id: square
+    md_bg_color: app.get_rgba_from_hex('#f1f1f1')
+    MDLabel:
+        text: ''
+        halign: 'center'
+        theme_text_color: 'Custom'
+        id: label
+
+<ScoreLine>
+    orientation: 'horizontal'
+    size_hint: .9, .2
+    pos_hint: {'center_x':.5}
+    #  on_kv_post: print(self.size)
+    spacing: dp(5)
+    padding: ['5dp' ,0 ,'20dp', 0]
+    md_bg_color: 1, 1, 1 ,1
+    elevation: 5
+
+    MDIcon:
+        icon: 'tennis-ball'
+        halign: 'right'
+        size_hint: .2, 1
+        id: server
+    MDLabel:
+        halign: 'center'
+        pos_hint: {'center_y': .5}
+        size_hint: .5, None
+        id: player_name
+    MDBoxLayout:
+        orientation: 'horizontal'
+        #  md_bg_color: 1, 0, 0, 1
+        spacing: dp(10)
+        id: number_layout
+        Square:
+            size_hint: .4, .5
+            pos_hint: {'center_y': .5}
+            canvas.before:
+                Color:
+                    rgba: 0.91, 0.46, 0.07, 1
+                Line:
+                    width: 1
+                    rectangle: self.x, self.y, self.width, self.height
+            id: points_label
+        Square:
+            size_hint: .4, .5
+            pos_hint: {'center_y': .5}
+            id: set1_label
+        Square:
+            size_hint: .4, .5
+            pos_hint: {'center_y': .5}
+            id: set2_label
+        Square:
+            size_hint: .4, .5
+            pos_hint: {'center_y': .5}
+            id: set3_label
+
 <GameScreen>:
-    on_pre_enter: player2_name.text = root.player2.get_name()
-    on_pre_enter: player1_name.text = root.player1.get_name()
-    on_pre_enter: sets_label1.text = root.player1.get_sets_amount(); sets_label2.text = root.player2.get_sets_amount()
-    on_pre_enter: games_label1.text = root.player1.get_games_amount() ; games_label2.text = root.player2.get_games_amount()
-    on_pre_enter: points_label1.text = root.player1.get_points_amount() ; points_label2.text = root.player2.get_points_amount()
-    on_enter: pl1_btn.text = root.player1.get_name()
-    on_enter: pl2_btn.text = root.player2.get_name()
     MDBoxLayout:
         orientation: 'vertical'
-        spacing: dp(60)
+        #  spacing: dp(20)
+        padding: [0, '20dp']
         pos_hint: {'top': 1}
-        MDGridLayout:
-            padding: [0, dp(30), 0, 0]
-            pos_hint: {'top': 1}
-            adaptive_height: True
-            cols: 5
-            rows: 3
-            spacing: [0, dp(30)]
-
-            MDLabel:
-                text: ''
-            MDLabel:
-                text: "Players"
-                halign: 'center'
-            MDLabel:
-                text: "Points"
-                halign: 'center'
-            MDLabel:
-                text: "Games"
-                halign: 'center'
-            MDLabel:
-                text: "Sets"
-                halign: 'center'
-            MDIcon:
-                halign: 'center'
-                icon: 'tennis-ball'
-                opacity: 0
-                id: server1
-            MDLabel:
-                id: player1_name
-                text: ""
-                halign: 'center'
-            MDLabel:
-                id: points_label1
-                text: '0'
-                halign: 'center'
-            MDLabel:
-                id: games_label1
-                text: "0"
-                halign: 'center'
-            MDLabel:
-                id: sets_label1
-                text: "0"
-                halign: 'center'
-            MDIcon:
-                halign: 'center'
-                icon: 'tennis-ball'
-                opacity: 0
-                id: server2
-            MDLabel:
-                id: player2_name
-                text: "Player1"
-                halign: 'center'
-            MDLabel:
-                id: points_label2
-                text: "0"
-                halign: 'center'
-            MDLabel:
-                id: games_label2
-                text: "0"
-                halign: 'center'
-            MDLabel:
-                id: sets_label2
-                text: "0"
-                halign: 'center'
+        md_bg_color: app.get_rgba_from_hex('#EEEEEE')
+        ScoreLine:
+            id: score_line1
+        MDSeparator:
+            height: '1dp'
+            size_hint_x: .9
+            pos_hint: {'center_x': .5}
+        ScoreLine:
+            id: score_line2
         ScreenManager:
             id: game_manager
 
             MDScreen:
                 name: 'service'
+
+                #  FitImage:
+                    #  source: 'tennis.jpg'
+
                 MDBoxLayout:
                     orientation: 'vertical'
                     adaptive_height: True
@@ -93,18 +98,18 @@
                         #md_bg_color: app.theme_cls.primary_color
                         pos_hint: {'top': .9, 'center_x': .5}
                         spacing: dp(50)
-                        MDRectangleFlatButton:
+                        GameButton:
                             id: ace
-                            text: 'Ace'
+                            text: 'ACE'
                             on_press: root.button_ace_press()
                             on_release: root.update_scoreboard(root.match.server, root.match.receiver, root.match)
-                        MDRectangleFlatButton:
+                        GameButton:
                             id: fault
                             text: 'Fault'
                             on_press: root.match.increase_double_faults()
                             on_release: root.modify_fault_button()
 
-                    MDRectangleFlatButton:
+                    GameButton:
                         text: 'Ball in Play'
                         increment_width: box1.width - dp(50)
                         on_release: game_manager.current = 'on_court'

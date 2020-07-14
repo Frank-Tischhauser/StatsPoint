@@ -1,45 +1,73 @@
 <InputScreen>
     on_pre_enter: error_message.text = ''
     on_pre_enter: entry1.text = ''; entry2.text = ''; entry3.text = ''
+    on_pre_enter: entry1.error = False; entry2.error = False; entry3.error = False
+    on_pre_enter: entry1.on_focus()
+    FitImage:
+        source: 'tennis.jpg'
     MDBoxLayout:
-        size_hint: .6, .6
-        pos_hint: {'center_x': .5, 'center_y': .8}
-        spacing: dp(20)
         orientation: 'vertical'
+        spacing: dp(12)
+        padding: ['24dp', '24dp', '24dp', '32dp']
+        md_bg_color: 1, 1, 1, .2
+        size_hint_x: .75
+        pos_hint: {'center_x': .5, 'center_y': .6}
+        size_hint_y: None
+        height: self.minimum_height
         MDTextField:
             id: entry3
-            hint_text: "Match name"
-            helper_text_mode: "on_focus"
+            hint_text: "Match name  "
+            current_hint_text_color: 1, 1, 1, 1
+            mode: 'rectangle'
+            color_mode: 'custom'
+            line_color_focus: 1, 1, 1, 1
+            #  required: True
         MDTextField:
             id: entry1
             hint_text: "First player name"
-            helper_text_mode: "on_focus"
-            max_text_length: 9
+            current_hint_text_color: 1, 1, 1, 1
+            mode: 'rectangle'
+            color_mode: 'custom'
+            line_color_focus: 1, 1, 1, 1
+            #  required: True
         MDTextField:
             id: entry2
             hint_text: "Second player name"
-            helper_text_mode: "on_focus"
-            max_text_length: 9
-    MDLabel:
-        id: error_message
-        text: ''
-        halign: 'center'
-        markup: True
-        color: (1, 0 , 0, 1)
-        pos_hint: {'center_x': .5, 'center_y': .4}
-        font_style: "H3"
-        font_size: "15sp"
-
-    MDRectangleFlatButton:
-        id: confirmation_button
-        text: "Next"
-        pos_hint: {'center_x': .5, 'center_y': .2}
-        on_release: root.check_text()
-        checking_text: [entry1.text, entry2.text, entry3.text]
+            current_hint_text_color: 1, 1, 1, 1
+            helper_text: ''
+            mode: 'rectangle'
+            color_mode: 'custom'
+            line_color_focus: 1, 1, 1, 1
+            #  required: True
+        Widget:
+            size_hint_y :None
+            height: '4dp'
+        MDLabel:
+            id: error_message
+            text: ''
+            halign: 'center'
+            markup: True
+            color: (1, 0 , 0, 1)
+            pos_hint: {'center_x': .5, 'center_y': .3}
+            font_style: "H3"
+            font_size: "12sp"
+            padding: [0, '12dp']
+        Widget:
+            size_hint_y :None
+            height: '4dp'
+        MDRaisedButton:
+            id: confirmation_button
+            text: "NEXT"
+            pos_hint: {'center_x': .5, 'center_y': .2}
+            on_release: root.check_text()
+            checking_text: [entry1.text, entry2.text, entry3.text]
+            md_bg_color: 0.91, 0.46, 0.07, .8
+            theme_text_color: 'Custom'
+            text_color: 1, 1, 1, 1
 
     MDFloatingActionButton:
         icon: "home-outline"
         elevation_normal: 8
         pos_hint: {"center_x": .85, "center_y":.1}
-        md_bg_color: app.theme_cls.primary_color
+        md_bg_color: 0.91, 0.46, 0.07, .8
         on_release: app.change_screen('home_screen', 'right')
