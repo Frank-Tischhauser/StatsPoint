@@ -82,10 +82,12 @@ class SaveScreen(MDScreen):
             self.app.root.ids.game_screen.player2 = player2
 
             if data['server'] == player1.name:
-                self.app.root.ids.game_screen.match = Match(player1, player2, data['match_name'], player1, player2)
+                self.app.root.ids.game_screen.match = Match(player1, player2, data['match_name'], player1, player2,
+                                                            data['sets_winners'])
                 # Those repetitions will be removed
             else:
-                self.app.root.ids.game_screen.match = Match(player1, player2, data['match_name'], player2, player1)
+                self.app.root.ids.game_screen.match = Match(player1, player2, data['match_name'], player2, player1,
+                                                            data['sets_winners'])
                 # Those repetitions will be removed
             self.app.root.ids.game_screen.check_server(self.app.root.ids.game_screen.match)
             self.app.change_screen('game_screen')

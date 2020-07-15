@@ -1,5 +1,6 @@
 import logging as log
 import json
+from kivy.graphics import Color, Line
 from kivymd.uix.screen import MDScreen
 from kivymd.app import MDApp
 from kivymd.uix.dialog import MDDialog
@@ -9,6 +10,14 @@ from kivymd.uix.behaviors import RectangularElevationBehavior
 
 
 class ScoreLine(MDBoxLayout, RectangularElevationBehavior):
+    pass
+
+
+class Square(MDBoxLayout, RectangularElevationBehavior):
+    pass
+
+
+class Box(MDBoxLayout, RectangularElevationBehavior):
     pass
 
 
@@ -42,8 +51,21 @@ class GameScreen(MDScreen):
             line_score.ids.set1_label.ids.label.text = str(player.total_games[0])
             line_score.ids.set2_label.ids.label.text = str(player.total_games[1])
             line_score.ids.set3_label.ids.label.text = str(player.total_games[2])
+            self.square_design(player, line_score)
         self.ids.fault.text = 'Fault'  # Fixes problem with Fault / DoubleFault button
         self.check_server(match)
+
+    def square_design(self, player, line_score):
+        squares = [line_score.ids.set1_label, line_score.ids.set2_label, line_score.ids.set3_label]
+        for (index, square) in zip(range(3), squares):
+            if player.name == self.match.sets_winners[index]:
+                square.md_bg_color = (0.91, 0.46, 0.07, 1)
+                square.ids.label.text_color = (1, 1, 1, 1)
+                square.elevation = 5
+            else:
+                square.md_bg_color = (self.app.get_rgba_from_hex('#f1f1f1'))
+                square.ids.label.text_color = (0, 0, 0, 1)
+                square.elevation = 0
 
     def check_server(self, match):
         """Hide or show the tennis-ball icon depending on which player serves"""

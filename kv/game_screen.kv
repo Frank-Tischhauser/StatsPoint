@@ -2,12 +2,15 @@
     md_bg_color: 0.91, 0.46, 0.07, 1
     theme_text_color: 'Custom'
     text_color: 1, 1, 1, 1
+    size_hint_y: .6
+    elevation: 5
 
-<Square@MDBoxLayout>
+<Square>
     #  id: square
+    elevation: 0
     md_bg_color: app.get_rgba_from_hex('#f1f1f1')
     MDLabel:
-        text: ''
+        text: 'Test'
         halign: 'center'
         theme_text_color: 'Custom'
         id: label
@@ -38,27 +41,40 @@
         spacing: dp(10)
         id: number_layout
         Square:
-            size_hint: .4, .5
+            size_hint: .6, .5
             pos_hint: {'center_y': .5}
             canvas.before:
                 Color:
                     rgba: 0.91, 0.46, 0.07, 1
                 Line:
-                    width: 1
+                    width: dp(2)
                     rectangle: self.x, self.y, self.width, self.height
             id: points_label
+        Widget:
+            size_hint_x: .2
         Square:
-            size_hint: .4, .5
+            size_hint: .6, .5
             pos_hint: {'center_y': .5}
             id: set1_label
         Square:
-            size_hint: .4, .5
+            size_hint: .6, .5
             pos_hint: {'center_y': .5}
             id: set2_label
         Square:
-            size_hint: .4, .5
+            size_hint: .6, .5
             pos_hint: {'center_y': .5}
             id: set3_label
+
+
+<ButtonBox@MDBoxLayout>
+    id: box1
+    orientation: 'horizontal'
+    adaptive_height: True
+    adaptive_width: True
+    pos_hint: {'top': 1, 'center_x': .5}
+    spacing: dp(50)
+    padding: ['20dp' ,0 ,'20dp', 0]
+
 
 <GameScreen>:
     MDBoxLayout:
@@ -67,6 +83,7 @@
         padding: [0, '20dp']
         pos_hint: {'top': 1}
         md_bg_color: app.get_rgba_from_hex('#EEEEEE')
+
         ScoreLine:
             id: score_line1
         MDSeparator:
@@ -81,26 +98,27 @@
             MDScreen:
                 name: 'service'
 
-                #  FitImage:
-                    #  source: 'tennis.jpg'
-
-                MDBoxLayout:
+                Box:
                     orientation: 'vertical'
                     adaptive_height: True
-                    adaptive_width: True
-                    pos_hint: {'top': .9, 'center_x': .5}
-                    spacing: dp(50)
-                    MDBoxLayout:
-                        id: box1
-                        orientation: 'horizontal'
-                        adaptive_height: True
-                        adaptive_width: True
-                        #md_bg_color: app.theme_cls.primary_color
-                        pos_hint: {'top': .9, 'center_x': .5}
-                        spacing: dp(50)
+                    pos_hint: {'top': .95, 'center_x': .5}
+                    size_hint_x: .9
+                    md_bg_color: 1, 1, 1 ,1
+                    padding: ['10dp', '10dp', 0, '20dp']
+                    elevation: 5
+                    MDLabel:
+                        text: 'Service'
+                        halign: 'center'
+                        size_hint_y: None
+                        height: self.texture_size[1] + 10
+                    MDSeparator:
+                        height: '1dp'
+                        size_hint_x: .9
+                        pos_hint: {'center_x': .5, 'top': .1}
+                    ButtonBox:
                         GameButton:
                             id: ace
-                            text: 'ACE'
+                            text: 'Ace'
                             on_press: root.button_ace_press()
                             on_release: root.update_scoreboard(root.match.server, root.match.receiver, root.match)
                         GameButton:
@@ -108,23 +126,25 @@
                             text: 'Fault'
                             on_press: root.match.increase_double_faults()
                             on_release: root.modify_fault_button()
-
-                    GameButton:
-                        text: 'Ball in Play'
-                        increment_width: box1.width - dp(50)
-                        on_release: game_manager.current = 'on_court'
-                    MDRectangleFlatIconButton:
-                        icon: 'content-save'
-                        text: 'Save the match'
-                        pos_hint: {'center_x': .5}
-                        on_release: root.show_dialog_save_match_confirmation()
+                    ButtonBox:
+                        GameButton:
+                            text: 'Rally'
+                            on_release: game_manager.current = 'on_court'
+                            #  size_hint_y: None
+                            pos_hint: {'center_x':.5}
+                        GameButton:
+                            text: 'Save'
+                            pos_hint: {'center_x': .5}
+                            on_release: root.show_dialog_save_match_confirmation()
             MDScreen:
                 name: 'on_court'
-                MDBoxLayout:
+                Box:
                     orientation: 'vertical'
                     adaptive_height: True
-                    adaptive_width: True
                     pos_hint: {'top': .9, 'center_x': .5}
+                    size_hint_x: .9
+                    md_bg_color: 1, 1, 1 ,1
+                    padding: ['10dp', '30dp', 0, '20dp']
                     spacing: dp(50)
                     MDLabel:
                         text: 'Who won the point?'

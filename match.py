@@ -61,7 +61,7 @@ class Match:
     games = [0, 1, 2, 3, 4, 5, 6, 7]
     sets = [0, 1, 2]
 
-    def __init__(self, player1, player2, match_name, server=None, receiver=None):
+    def __init__(self, player1, player2, match_name, server=None, receiver=None, sets_winners=None):
         """
         Parameters
         ----------
@@ -76,6 +76,8 @@ class Match:
             server = player1
         if receiver is None:
             receiver = player2
+        if sets_winners is None:
+            sets_winners = [None, None, None]
             
         self.player1 = player1
         self.player2 = player2
@@ -84,6 +86,7 @@ class Match:
         self.receiver = receiver
         self.set_index = self.player1.sets_amount + self.player2.sets_amount
         self.app = MDApp.get_running_app()
+        self.sets_winners = sets_winners
 
     def points_games_counter(self, winner):
         """Counts the total point number of a player for each set."""
@@ -152,6 +155,7 @@ class Match:
         opponent.points_amount = 0
         winner.games_amount = 0
         opponent.games_amount = 0
+        self.sets_winners[self.set_index] = winner.name
         self.set_index = self.player1.sets_amount + self.player2.sets_amount
         if winner.sets_amount == 2:
             return self.save_match()
@@ -188,7 +192,8 @@ class Match:
                 "player2_sets": self.player2.sets_amount,
                 "player2_serving_stats": self.player2.service_stats,
                 "server": self.server.name,
-                "receiver": self.receiver.name
+                "receiver": self.receiver.name,
+                "sets_winners": self.sets_winners
                 }
         with open('data.json', 'r') as file:
             existant_data = json.load(file)
