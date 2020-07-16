@@ -3,7 +3,7 @@
     theme_text_color: 'Custom'
     text_color: 1, 1, 1, 1
     elevation: 5
-    height: dp(80)
+    height: dp(50)
 
 <Square>
     #  id: square
@@ -80,7 +80,7 @@
     MDBoxLayout:
         orientation: 'vertical'
         #  spacing: dp(20)
-        padding: [0, '20dp']
+        padding: [0, '15dp']
         pos_hint: {'top': 1}
         md_bg_color: app.get_rgba_from_hex('#EEEEEE')
 
@@ -94,49 +94,91 @@
             id: score_line2
         ScreenManager:
             id: game_manager
-
             MDScreen:
                 name: 'service'
-
-                Box:
+                MDBoxLayout:
                     orientation: 'vertical'
+                    size_hint: 1, 1
+                    spacing: dp(20)
+                    pos_hint: {'top': .9}
                     adaptive_height: True
-                    pos_hint: {'top': .95, 'center_x': .5}
-                    size_hint_x: .9
-                    md_bg_color: 1, 1, 1 ,1
-                    padding: ['10dp', '10dp', 0, '20dp']
-                    elevation: 5
-                    spacing: dp(30)
-                    MDLabel:
-                        text: 'Service'
-                        halign: 'center'
-                        size_hint_y: None
-                        height: self.texture_size[1] + 10
-                    MDSeparator:
-                        height: '1dp'
+                    Box:
+                        orientation: 'vertical'
+                        adaptive_height: True
+                        pos_hint: {'center_x': .5, 'top': 1}
                         size_hint_x: .9
-                        pos_hint: {'center_x': .5, 'top': .1}
-                    ButtonBox:
-                        GameButton:
-                            id: ace
-                            text: 'Ace'
-                            on_press: root.button_ace_press()
-                            on_release: root.update_scoreboard(root.match.server, root.match.receiver, root.match)
-                        GameButton:
-                            id: fault
-                            text: 'Fault'
-                            on_press: root.match.increase_double_faults()
-                            on_release: root.modify_fault_button()
-                    ButtonBox:
-                        GameButton:
+                        md_bg_color: 1, 1, 1 ,1
+                        padding: ['10dp', '10dp', 0, '20dp']
+                        elevation: 5
+                        spacing: dp(10)
+                        MDLabel:
+                            text: 'Service'
+                            halign: 'center'
+                            size_hint_y: None
+                            height: self.texture_size[1] + 10
+                        MDSeparator:
+                            height: '1dp'
+                            size_hint_x: .9
+                            pos_hint: {'center_x': .5, 'top': .1}
+                        ButtonBox:
+                            GameButton:
+                                id: ace
+                                text: 'Ace'
+                                on_press: root.button_ace_press()
+                                on_release: root.update_scoreboard(root.match.server, root.match.receiver, root.match)
+                            GameButton:
+                                id: fault
+                                text: 'Fault'
+                                on_press: root.match.increase_double_faults()
+                                on_release: root.modify_fault_button()
+                        ButtonBox:
+                            GameButton:
+                                text: 'Rally'
+                                on_release: game_manager.current = 'on_court'
+                                #  size_hint_y: None
+                                pos_hint: {'center_x':.5}
+                            GameButton:
+                                text: 'Save'
+                                pos_hint: {'center_x': .5}
+                                on_release: root.show_dialog_save_match_confirmation()
+                    Box:
+                        orientation: 'vertical'
+                        adaptive_height: True
+                        pos_hint: {'center_x': .5, 'top': .4}
+                        size_hint_x: .9
+                        md_bg_color: 1, 1, 1 ,1
+                        padding: ['10dp', '10dp', 0, '20dp']
+                        elevation: 5
+                        spacing: dp(10)
+                        opacity: 1
+                        MDLabel:
                             text: 'Rally'
-                            on_release: game_manager.current = 'on_court'
-                            #  size_hint_y: None
-                            pos_hint: {'center_x':.5}
-                        GameButton:
-                            text: 'Save'
-                            pos_hint: {'center_x': .5}
-                            on_release: root.show_dialog_save_match_confirmation()
+                            halign: 'center'
+                            size_hint_y: None
+                            height: self.texture_size[1]
+                        MDSeparator:
+                            height: '1dp'
+                            size_hint_x: .9
+                            pos_hint: {'center_x': .5, 'top': .1}
+                        MDLabel:
+                            text: 'Who won the rally?'
+                            halign: 'center'
+                            size_hint_y: None
+                            height: self.texture_size[1]
+                            font_size: '15sp'
+                        ButtonBox:
+                            GameButton:
+                                text: 'Frank'
+                                on_release: game_manager.current = 'on_court'
+                                #  size_hint_y: None
+                                pos_hint: {'center_x':.5}
+                                height: dp(30)
+                            GameButton:
+                                height: dp(30)
+                                text: 'Daniel'
+                                pos_hint: {'center_x': .5}
+                                on_release: root.show_dialog_save_match_confirmation()
+
             MDScreen:
                 name: 'on_court'
                 Box:
