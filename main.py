@@ -24,7 +24,7 @@ from kivymd.uix.navigationdrawer import MDNavigationDrawer
 
 from kivy.lang import Builder
 from kivy.uix.screenmanager import SlideTransition
-from kivy.core.window import Window
+#from kivy.core.window import Window
 from kivy.uix.colorpicker import get_color_from_hex
 
 
@@ -109,9 +109,6 @@ class TennisApp(MDApp):
 
     def get_rgba_from_hex(self, color):
         return get_color_from_hex(color)
-
-    def get_window_size(self):
-        return Window.size
 
 
 if __name__ == "__main__":
