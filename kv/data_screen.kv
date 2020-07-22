@@ -1,12 +1,11 @@
 <LeaderBoard>
     cols: 1
     rows: 6
-    spacing: dp(30)
+    spacing: dp(10)
     size_hint_y: None
     height: self.minimum_height
     row_default_height: '50dp'
     row_force_default: True
-    #md_bg_color: app.theme_cls.primary_color
     padding: [0, dp(30)]
     Rows:
         id: row1
@@ -21,7 +20,29 @@
     Rows:
         id: row6
 
-
+<DataLine>
+    orientation: 'horizontal'
+    spacing: dp(50)
+    md_bg_color: 1, 1, 1, 1
+    size_hint: .9, .2
+    spacing: dp(25)
+    padding: ['5dp' ,0 ,'20dp', 0]
+    pos_hint: {'center_x':.5}
+    MDLabel:
+        id: player_name
+        text: 'Player 1'
+        halign: 'center'
+        size_hint: .3, None
+        pos_hint: {'center_y':.5}
+    Square:
+        id: set1
+        size_hint: .08, .5
+    Square:
+        id: set2
+        size_hint: .08, .5
+    Square:
+        id: set3
+        size_hint: .08, .5
 <Rows>
     orientation: 'horizontal'
     spacing: dp(50)
@@ -45,40 +66,20 @@
     on_pre_enter: bottom_navigation.switch_tab('set1')
     MDBoxLayout:
         orientation: 'vertical'
+        padding: [0 ,'12dp', 0, 0]
         pos_hint: {'top': 1}
-        spacing: [0, dp(20)]
-        padding: [0, dp(10), 0, 0]
-        MDGridLayout:
-            adaptive_height: True
-            cols: 4
-            rows: 3
-            padding: [0, dp(30), 0, 0]
-            spacing: [dp(30), dp(50)]
-            MDLabel:
-                id: player1_name
-                halign: 'center'
-            MDLabel:
-                id: set1_player1
-                halign: 'center'
-            MDLabel:
-                id: set2_player1
-                halign: 'center'
-            MDLabel:
-                id: set3_player1
-                halign: 'center'
-            MDLabel:
-                id: player2_name
-                halign: 'center'
-            MDLabel:
-                id: set1_player2
-                halign: 'center'
-            MDLabel:
-                id: set2_player2
-                halign: 'center'
-            MDLabel:
-                id: set3_player2
-                halign: 'center'
-
+        md_bg_color: app.get_rgba_from_hex('#EEEEEE')
+        DataLine:
+            id: player1
+        MDSeparator:
+            height: '1dp'
+            size_hint_x: .9
+            pos_hint: {'center_x': .5}
+        DataLine:
+            id: player2
+        Widget:
+            height: '10dp'
+            size_hint_y: None
         MDBottomNavigation:
             id: bottom_navigation
 

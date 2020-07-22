@@ -1,6 +1,5 @@
 import logging as log
 import json
-from kivy.graphics import Color, Line
 from kivymd.uix.screen import MDScreen
 from kivymd.app import MDApp
 from kivymd.uix.dialog import MDDialog
@@ -24,8 +23,8 @@ class Box(MDBoxLayout, RectangularElevationBehavior):
 class GameScreen(MDScreen):
     """Contains all the buttons that are used by the user during a match"""
 
-    def __init__(self, **kw):
-        super().__init__(**kw)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.winner = None
         self.looser = None
         self.dialog = None
@@ -48,15 +47,16 @@ class GameScreen(MDScreen):
 
         for (player, line_score) in zip(players, line_scores):
             line_score.ids.points_label.ids.label.text = player.get_points_amount()
-            line_score.ids.set1_label.ids.label.text = str(player.total_games[0])
-            line_score.ids.set2_label.ids.label.text = str(player.total_games[1])
-            line_score.ids.set3_label.ids.label.text = str(player.total_games[2])
+            line_score.ids.set1.ids.label.text = str(player.total_games[0])
+            line_score.ids.set2.ids.label.text = str(player.total_games[1])
+            line_score.ids.set3.ids.label.text = str(player.total_games[2])
             self.square_design(player, line_score)
         self.ids.fault.text = 'Fault'  # Fixes problem with Fault / DoubleFault button
         self.check_server(match)
 
     def square_design(self, player, line_score):
-        squares = [line_score.ids.set1_label, line_score.ids.set2_label, line_score.ids.set3_label]
+        """Changes the square design when a player wins a set"""
+        squares = [line_score.ids.set1, line_score.ids.set2, line_score.ids.set3]
         for (index, square) in zip(range(3), squares):
             if player.name == self.match.sets_winners[index]:
                 square.md_bg_color = (0.91, 0.46, 0.07, 1)
@@ -75,18 +75,6 @@ class GameScreen(MDScreen):
         else:
             self.ids.score_line2.ids.server.opacity = 1
             self.ids.score_line1.ids.server.opacity = 0
-
-    def modify_fault_button(self):
-        """Modify the button (Fault / Double Fault)"""
-        if self.ids.fault.text == "Fault":
-            self.ids.fault.text = 'Double Fault'
-            self.match.server.service_stats['second_service'][self.match.set_index] += 1
-            self.match.server.service_stats['second_service_in'][self.match.set_index] += 1
-        elif self.ids.fault.text == 'Double Fault':
-            self.ids.fault.text = 'Fault'
-            self.update_scoreboard(
-                self.match.receiver, self.match.server,
-                self.match)
 
     def set_winner(self, winner, looser):
         """Sets which player wins the point"""
@@ -151,7 +139,7 @@ class GameScreen(MDScreen):
             self.cancel()
             self.match.save_match()
 
-    def service_number(self):
+    def check_service_degree(self):
         if self.winner.name == self.match.server.name:
             if self.ids.fault.text == 'Fault':
                 self.match.server.service_stats['first_service_won'][self.match.set_index] += 1
@@ -159,7 +147,53 @@ class GameScreen(MDScreen):
                 self.match.server.service_stats['second_service_won'][self.match.set_index] += 1
         log.info('First Service Won {}'.format(self.match.server.service_stats['first_service_won']))
 
-    def button_ace_press(self):
+    def press_ace(self):
         self.set_winner(self.match.server, self.match.receiver)
-        self.service_number()
+        self.check_service_degree()
         self.match.ace_played()
+        self.update_scoreboard(self.match.server, self.match.receiver, self.match)
+        log.info('yes' + str(self.match.server.total_points))
+
+    def press_rally(self):
+        self.ids.game_manager.current = 'on_court'
+
+    def press_fault(self):
+
+        if self.ids.fault.text == "Fault":
+            self.ids.fault.text = 'Double Fault'
+            self.match.server.service_stats['second_service'][self.match.set_index] += 1
+            self.match.server.service_stats['second_service_in'][self.match.set_index] += 1
+
+        elif self.ids.fault.text == 'Double Fault':
+            self.match.server.service_stats['second_service_in'][self.match.set_index] -= 1
+            self.match.server.service_stats['double_faults'][self.match.set_index] += 1
+            log.info(self.match.server.service_stats['double_faults'])
+            self.ids.fault.text = 'Fault'
+            self.update_scoreboard(self.match.receiver, self.match.server, self.match)
+
+    def press_save(self):
+        self.show_dialog_save_match_confirmation()
+
+    def press_player1(self):
+        self.set_winner(self.player1, self.player2)
+        self.check_service_degree()
+        self.ids.detail1_box.ids.caption.text = 'Why did {} win the point?'.format(self.winner.get_name())
+        self.ids.game_manager.current = 'game_details1'
+
+    def press_player2(self):
+        self.set_winner(self.player2, self.player1)
+        self.check_service_degree()
+        self.ids.detail1_box.ids.caption.text = 'Why did {} win the point?'.format(self.winner.get_name())
+        self.ids.game_manager.current = 'game_details1'
+
+    def press_unforced_error(self):
+        self.ids.detail2_box.ids.caption.text = "{}'s unforced error was a ...".format(self.looser.get_name())
+        self.ids.game_manager.current = 'game_details2'
+
+    def press_forced_error(self):
+        self.ids.detail2_box.ids.caption.text = "Which shot by {} caused the forced error?".format(self.winner.name)
+        self.ids.game_manager.current = 'game_details2'
+
+    def press_winner(self):
+        self.ids.game_manager.current = "{}'s winner was a ...".format(self.winner.get_name())
+        self.ids.game_manager.current = 'game_details2'

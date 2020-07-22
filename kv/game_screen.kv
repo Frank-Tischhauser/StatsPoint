@@ -3,87 +3,95 @@
     theme_text_color: 'Custom'
     text_color: 1, 1, 1, 1
     elevation: 5
-    height: dp(50)
+    height: dp(45)
+    pos_hint: {'center_x': .5}
+    font_name: 'fonts/ProximaNova-Bold.otf'
 
 <Square>
-    #  id: square
     elevation: 0
     md_bg_color: app.get_rgba_from_hex('#f1f1f1')
+    size_hint: .6, .5
+    pos_hint: {'center_y': .5}
     MDLabel:
-        text: 'Test'
+        id: label
         halign: 'center'
         theme_text_color: 'Custom'
-        id: label
 
 <ScoreLine>
     orientation: 'horizontal'
     size_hint: .9, .2
     pos_hint: {'center_x':.5}
-    #  on_kv_post: print(self.size)
     spacing: dp(5)
     padding: ['5dp' ,0 ,'20dp', 0]
     md_bg_color: 1, 1, 1 ,1
     elevation: 5
-
     MDIcon:
+        id: server
         icon: 'tennis-ball'
         halign: 'right'
         size_hint: .2, 1
-        id: server
     MDLabel:
+        id: player_name
         halign: 'center'
         pos_hint: {'center_y': .5}
         size_hint: .5, None
-        id: player_name
     MDBoxLayout:
-        orientation: 'horizontal'
-        #  md_bg_color: 1, 0, 0, 1
-        spacing: dp(10)
         id: number_layout
+        orientation: 'horizontal'
+        spacing: dp(10)
         Square:
-            size_hint: .6, .5
-            pos_hint: {'center_y': .5}
+            id: points_label
+            md_bg_color: 1, 1, 1, 1
             canvas.before:
                 Color:
                     rgba: 0.91, 0.46, 0.07, 1
                 Line:
-                    width: dp(2)
+                    width: dp(1.5)
                     rectangle: self.x, self.y, self.width, self.height
-            id: points_label
         Widget:
             size_hint_x: .2
         Square:
-            size_hint: .6, .5
-            pos_hint: {'center_y': .5}
-            id: set1_label
+            id: set1
         Square:
-            size_hint: .6, .5
-            pos_hint: {'center_y': .5}
-            id: set2_label
+            id: set2
         Square:
-            size_hint: .6, .5
-            pos_hint: {'center_y': .5}
-            id: set3_label
+            id: set3
 
 
 <ButtonBox@MDBoxLayout>
-    id: box1
     orientation: 'horizontal'
-    adaptive_height: True
-    adaptive_width: True
+    adaptive_size: True
     pos_hint: {'top': 1, 'center_x': .5}
     spacing: dp(50)
     padding: ['20dp' ,0 ,'20dp', 0]
 
 
+<Box>
+    orientation: 'vertical'
+    adaptive_height: True
+    pos_hint: {'center_x': .5, 'top': .95}
+    size_hint_x: .9
+    md_bg_color: 1, 1, 1 ,1
+    padding: ['10dp', '10dp', 0, '20dp']
+    elevation: 5
+    spacing: dp(20)
+    MDLabel:
+        id: caption
+        text: 'Service'
+        halign: 'center'
+        size_hint_y: None
+        height: self.texture_size[1]
+    MDSeparator:
+        height: '1dp'
+        size_hint_x: .9
+        pos_hint: {'center_x': .5, 'top': .1}
+
 <GameScreen>:
     MDBoxLayout:
         orientation: 'vertical'
-        #  spacing: dp(20)
         padding: [0, '15dp']
         pos_hint: {'top': 1}
         md_bg_color: app.get_rgba_from_hex('#EEEEEE')
-
         ScoreLine:
             id: score_line1
         MDSeparator:
@@ -96,191 +104,84 @@
             id: game_manager
             MDScreen:
                 name: 'service'
-                MDBoxLayout:
-                    orientation: 'vertical'
-                    size_hint: 1, 1
-                    spacing: dp(20)
-                    pos_hint: {'top': .9}
-                    adaptive_height: True
-                    Box:
-                        orientation: 'vertical'
-                        adaptive_height: True
-                        pos_hint: {'center_x': .5, 'top': 1}
-                        size_hint_x: .9
-                        md_bg_color: 1, 1, 1 ,1
-                        padding: ['10dp', '10dp', 0, '20dp']
-                        elevation: 5
-                        spacing: dp(10)
-                        MDLabel:
-                            text: 'Service'
-                            halign: 'center'
-                            size_hint_y: None
-                            height: self.texture_size[1] + 10
-                        MDSeparator:
-                            height: '1dp'
-                            size_hint_x: .9
-                            pos_hint: {'center_x': .5, 'top': .1}
-                        ButtonBox:
-                            GameButton:
-                                id: ace
-                                text: 'Ace'
-                                on_press: root.button_ace_press()
-                                on_release: root.update_scoreboard(root.match.server, root.match.receiver, root.match)
-                            GameButton:
-                                id: fault
-                                text: 'Fault'
-                                on_press: root.match.increase_double_faults()
-                                on_release: root.modify_fault_button()
-                        ButtonBox:
-                            GameButton:
-                                text: 'Rally'
-                                on_release: game_manager.current = 'on_court'
-                                #  size_hint_y: None
-                                pos_hint: {'center_x':.5}
-                            GameButton:
-                                text: 'Save'
-                                pos_hint: {'center_x': .5}
-                                on_release: root.show_dialog_save_match_confirmation()
-                    Box:
-                        orientation: 'vertical'
-                        adaptive_height: True
-                        pos_hint: {'center_x': .5, 'top': .4}
-                        size_hint_x: .9
-                        md_bg_color: 1, 1, 1 ,1
-                        padding: ['10dp', '10dp', 0, '20dp']
-                        elevation: 5
-                        spacing: dp(10)
-                        opacity: 1
-                        MDLabel:
+                Box:
+                    ButtonBox:
+                        GameButton:
+                            id: ace
+                            text: 'Ace'
+                            on_release: root.press_ace()
+                            height: '80dp'
+                        GameButton:
+                            id: fault
+                            text: 'Fault'
+                            on_release: root.press_fault()
+                            height: '80dp'
+                    ButtonBox:
+                        GameButton:
                             text: 'Rally'
-                            halign: 'center'
-                            size_hint_y: None
-                            height: self.texture_size[1]
-                        MDSeparator:
-                            height: '1dp'
-                            size_hint_x: .9
-                            pos_hint: {'center_x': .5, 'top': .1}
-                        MDLabel:
-                            text: 'Who won the rally?'
-                            halign: 'center'
-                            size_hint_y: None
-                            height: self.texture_size[1]
-                            font_size: '15sp'
-                        ButtonBox:
-                            GameButton:
-                                text: 'Frank'
-                                on_release: game_manager.current = 'on_court'
-                                #  size_hint_y: None
-                                pos_hint: {'center_x':.5}
-                                height: dp(30)
-                            GameButton:
-                                height: dp(30)
-                                text: 'Daniel'
-                                pos_hint: {'center_x': .5}
-                                on_release: root.show_dialog_save_match_confirmation()
-
+                            on_release: root.press_rally()
+                            height: '80dp'
+                        GameButton:
+                            text: 'Save'
+                            on_release: root.press_save()
+                            height: '80dp'
             MDScreen:
                 name: 'on_court'
+                on_pre_enter: rally_box.ids.caption.text = 'Who won the point?'
                 Box:
-                    orientation: 'vertical'
-                    adaptive_height: True
-                    pos_hint: {'top': .9, 'center_x': .5}
-                    size_hint_x: .9
-                    md_bg_color: 1, 1, 1 ,1
-                    padding: ['10dp', '30dp', 0, '20dp']
-                    spacing: dp(50)
-                    MDLabel:
-                        text: 'Who won the point?'
-                        halign: 'center'
-                    MDBoxLayout:
-                        orientation: 'horizontal'
-                        adaptive_height: True
-                        adaptive_width: True
-                        #md_bg_color: app.theme_cls.primary_color
-                        pos_hint: {'top': .9, 'center_x': .5}
-                        spacing: dp(50)
-                        MDRectangleFlatButton:
+                    id: rally_box
+                    ButtonBox:
+                        GameButton:
                             id: pl1_btn
-                            text: ''
-                            on_press: root.set_winner(root.player1, root.player2)
-                            on_release: root.service_number()
-                            on_release: game_manager.current ='game_details1'
-                        MDRectangleFlatButton:
+                            on_release: root.press_player1()
+                        GameButton:
                             id: pl2_btn
-                            text: ''
-                            on_press: root.set_winner(root.player2, root.player1)
-                            on_release: root.service_number()
-                            on_release: game_manager.current = 'game_details1'
+                            on_release: root.press_player2()
             MDScreen:
                 name: 'game_details1'
-                MDBoxLayout:
-                    orientation: 'vertical'
-                    adaptive_height: True
-                    adaptive_width: True
-                    pos_hint: {'top': .9, 'center_x': .5}
-                    spacing: dp(50)
-                    MDLabel:
-                        text: 'The point ended, because of a ...'
-                        halign: 'center'
+                Box:
+                    id: detail1_box
                     MDBoxLayout:
-                        id: box2
                         orientation: 'horizontal'
-                        adaptive_height: True
-                        adaptive_width: True
-                        #md_bg_color: app.theme_cls.primary_color
+                        adaptive_size: True
                         pos_hint: {'top': .9, 'center_x': .5}
                         spacing: dp(50)
 
-                        MDRectangleFlatButton:
+                        GameButton:
                             id: forced_error
                             text: 'Forced Error'
-                            on_release: game_manager.current = 'game_details2'
-                        MDRectangleFlatButton:
+                            on_release: root.press_forced_error()
+                        GameButton
                             id: unforced_error
                             text: 'Unforced Error'
-                            on_release: game_manager.current = 'game_details2'
-
-                    MDRectangleFlatButton:
+                            on_release: root.press_unforced_error()
+                    GameButton:
                         id: winner
                         text: 'Winner'
-                        pos_hint: {'center_x': .5}
-                        increment_width: box2.width - dp(50)
-                        on_release: game_manager.current = 'game_details2'
+                        increment_width: dp(100)
+                        on_release: root.press_winner()
             MDScreen:
                 name: 'game_details2'
-                MDBoxLayout:
-                    orientation: 'vertical'
-                    adaptive_height: True
-                    adaptive_width: True
-                    pos_hint: {'top': .9, 'center_x': .5}
-                    spacing: dp(50)
-                    MDLabel:
-                        text: 'Which shot made the player win?'
-                        halign: 'center'
+                Box:
+                    id: detail2_box
                     MDBoxLayout:
-                        id: box2
                         orientation: 'horizontal'
-                        adaptive_height: True
-                        adaptive_width: True
-                        #md_bg_color: app.theme_cls.primary_color
+                        adaptive_size: True
                         pos_hint: {'top': .9, 'center_x': .5}
                         spacing: dp(50)
-
-                        MDRectangleFlatButton:
+                        GameButton:
                             id: backhand
                             text: 'Backhand'
                             on_release: root.update_scoreboard(root.winner, root.looser, root.match)
                             on_release: game_manager.current = 'service'
-                        MDRectangleFlatButton:
+                        GameButton:
                             id: forehand
                             text: 'Forehand'
                             on_release: root.update_scoreboard(root.winner, root.looser, root.match)
                             on_release: game_manager.current = 'service'
-
-                    MDRectangleFlatButton:
+                    GameButton:
                         id: volley
                         text: 'Volley / Smash'
-                        pos_hint: {'center_x': .5}
-                        increment_width: box2.width - dp(50)
+                        increment_width: dp(100)
                         on_release: root.update_scoreboard(root.winner, root.looser, root.match)
                         on_release: game_manager.current = 'service'
