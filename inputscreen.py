@@ -10,6 +10,9 @@ class InputScreen(MDScreen):
         super().__init__(**kwargs)
         self.app = MDApp.get_running_app()
 
+    def on_pre_enter(self, *args):
+        self.app.root.ids.my_toolbar.title = 'Create a game'
+
     def create_match(self):
         """Creates a match when button pressed"""
         player1 = Player(self.ids.entry1.text)

@@ -123,9 +123,12 @@ class Match:
             else:
                 index = Match.points.index(winner.points_amount)
                 winner.points_amount = Match.points[index + 1]
+            self.check_break_point(winner, opponent)
         self.points_games_counter(winner)
 
     def games_win(self, winner, opponent):
+        if self.server == opponent:  # Counts the number of return games won
+            winner.stats['return_game_won'][self.set_index] += 1
         if winner.games_amount == 5 and opponent.games_amount < 5:
             index = Match.games.index(winner.games_amount)
             winner.games_amount = Match.games[index + 1]
@@ -176,21 +179,16 @@ class Match:
     def save_match(self):
         player1_name = self.player1.get_name()
         player2_name = self.player2.get_name()
+        players = [self.player1, self.player2]
+        for player in players:
+            player.stats['points'] = player.points_amount
+            player.stats['games'] = player.games_amount
+            player.stats['sets'] = player.sets_amount
         dict = {"match_name": self.get_match_name(),
                 "player1_name": player1_name,
-                "player1_points": self.player1.points_amount,
-                "player1_total_points": self.player1.total_points,
-                "player1_games": self.player1.games_amount,
-                "player1_total_games": self.player1.total_games,
-                "player1_sets": self.player1.sets_amount,
-                "player1_serving_stats": self.player1.service_stats,
+                "player1_stats": self.player1.stats,
                 "player2_name": player2_name,
-                "player2_points": self.player2.points_amount,
-                "player2_total_points": self.player2.total_points,
-                "player2_games": self.player2.games_amount,
-                "player2_total_games": self.player2.total_games,
-                "player2_sets": self.player2.sets_amount,
-                "player2_serving_stats": self.player2.service_stats,
+                "player2_stats": self.player2.stats,
                 "server": self.server.name,
                 "receiver": self.receiver.name,
                 "sets_winners": self.sets_winners
@@ -212,13 +210,11 @@ class Match:
 
     def ace_played(self):
         log.info(self.server.name)
-        log.info(self.server.total_points)
         self.server.service_stats['ace'][self.set_index] += 1
-        #  log.info(self.server.service_stats['Ace'])
 
-    def increase_double_faults(self):
-        if self.app.root.ids.game_screen.ids.fault.text == 'Double Fault':
-            self.server.service_stats['second_service_in'][self.set_index] -= 1
-            self.server.service_stats['double_faults'][self.set_index] += 1
-        log.info(self.server.service_stats['double_faults'])
-
+    def check_break_point(self, winner, opponent):
+        """Checks if it's a break point, if yes +1 in the statistics"""
+        if winner == self.receiver:
+            if winner.points_amount == 'AD' or \
+                    winner.get_points_amount() == '40' and opponent.get_points_amount() != '40':
+                winner.stats['break_points'][self.set_index] += 1

@@ -30,27 +30,33 @@ class Player:
 
     """
 
-    def __init__(self, name='', points_amount=0, games_amount=0, sets_amount=0,
-                 total_points=None, total_games=None, service_stats=None):
-        if total_points is None:
-            total_points = [0, 0, 0]
-        if total_games is None:
-            total_games = [0, 0, 0]
-        if service_stats is None:
-            service_stats = {'ace': [0, 0, 0],
-                             'double_faults': [0, 0, 0],
-                             'second_service': [0, 0, 0],
-                             'second_service_in': [0, 0, 0],
-                             'service_points_played': [0, 0, 0],
-                             'first_service_won': [0, 0, 0],
-                             'second_service_won': [0, 0, 0]}
+    def __init__(self, name='', stats=None):
+        if stats is None:
+            stats = {
+                'points': 0,
+                'games': 0,
+                'sets': 0,
+                'total_points': [0, 0, 0],
+                'total_games': [0, 0, 0],
+                'break_points': [0, 0, 0],
+                'return_game_won': [0, 0, 0],
+                'service_stats': {
+                     'ace': [0, 0, 0],
+                     'double_faults': [0, 0, 0],
+                     'second_service': [0, 0, 0],
+                     'second_service_in': [0, 0, 0],
+                     'service_points_played': [0, 0, 0],
+                     'first_service_won': [0, 0, 0],
+                     'second_service_won': [0, 0, 0]}
+                }
         self.name = name
-        self.points_amount = points_amount
-        self.games_amount = games_amount
-        self.sets_amount = sets_amount
-        self.total_points = total_points
-        self.total_games = total_games
-        self.service_stats = service_stats
+        self.stats = stats
+        self.points_amount = stats['points']
+        self.games_amount = stats['games']
+        self.sets_amount = stats['sets']
+        self.total_points = stats['total_points']
+        self.total_games = stats['total_games']
+        self.service_stats = stats['service_stats']
 
     def get_name(self):
         return self.name

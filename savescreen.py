@@ -74,10 +74,8 @@ class SaveScreen(MDScreen):
             self.picked_game_data = data  # To get the information from another class
             self.full_list = full_list
             """Continues the game"""
-            player1 = Player(data['player1_name'], data['player1_points'], data['player1_games'], data['player1_sets'],
-                             data['player1_total_points'], data['player1_total_games'], data['player1_serving_stats'])
-            player2 = Player(data['player2_name'], data['player2_points'], data['player2_games'], data['player2_sets'],
-                             data['player2_total_points'], data['player2_total_games'], data['player2_serving_stats'])
+            player1 = Player(data['player1_name'], data['player1_stats'])
+            player2 = Player(data['player2_name'], data['player2_stats'])
             self.app.root.ids.game_screen.player1 = player1
             self.app.root.ids.game_screen.player2 = player2
 

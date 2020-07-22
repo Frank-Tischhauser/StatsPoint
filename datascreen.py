@@ -2,9 +2,14 @@ from kivymd.app import MDApp
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.gridlayout import MDGridLayout
+from kivymd.uix.behaviors import RectangularElevationBehavior
 
 
 class Rows(MDBoxLayout):
+    pass
+
+
+class DataLine(MDBoxLayout, RectangularElevationBehavior):
     pass
 
 
@@ -20,14 +25,27 @@ class DataScreen(MDScreen):
         self.app = MDApp.get_running_app()
 
     def show_data(self, data):
-        self.ids.player1_name.text = data['player1_name']
-        self.ids.player2_name.text = data['player2_name']
-        self.ids.set1_player1.text = str(data['player1_total_games'][0])
-        self.ids.set2_player1.text = str(data['player1_total_games'][1])
-        self.ids.set3_player1.text = str(data['player1_total_games'][2])
-        self.ids.set1_player2.text = str(data['player2_total_games'][0])
-        self.ids.set2_player2.text = str(data['player2_total_games'][1])
-        self.ids.set3_player2.text = str(data['player2_total_games'][2])
+        players = [self.ids.player1, self.ids.player2]
+        stats = [data['player1_stats'], data['player2_stats']]
+        for player, name, stat in zip(players, [data['player1_name'], data['player2_name']], stats):
+            player.ids.player_name.text = name
+            player.ids.set1.ids.label.text = str(stat['total_games'][0])
+            player.ids.set2.ids.label.text = str(stat['total_games'][1])
+            player.ids.set3.ids.label.text = str(stat['total_games'][2])
+            self.square_design(name, player, data)
+
+    def square_design(self, player_name, line_score, data):
+        """Changes the square design when a player wins a set"""
+        squares = [line_score.ids.set1, line_score.ids.set2, line_score.ids.set3]
+        for (index, square) in zip(range(3), squares):
+            if player_name == data['sets_winners'][index]:
+                square.md_bg_color = (0.91, 0.46, 0.07, 1)
+                square.ids.label.text_color = (1, 1, 1, 1)
+                square.elevation = 5
+            else:
+                square.md_bg_color = (self.app.get_rgba_from_hex('#f1f1f1'))
+                square.ids.label.text_color = (0, 0, 0, 1)
+                square.elevation = 0
 
     def show_service_stats(self, data):
         caption = ['VS', 'Aces', 'Double Faults', '1st Serve (%)', '1st Serve Points Won (%)',
@@ -42,7 +60,8 @@ class DataScreen(MDScreen):
                 i += 1
             for player in players:
                 name = data[str(player + '_name')]
-                serving_stats = data[str(player + '_serving_stats')]
+                full_stats = data[str(player + '_stats')]
+                serving_stats = full_stats['service_stats']
                 double_faults = serving_stats['double_faults'][set]
                 aces = serving_stats['ace'][set]
                 service_pts_played = serving_stats['service_points_played'][set]
