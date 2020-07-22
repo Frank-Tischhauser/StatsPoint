@@ -20,12 +20,13 @@ import logging as log
 from kivymd.app import MDApp
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.navigationdrawer import MDNavigationDrawer
-
+from kivymd.font_definitions import theme_font_styles
 
 from kivy.lang import Builder
 from kivy.uix.screenmanager import SlideTransition
-#from kivy.core.window import Window
+from kivy.core.window import Window
 from kivy.uix.colorpicker import get_color_from_hex
+from kivy.core.text import LabelBase
 
 
 from gamescreen import GameScreen
@@ -34,7 +35,7 @@ from inputscreen import InputScreen
 from savescreen import SaveScreen
 from datascreen import DataScreen
 
-#  Window.size = (350, 500)
+Window.size = (350, 600)
 #  Uncomment to simulate a phone screen
 
 
@@ -43,6 +44,9 @@ class NavDrawer(MDNavigationDrawer):
 
 
 class HomeScreen(MDScreen):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.app = TennisApp.get_running_app()
     """Homepage"""
 
 
@@ -91,6 +95,16 @@ class TennisApp(MDApp):
         self.theme_cls.primary_palette = 'Orange'
         self.theme_cls.primary_hue = '600'
         log.info(self.theme_cls.primary_color)
+        LabelBase.register(
+            name='ProximaNova',
+            fn_regular="fonts/ProximaNova-Regular.otf")
+        theme_font_styles.append('ProximaNova')
+        self.theme_cls.font_styles["H3"] = [
+            "ProximaNova",
+            16,
+            False,
+            0.15,
+        ]
         return Builder.load_file("kv/main.kv")
 
     def change_screen(self, screen_name, direction='left'):

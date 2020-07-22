@@ -1,10 +1,11 @@
 <HomeScreen>
+    on_pre_enter: app.root.ids.my_toolbar.title = 'Homepage'
     FitImage:
         source: 'tennis.jpg'
     MDLabel:
         text: 'Welcome to the Tennis Tracker App!'
         halign: 'center'
-        font_style: "H2"
+        font_name: 'fonts/ProximaNova-Regular.otf'
         font_size: "30sp"
         theme_text_color: 'Custom'
         text_color: 1, 1, 1, 1
@@ -27,10 +28,14 @@
             md_bg_color: 0.91, 0.46, 0.07, .8
             theme_text_color: 'Custom'
             text_color: 1, 1, 1, 1
+            font_name: 'fonts/ProximaNova-Regular.otf'
+            font_size: '14sp'
         MDRaisedButton:
             text: "SAVED MATCH"
             pos_hint: {'center_x': .5}
             on_release: app.change_screen('save_screen')
             md_bg_color: 0.91, 0.46, 0.07, .8
             theme_text_color: 'Custom'
-            text_color: 1, 1, 1, 1                
+            text_color: 1, 1, 1, 1
+            font_name: 'fonts/ProximaNova-Regular.otf'
+            font_size: '14sp'
