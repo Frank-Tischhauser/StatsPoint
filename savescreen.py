@@ -1,5 +1,4 @@
 import json
-from kivy.clock import Clock
 from kivymd.app import MDApp
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.list import OneLineAvatarIconListItem, IconRightWidget, IconLeftWidget
