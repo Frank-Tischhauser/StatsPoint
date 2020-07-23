@@ -16,6 +16,7 @@
         id: label
         halign: 'center'
         theme_text_color: 'Custom'
+        font_name: 'fonts/ProximaNova-Regular.otf'
 
 <ScoreLine>
     orientation: 'horizontal'
@@ -48,6 +49,7 @@
                 Line:
                     width: dp(1.5)
                     rectangle: self.x, self.y, self.width, self.height
+                    joint: 'miter'
         Widget:
             size_hint_x: .2
         Square:

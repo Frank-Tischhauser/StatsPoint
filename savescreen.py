@@ -65,6 +65,7 @@ class SaveScreen(MDScreen):
         if self.save is not None:
             self.app.root.ids.data_screen.show_data(data)
             self.app.root.ids.data_screen.show_service_stats(data)
+            self.app.root.ids.data_screen.check_stat_winner()
             self.app.change_screen('data_screen')
             self.save.dismiss()
             self.save = None

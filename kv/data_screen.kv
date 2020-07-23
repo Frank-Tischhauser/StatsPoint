@@ -1,12 +1,12 @@
 <LeaderBoard>
     cols: 1
-    rows: 6
+    rows: 7
     spacing: dp(10)
     size_hint_y: None
     height: self.minimum_height
-    row_default_height: '50dp'
+    row_default_height: '40dp'
     row_force_default: True
-    padding: [0, dp(30)]
+    padding: [0, dp(10)]
     Rows:
         id: row1
     Rows:
@@ -34,6 +34,7 @@
         halign: 'center'
         size_hint: .3, None
         pos_hint: {'center_y':.5}
+        font_name: 'fonts/ProximaNova-Regular.otf'
     Square:
         id: set1
         size_hint: .08, .5
@@ -46,18 +47,19 @@
 <Rows>
     orientation: 'horizontal'
     spacing: dp(50)
-    MDLabel:
+    padding: ['40dp', 0, '40dp', 0]
+    Square:
         id: col1
-        text: '0'
-        halign: 'center'
+        size_hint: .3, .7
     MDLabel:
         id: col2
         text: 'VS'
         halign: 'center'
-    MDLabel:
+        font_name: 'fonts/ProximaNova-Regular.otf'
+        font_size: '15sp'
+    Square:
         id: col3
-        text: '0'
-        halign: 'center'
+        size_hint: .3, .7
 
 
 <DataScreen>:
@@ -88,13 +90,17 @@
                 text: 'Set 1'
                 icon: 'tennis'
                 on_pre_enter: set1_scroll.scroll_y = 1
-                MDSeparator:
-                    height: '1dp'
-                    pos_hint: {'top': 1}
+                pos_hint: {'center_x':.5}
                 ScrollView:
                     id: set1_scroll
                     pos_hint: {"top": 1, "left": 1}
                     size_hint: 1, 1
+                    canvas.before:
+                        Color:
+                            rgba: 1, 1, 1, 1
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
                     LeaderBoard:
                         id: set1_stats
             MDBottomNavigationItem:
@@ -109,6 +115,12 @@
                     id: set2_scroll
                     pos_hint: {"top": 1, "left": 1}
                     size_hint: 1, 1
+                    canvas.before:
+                        Color:
+                            rgba: 1, 1, 1, 1
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
                     LeaderBoard:
                         id: set2_stats
             MDBottomNavigationItem:
@@ -123,5 +135,11 @@
                     id: set3_scroll
                     pos_hint: {"top": 1, "left": 1}
                     size_hint: 1, 1
+                    canvas.before:
+                        Color:
+                            rgba: 1, 1, 1, 1
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
                     LeaderBoard:
                         id: set3_stats
