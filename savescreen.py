@@ -62,8 +62,8 @@ class SaveScreen(MDScreen):
     def data_choice(self, data):
         """Goes to the data_screen depending on the user's choice"""
         if self.save is not None:
-            self.app.root.ids.data_screen.show_data(data)
-            self.app.root.ids.data_screen.show_service_stats(data)
+            self.app.root.ids.data_screen.show_scoreboard(data)
+            self.app.root.ids.data_screen.show_stats(data)
             self.app.root.ids.data_screen.check_stat_winner()
             self.app.change_screen('data_screen')
             self.save.dismiss()
