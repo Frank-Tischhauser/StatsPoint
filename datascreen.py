@@ -106,8 +106,8 @@ class DataScreen(MDScreen):
     def show_stats(self, data):
         """Shows all statistics of a tennis match"""
         caption = ['VS', 'Aces', 'Double Faults', '1st Serve (%)', '1st Serve Pts Won (%)',
-                   '2nd Serve Pts Won (%)', 'Break points converted']
-        highlights = ['name', 'max', 'min', 'max', 'max', 'max', 'ratio']
+                   '2nd Serve Pts Won (%)', 'Break points converted', 'Points won']
+        highlights = ['name', 'max', 'min', 'max', 'max', 'max', 'ratio', 'max']
         # highlight property of each row
         players = ['player1', 'player2']
         leaderboard = [self.ids.set1_stats, self.ids.set2_stats, self.ids.set3_stats]
@@ -137,7 +137,7 @@ class DataScreen(MDScreen):
                 break_points_ratio = '{}/{}'.format(
                     full_stats['return_game_won'][manche], break_points)
                 stats = [name, aces, double_faults, ratio_first_service_in, ratio_first_service_won,
-                         ratio_second_service_won, break_points_ratio]
+                         ratio_second_service_won, break_points_ratio, full_stats['total_points'][manche]]
                 stats = list(map(str, stats))
                 for row, j in zip(leaderboard[manche].ids.values(), range(len(caption))):
                     cols = []

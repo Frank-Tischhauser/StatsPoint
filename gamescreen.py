@@ -5,7 +5,6 @@ from kivymd.app import MDApp
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.boxlayout import MDBoxLayout
-from kivymd.uix.floatlayout import MDFloatLayout
 from kivymd.uix.behaviors import RectangularElevationBehavior
 
 
@@ -17,7 +16,7 @@ class Square(MDBoxLayout, RectangularElevationBehavior):
     pass
 
 
-class Box(MDFloatLayout, RectangularElevationBehavior):
+class Box(MDBoxLayout, RectangularElevationBehavior):
     pass
 
 
