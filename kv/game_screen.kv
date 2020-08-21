@@ -185,5 +185,4 @@
                         id: volley
                         text: 'Volley / Smash'
                         increment_width: dp(100)
-                        on_release: root.update_scoreboard(root.winner, root.looser, root.match)
-                        on_release: game_manager.current = 'service'
+                        on_release: root.press_volley()

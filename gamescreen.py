@@ -6,6 +6,7 @@ from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.behaviors import RectangularElevationBehavior
+from kivy.properties import StringProperty
 
 
 class ScoreLine(MDBoxLayout, RectangularElevationBehavior):
@@ -22,6 +23,8 @@ class Box(MDBoxLayout, RectangularElevationBehavior):
 
 class GameScreen(MDScreen):
     """Contains all the buttons that are used by the user during a match"""
+
+    detail_context = StringProperty('')
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -123,8 +126,8 @@ class GameScreen(MDScreen):
             self.confirmation_save_match.dismiss()
             self.confirmation_save_match = None
 
-    def leave_match(self):
-        if self.confirmation_save_match is not None:
+    def leave_match(self, match_end=False):
+        if self.confirmation_save_match is not None or match_end:
             full_list = self.app.root.ids.save_screen.full_list  # Full json file (list format)
             to_remove_dict = self.app.root.ids.save_screen.picked_game_data
             # Lines that we want to remove, to avoid duplication of saves
@@ -150,6 +153,7 @@ class GameScreen(MDScreen):
     def press_ace(self):
         self.set_winner(self.match.server, self.match.receiver)
         self.check_service_degree()
+        self.match.receiver.stats['return_points_played'][self.match.set_index] -= 1
         self.match.ace_played()
         self.update_scoreboard(self.match.server, self.match.receiver, self.match)
         log.info('yes' + str(self.match.server.total_points))
@@ -167,6 +171,7 @@ class GameScreen(MDScreen):
         elif self.ids.fault.text == 'Double Fault':
             self.match.server.service_stats['second_service_in'][self.match.set_index] -= 1
             self.match.server.service_stats['double_faults'][self.match.set_index] += 1
+            self.match.receiver.stats['return_points_played'][self.match.set_index] -= 1
             log.info(self.match.server.service_stats['double_faults'])
             self.ids.fault.text = 'Fault'
             self.update_scoreboard(self.match.receiver, self.match.server, self.match)
@@ -177,23 +182,38 @@ class GameScreen(MDScreen):
     def press_player1(self):
         self.set_winner(self.player1, self.player2)
         self.check_service_degree()
+        if self.match.receiver.name == self.winner.name:
+            self.match.receiver.stats['return_points_won'][self.match.set_index] += 1
         self.ids.detail1_box.ids.caption.text = 'Why did {} win the point?'.format(self.winner.get_name())
         self.ids.game_manager.current = 'game_details1'
 
     def press_player2(self):
         self.set_winner(self.player2, self.player1)
         self.check_service_degree()
+        if self.match.receiver.name == self.winner.name:
+            self.match.receiver.stats['return_points_won'][self.match.set_index] += 1
         self.ids.detail1_box.ids.caption.text = 'Why did {} win the point?'.format(self.winner.get_name())
         self.ids.game_manager.current = 'game_details1'
 
     def press_unforced_error(self):
+        self.detail_context = 'unforced_error'
         self.ids.detail2_box.ids.caption.text = "{}'s unforced error was a ...".format(self.looser.get_name())
+        self.looser.stats['unforced_errors'][self.match.set_index] += 1
         self.ids.game_manager.current = 'game_details2'
 
     def press_forced_error(self):
+        self.detail_context = 'forced_error'
         self.ids.detail2_box.ids.caption.text = "Which shot by {} caused the forced error?".format(self.winner.name)
         self.ids.game_manager.current = 'game_details2'
 
     def press_winner(self):
-        self.ids.game_manager.current = "{}'s winner was a ...".format(self.winner.get_name())
+        self.detail_context = 'winner'
+        self.ids.detail2_box.ids.caption.text = "{}'s winner was a ...".format(self.winner.get_name())
         self.ids.game_manager.current = 'game_details2'
+        self.winner.stats['winners'][self.match.set_index] += 1
+
+    def press_volley(self):
+        if self.detail_context == 'winner' or self.detail_context == 'forced_error':
+            self.winner.stats['net_points'][self.match.set_index] += 1
+        self.update_scoreboard(self.winner, self.looser, self.match)
+        self.ids.game_manager.current = 'service'

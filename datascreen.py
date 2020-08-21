@@ -105,9 +105,11 @@ class DataScreen(MDScreen):
 
     def show_stats(self, data):
         """Shows all statistics of a tennis match"""
-        caption = ['VS', 'Aces', 'Double Faults', '1st Serve (%)', '1st Serve Pts Won (%)',
-                   '2nd Serve Pts Won (%)', 'Break points converted', 'Points won']
-        highlights = ['name', 'max', 'min', 'max', 'max', 'max', 'ratio', 'max']
+        caption = ['VS', 'Aces', 'Double Faults', '1st Serve in (%)', '1st Serve Pts Won (%)',
+                   '2nd Serve Pts Won (%)', 'Break points converted', 'Winners', 'Net points',
+                   'Return points won', 'Unforced Errors', 'Points won']
+
+        highlights = ['name', 'max', 'min', 'max', 'max', 'max', 'ratio', 'max', 'max', 'ratio', 'min', 'max']
         # highlight property of each row
         players = ['player1', 'player2']
         leaderboard = [self.ids.set1_stats, self.ids.set2_stats, self.ids.set3_stats]
@@ -136,8 +138,14 @@ class DataScreen(MDScreen):
                 #  full_stats['return_game_won'][manche] * 100, break_points)
                 break_points_ratio = '{}/{}'.format(
                     full_stats['return_game_won'][manche], break_points)
+
+                return_ratio = '{}/{}'.format(full_stats['return_points_won'][manche],
+                                              full_stats['return_points_played'][manche])
                 stats = [name, aces, double_faults, ratio_first_service_in, ratio_first_service_won,
-                         ratio_second_service_won, break_points_ratio, full_stats['total_points'][manche]]
+                         ratio_second_service_won, break_points_ratio, full_stats['winners'][manche],
+                         full_stats['net_points'][manche], return_ratio,
+                         full_stats['unforced_errors'][manche], full_stats['total_points'][manche]]
+
                 stats = list(map(str, stats))
                 for row, j in zip(leaderboard[manche].ids.values(), range(len(caption))):
                     cols = []

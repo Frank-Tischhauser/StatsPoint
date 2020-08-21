@@ -105,6 +105,7 @@ class Match:
         Returns the appropriate method depending on the scoreboard.
         """
         self.server.service_stats['service_points_played'][self.set_index] += 1
+        self.receiver.stats['return_points_played'][self.set_index] += 1
         if winner.games_amount == 6 and opponent.games_amount == 6:
             self.tie_break(winner, opponent)
         elif winner.points_amount == 40 and opponent.points_amount != 40 \
@@ -161,7 +162,7 @@ class Match:
         self.sets_winners[self.set_index] = winner.name
         self.set_index = self.player1.sets_amount + self.player2.sets_amount
         if winner.sets_amount == 2:
-            return self.save_match()
+            self.app.root.ids.game_screen.leave_match(True)  # Forces the end of the match
 
     def tie_break(self, winner, opponent):
         winner.points_amount += 1
