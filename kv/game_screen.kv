@@ -135,10 +135,10 @@
                     ButtonBox:
                         GameButton:
                             id: pl1_btn
-                            on_release: root.press_player1()
+                            on_release: root.press_player(root.match.player1, root.match.player2)
                         GameButton:
                             id: pl2_btn
-                            on_release: root.press_player2()
+                            on_release: root.press_player(root.match.player2, root.match.player1)
             MDScreen:
                 name: 'game_details1'
                 Box:
@@ -174,13 +174,11 @@
                         GameButton:
                             id: backhand
                             text: 'Backhand'
-                            on_release: root.update_scoreboard(root.winner, root.looser, root.match)
-                            on_release: game_manager.current = 'service'
+                            on_release: root.press_backhand()
                         GameButton:
                             id: forehand
                             text: 'Forehand'
-                            on_release: root.update_scoreboard(root.winner, root.looser, root.match)
-                            on_release: game_manager.current = 'service'
+                            on_release: root.press_forehand()
                     GameButton:
                         id: volley
                         text: 'Volley / Smash'

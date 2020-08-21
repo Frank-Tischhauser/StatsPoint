@@ -5,7 +5,6 @@ This module contains the DataScreen class and all the classes which are related 
 This screen contains and shows all the statistics of a tennis match.
 """
 
-
 from kivy.properties import StringProperty
 
 from kivymd.app import MDApp
@@ -23,34 +22,7 @@ def safe_div(num1, num2):
     return int(num1 / num2)
 
 
-def number_comparison(col1, col3, highlight='max'):
-    """Highlights the right statistic depending on number values"""
-    result = None, None
-    if highlight == 'ratio':  # Highlights the greatest number ratio
-        ratio1 = col1.ids.label.text
-        div_numbers1 = list(map(int, ratio1.split('/')))
-        quotient1 = safe_div(div_numbers1[0], div_numbers1[1])
-        ratio2 = col3.ids.label.text
-        div_numbers2 = list(map(int, ratio2.split('/')))
-        quotient2 = safe_div(div_numbers2[0], div_numbers2[1])
-        if quotient1 > quotient2:
-            result = col1, col3
-        elif quotient2 > quotient1:
-            result = col3, col1
-    elif highlight in ('max', 'min'):
-        final_num1 = int(col1.ids.label.text.split(' ')[0])
-        final_num2 = int(col3.ids.label.text.split(' ')[0])
-        if highlight == 'max':  # Highlights the greatest number
-            if final_num1 > final_num2:
-                result = col1, col3
-            elif final_num2 > final_num1:
-                result = col3, col1
-        else:  # Highlights the lowest number
-            if final_num1 > final_num2:
-                result = col3, col1
-            elif final_num2 > final_num1:
-                result = col1, col3
-    return result
+
 
 
 class Rows(MDBoxLayout):
@@ -79,6 +51,37 @@ class DataScreen(MDScreen):
         super().__init__(**kwargs)
         self.app = MDApp.get_running_app()
 
+    def number_comparison(self, col1, col3, highlight='max'):
+        """Highlights the right statistic depending on number values"""
+        result = None, None
+        if highlight == 'ratio':  # Highlights the greatest number ratio
+            ratio1 = col1.ids.label.text
+            col1.ids.label.font_size = '15sp'
+            col3.ids.label.font_size = '15sp'
+            div_numbers1 = list(map(int, ratio1.split('/')))
+            quotient1 = safe_div(div_numbers1[0], div_numbers1[1])
+            ratio2 = col3.ids.label.text
+            div_numbers2 = list(map(int, ratio2.split('/')))
+            quotient2 = safe_div(div_numbers2[0], div_numbers2[1])
+            if quotient1 > quotient2:
+                result = col1, col3
+            elif quotient2 > quotient1:
+                result = col3, col1
+        elif highlight in ('max', 'min'):
+            final_num1 = int(col1.ids.label.text.split(' ')[0])
+            final_num2 = int(col3.ids.label.text.split(' ')[0])
+            if highlight == 'max':  # Highlights the greatest number
+                if final_num1 > final_num2:
+                    result = col1, col3
+                elif final_num2 > final_num1:
+                    result = col3, col1
+            else:  # Highlights the lowest number
+                if final_num1 > final_num2:
+                    result = col3, col1
+                elif final_num2 > final_num1:
+                    result = col1, col3
+        return result
+
     def show_scoreboard(self, data):
         """Shows a scoreboard with the result of the tennis match"""
         players = [self.ids.player1, self.ids.player2]
@@ -105,12 +108,27 @@ class DataScreen(MDScreen):
 
     def show_stats(self, data):
         """Shows all statistics of a tennis match"""
-        caption = ['VS', 'Aces', 'Double Faults', '1st Serve in (%)', '1st Serve Pts Won (%)',
-                   '2nd Serve Pts Won (%)', 'Break points converted', 'Winners', 'Net points',
-                   'Return points won', 'Unforced Errors', 'Points won']
+        data_settings = {
+            'VS': 'name',
+            'Total points won': 'max',
+            'Aces': 'max',
+            'Double Faults': 'min',
+            '1st Serve in (%)': 'max',
+            '1st Serve Pts Won (%)': 'max',
+            '2nd Serve Pts Won (%)': 'max',
+            'Break points converted': 'ratio',
+            'Winners': 'max',
+            'Forehand winners': 'max',
+            'Backhand winners': 'max',
+            'Net points': 'max',
+            'Return points won': 'ratio',
+            'Unforced errors': 'min',
+            'Forehand unforced errors': 'min',
+            'Backhand unforced errors': 'min'
 
-        highlights = ['name', 'max', 'min', 'max', 'max', 'max', 'ratio', 'max', 'max', 'ratio', 'min', 'max']
-        # highlight property of each row
+        }
+        caption = list(data_settings.keys())
+        highlights = list(data_settings.values())  # "highlight" property of each row
         players = ['player1', 'player2']
         leaderboard = [self.ids.set1_stats, self.ids.set2_stats, self.ids.set3_stats]
 
@@ -141,10 +159,14 @@ class DataScreen(MDScreen):
 
                 return_ratio = '{}/{}'.format(full_stats['return_points_won'][manche],
                                               full_stats['return_points_played'][manche])
-                stats = [name, aces, double_faults, ratio_first_service_in, ratio_first_service_won,
+
+                stats = [name, full_stats['total_points'][manche], aces, double_faults, ratio_first_service_in,
+                         ratio_first_service_won,
                          ratio_second_service_won, break_points_ratio, full_stats['winners'][manche],
+                         full_stats['forehand_winners'][manche], full_stats['backhand_winners'][manche],
                          full_stats['net_points'][manche], return_ratio,
-                         full_stats['unforced_errors'][manche], full_stats['total_points'][manche]]
+                         full_stats['unforced_errors'][manche], full_stats['forehand_unforced_errors'][manche],
+                         full_stats['backhand_unforced_errors'][manche]]
 
                 stats = list(map(str, stats))
                 for row, j in zip(leaderboard[manche].ids.values(), range(len(caption))):
@@ -164,7 +186,7 @@ class DataScreen(MDScreen):
         for manche in sets:
             for row in manche.ids.values():
                 cols = [row.ids.col1, row.ids.col3]
-                winner_col, looser_col = number_comparison(cols[0], cols[1], row.highlight)
+                winner_col, looser_col = self.number_comparison(cols[0], cols[1], row.highlight)
                 if winner_col is not None and looser_col is not None:
                     winner_col.md_bg_color = (0.91, 0.46, 0.07, 1)
                     winner_col.ids.label.text_color = (1, 1, 1, 1)

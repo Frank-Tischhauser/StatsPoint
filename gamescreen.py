@@ -179,16 +179,8 @@ class GameScreen(MDScreen):
     def press_save(self):
         self.show_dialog_save_match_confirmation()
 
-    def press_player1(self):
-        self.set_winner(self.player1, self.player2)
-        self.check_service_degree()
-        if self.match.receiver.name == self.winner.name:
-            self.match.receiver.stats['return_points_won'][self.match.set_index] += 1
-        self.ids.detail1_box.ids.caption.text = 'Why did {} win the point?'.format(self.winner.get_name())
-        self.ids.game_manager.current = 'game_details1'
-
-    def press_player2(self):
-        self.set_winner(self.player2, self.player1)
+    def press_player(self, winner_pl, looser_pl):
+        self.set_winner(winner_pl, looser_pl)
         self.check_service_degree()
         if self.match.receiver.name == self.winner.name:
             self.match.receiver.stats['return_points_won'][self.match.set_index] += 1
@@ -217,3 +209,20 @@ class GameScreen(MDScreen):
             self.winner.stats['net_points'][self.match.set_index] += 1
         self.update_scoreboard(self.winner, self.looser, self.match)
         self.ids.game_manager.current = 'service'
+
+    def press_backhand(self):
+        self.update_scoreboard(self.winner, self.looser, self.match)
+        self.ids.game_manager.current = 'service'
+        if self.detail_context == 'unforced_error':
+            self.looser.stats['backhand_unforced_errors'][self.match.set_index] += 1
+        elif self.detail_context == 'winner':
+            self.winner.stats['backhand_winners'][self.match.set_index] += 1
+
+    def press_forehand(self):
+        self.update_scoreboard(self.winner, self.looser, self.match)
+        self.ids.game_manager.current = 'service'
+        if self.detail_context == 'unforced_error':
+            self.looser.stats['forehand_unforced_errors'][self.match.set_index] += 1
+        elif self.detail_context == 'winner':
+            self.winner.stats['forehand_winners'][self.match.set_index] += 1
+
