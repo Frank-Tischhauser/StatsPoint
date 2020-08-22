@@ -3,7 +3,8 @@ from kivymd.app import MDApp
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.list import OneLineAvatarIconListItem, IconRightWidget, IconLeftWidget
 from kivymd.uix.dialog import MDDialog
-from kivymd.uix.button import MDFlatButton
+from kivymd.uix.button import MDFlatButton, MDRaisedButton
+
 
 from player import Player
 from match import Match
@@ -53,9 +54,9 @@ class SaveScreen(MDScreen):
             self.save = MDDialog(title='Do you want to continue the match or see the statistics?',
                                  size_hint=(0.7, 1),
                                  buttons=[
-                                     MDFlatButton(text='Continue game', text_color=self.app.theme_cls.primary_color,
+                                     MDRaisedButton(text='Continue',
                                                   on_release=lambda x: self.continue_game(data, full_list)),
-                                     MDFlatButton(text='See stats', text_color=self.app.theme_cls.primary_color,
+                                     MDFlatButton(text='Stats / Analysis', text_color=self.app.theme_cls.primary_color,
                                                   on_release=lambda x: self.data_choice(data))])
         self.save.open()
 

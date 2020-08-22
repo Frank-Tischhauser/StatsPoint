@@ -13,7 +13,7 @@ class Player:
     sets_amount : int
         current sets amount of the player in a match
     total_points : list
-        current total points amount of the player for every set
+        current total points amount of the player for every set.
 
     Methods
     -------
@@ -26,7 +26,7 @@ class Player:
     get_sets_amount():
         returns the current sets amount of the player.
     get_total_points_amount():
-        returns the total points amount of the player in the entire match
+        returns the total points amount of the player in the entire match.
 
     """
 

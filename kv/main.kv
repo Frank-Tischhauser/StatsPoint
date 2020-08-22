@@ -5,6 +5,7 @@
 #:include kv/save_screen.kv
 #:include kv/navigation_drawer.kv
 #:include kv/setting_screen.kv
+#:include kv/analysis_screen.kv
 
 
 NavigationLayout:
@@ -14,6 +15,7 @@ NavigationLayout:
 
             MDBoxLayout:
                 orientation: 'vertical'
+                id: screen_template
 
                 MyToolbar:
                     id: my_toolbar
@@ -51,6 +53,10 @@ NavigationLayout:
                     SettingScreen:
                         name : 'setting_screen'
                         id: setting_screen
+
+                    AnalysisScreen:
+                        name : 'analysis_screen'
+                        id: analysis_screen
 
     NavDrawer:
         id: nav_drawer

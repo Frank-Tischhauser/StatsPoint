@@ -12,17 +12,15 @@ from kivymd.uix.screen import MDScreen
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.gridlayout import MDGridLayout
 from kivymd.uix.behaviors import RectangularElevationBehavior
-
+from kivymd.uix.button import MDRaisedButton, MDFlatButton
+from kivymd.uix.dialog import MDDialog
 
 def safe_div(num1, num2):
     """Returns an integer division.
     Avoids error if division by zero."""
     if num2 <= 0:
         return 0
-    return int(num1 / num2)
-
-
-
+    return num1 / num2
 
 
 class Rows(MDBoxLayout):
@@ -43,6 +41,15 @@ class DataLine(MDBoxLayout, RectangularElevationBehavior):
 class LeaderBoard(MDGridLayout):
     """Table which contains DataLines"""
 
+    def add_rows(self, rows_number=16):
+        """Add the rows that will include all the stats"""
+        self.rows = rows_number
+        rows_liste = []
+        for i in range(rows_number):
+            rows_liste.append(Rows())
+        for row, j in zip(rows_liste, range(rows_number)):
+            self.add_widget(row)
+
 
 class DataScreen(MDScreen):
     """Shows the data of a match"""
@@ -50,6 +57,23 @@ class DataScreen(MDScreen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.app = MDApp.get_running_app()
+        self.set1_stats = LeaderBoard()
+        self.set1_stats.add_rows()
+        self.set2_stats = LeaderBoard()
+        self.set2_stats.add_rows()
+        self.set3_stats = LeaderBoard()
+        self.set3_stats.add_rows()
+        self.match_stats = None
+        self.confirmation_dialog = None
+
+    def on_pre_enter(self, *args):
+        self.app.root.ids.my_toolbar.right_action_items = [["magnify", lambda x: self.show_confirmation_dialog()]]
+        self.confirmation_dialog = None
+
+    def start(self):
+        self.ids.set1_scroll.add_widget(self.set1_stats)
+        self.ids.set2_scroll.add_widget(self.set2_stats)
+        self.ids.set3_scroll.add_widget(self.set3_stats)
 
     def number_comparison(self, col1, col3, highlight='max'):
         """Highlights the right statistic depending on number values"""
@@ -82,8 +106,24 @@ class DataScreen(MDScreen):
                     result = col1, col3
         return result
 
+    def show_confirmation_dialog(self):
+        if not self.confirmation_dialog:
+            self.confirmation_dialog = MDDialog(title='Do you want to check the analysis (experimental)?',
+                                 size_hint=(0.7, 1),
+                                 buttons=[
+                                     MDFlatButton(text='Yes',
+                                                  on_release=lambda x: self.go_to_analysis()),
+                                     MDRaisedButton(text='No cancel', text_color=self.app.theme_cls.primary_color,
+                                                  on_release=lambda x: self.confirmation_dialog.dismiss())])
+        self.confirmation_dialog.open()
+
+    def go_to_analysis(self):
+        self.app.change_screen('analysis_screen')
+        self.confirmation_dialog.dismiss()
+
     def show_scoreboard(self, data):
         """Shows a scoreboard with the result of the tennis match"""
+        self.match_stats = data
         players = [self.ids.player1, self.ids.player2]
         stats = [data['player1_stats'], data['player2_stats']]
         for player, name, stat in zip(players, [data['player1_name'], data['player2_name']], stats):
@@ -127,13 +167,13 @@ class DataScreen(MDScreen):
             'Backhand unforced errors': 'min'
 
         }
-        caption = list(data_settings.keys())
-        highlights = list(data_settings.values())  # "highlight" property of each row
+        caption = list(data_settings.keys())[::-1]
+        highlights = list(data_settings.values())[::-1]  # "highlight" property of each row
         players = ['player1', 'player2']
-        leaderboard = [self.ids.set1_stats, self.ids.set2_stats, self.ids.set3_stats]
+        leaderboard = [self.set1_stats, self.set2_stats, self.set3_stats]
 
         for manche in range(3):
-            for row, i in zip(leaderboard[manche].ids.values(), range(len(caption))):
+            for row, i in zip(leaderboard[manche].children, range(len(caption))):
                 row.ids.col2.text = caption[i]  # Writes all the captions
                 row.highlight = highlights[i]
             for player in players:
@@ -144,16 +184,16 @@ class DataScreen(MDScreen):
                 aces = serving_stats['ace'][manche]
                 service_pts_played = serving_stats['service_points_played'][manche]
                 nbr_first_service_in = service_pts_played - serving_stats['second_service'][manche]
-                ratio_first_service_in = safe_div(nbr_first_service_in * 100,
-                                                  service_pts_played)
-                ratio_first_service_won = safe_div(
-                    serving_stats['first_service_won'][manche] * 100, nbr_first_service_in)
-                ratio_second_service_won = safe_div(
+                ratio_first_service_in = int(safe_div(nbr_first_service_in * 100,
+                                                      service_pts_played))
+                ratio_first_service_won = int(safe_div(
+                    serving_stats['first_service_won'][manche] * 100, nbr_first_service_in))
+                ratio_second_service_won = int(safe_div(
                     serving_stats['second_service_won'][manche] * 100,
-                    serving_stats['second_service_in'][manche])
+                    serving_stats['second_service_in'][manche]))
                 break_points = full_stats['break_points'][manche]
-                #  break_points_conv = safe_div(
-                #  full_stats['return_game_won'][manche] * 100, break_points)
+                #  break_points_conv = int(safe_div(
+                #  full_stats['return_game_won'][manche] * 100, break_points))
                 break_points_ratio = '{}/{}'.format(
                     full_stats['return_game_won'][manche], break_points)
 
@@ -166,10 +206,10 @@ class DataScreen(MDScreen):
                          full_stats['forehand_winners'][manche], full_stats['backhand_winners'][manche],
                          full_stats['net_points'][manche], return_ratio,
                          full_stats['unforced_errors'][manche], full_stats['forehand_unforced_errors'][manche],
-                         full_stats['backhand_unforced_errors'][manche]]
+                         full_stats['backhand_unforced_errors'][manche]][::-1]
 
                 stats = list(map(str, stats))
-                for row, j in zip(leaderboard[manche].ids.values(), range(len(caption))):
+                for row, j in zip(leaderboard[manche].children, range(len(caption))):
                     cols = []
                     for col in row.ids.values():
                         cols.append(col)
@@ -182,9 +222,9 @@ class DataScreen(MDScreen):
     def check_stat_winner(self):
         """Highlights the best statistic between both players"""
 
-        sets = [self.ids.set1_stats, self.ids.set2_stats, self.ids.set3_stats]
+        sets = [self.set1_stats, self.set2_stats, self.set3_stats]
         for manche in sets:
-            for row in manche.ids.values():
+            for row in manche.children:
                 cols = [row.ids.col1, row.ids.col3]
                 winner_col, looser_col = self.number_comparison(cols[0], cols[1], row.highlight)
                 if winner_col is not None and looser_col is not None:

@@ -34,6 +34,7 @@ from mytoolbar import MyToolbar
 from inputscreen import InputScreen
 from savescreen import SaveScreen
 from datascreen import DataScreen
+from analysisscreen import AnalysisScreen
 
 Window.size = (350, 600)
 #  Uncomment to simulate a phone screen
@@ -75,13 +76,6 @@ class TennisApp(MDApp):
     change_screen(screen_name, direction='left'):
         Switches from one screen to another.
     """
-    def __init__(self, **kwargs):  # Temporary, will be probably removed later
-        super().__init__(**kwargs)
-        self.game_screen = GameScreen()
-        self.my_toolbar = MyToolbar()
-        self.input_screen = InputScreen()
-        self.save_screen = SaveScreen()
-        self.data_screen = DataScreen()
 
     def build(self):
         """
@@ -106,6 +100,9 @@ class TennisApp(MDApp):
             0.15,
         ]
         return Builder.load_file("kv/main.kv")
+
+    def on_start(self):
+        self.root.ids.data_screen.start()
 
     def change_screen(self, screen_name, direction='left'):
         """
