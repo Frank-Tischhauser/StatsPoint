@@ -1,4 +1,122 @@
+<OrangeLabel@MDLabel>:
+    halign: 'center'
+    theme_text_color: 'Custom'
+    text_color: app.theme_cls.primary_color
+    font_size: '15sp'
+
+
+
 <AnalysisScreen>:
-    MDLabel:
-        text: 'Analysis'
-        halign: 'center'
+    md_bg_color: app.get_rgba_from_hex('#EEEEEE')
+    WhiteBox:
+        orientation: 'vertical'
+        pos_hint: {'top': .95, 'center_x': .5}
+        size_hint_y: None
+        adaptive_height: True
+        spacing: dp(10)
+        size_hint_x: .9
+        md_bg_color: 1, 1, 1, 1
+        padding: ['10dp', '20dp', '10dp', '20dp']
+        MDLabel:
+            text: 'Player'
+            halign: 'left'
+        MDBoxLayout:
+            size_hint_y: None
+            size_hint_x : 1
+            height: self.minimum_height
+            #  spacing: dp(-100)
+            OrangeLabel:
+                halign: 'right'
+                text: 'Player1'
+                id: player1
+            MDCheckbox:
+                size_hint: None, None
+                size: "48dp", "48dp"
+                pos_hint: {'center_y':.5}
+                group: 'players'
+            OrangeLabel:
+                halign: 'right'
+                text: 'Player2'
+                id: player2
+            MDCheckbox:
+                size_hint: None, None
+                size: "48dp", "48dp"
+                pos_hint: {'center_y':.5}
+                group: 'players'
+        MDLabel:
+            text: 'Level'
+            halign: 'left'
+        MDBoxLayout:
+            size_hint_y: None
+            size_hint_x : 1
+            height: self.minimum_height
+            #  spacing: dp(-100)
+            OrangeLabel:
+                halign: 'center'
+                text: 'Begin.'
+            MDCheckbox:
+                size_hint: None, None
+                size: "48dp", "48dp"
+                pos_hint: {'center_y':.5}
+                group: 'level'
+            OrangeLabel:
+                halign: 'center'
+                text: 'Interm.'
+            MDCheckbox:
+                size_hint: None, None
+                size: "48dp", "48dp"
+                pos_hint: {'center_y':.5}
+                group: 'level'
+            OrangeLabel:
+                halign: 'center'
+                text: 'Adv.'
+            MDCheckbox:
+                size_hint: None, None
+                size: "48dp", "48dp"
+                pos_hint: {'center_y':.5}
+                group: 'level'
+        MDLabel:
+            text: 'Which profile do you feel closest to?'
+            halign: 'left'
+        MDBoxLayout:
+            size_hint_y: None
+            size_hint_x : 1
+            height: self.minimum_height
+            #  spacing: dp(-100)
+            OrangeLabel:
+                halign: 'center'
+                text: 'Attack the net'
+            MDCheckbox:
+                size_hint: None, None
+                size: "48dp", "48dp"
+                pos_hint: {'center_y':.5}
+                group: 'style'
+            OrangeLabel:
+                halign: 'center'
+                text: 'All court'
+            MDCheckbox:
+                size_hint: None, None
+                size: "48dp", "48dp"
+                pos_hint: {'center_y':.5}
+                group: 'style'
+        MDBoxLayout:
+            size_hint_y: None
+            size_hint_x : 1
+            height: self.minimum_height
+            #  spacing: dp(-100)
+            OrangeLabel:
+                halign: 'center'
+                text: 'Aggressive/ Baseliner'
+            MDCheckbox:
+                size_hint: None, None
+                size: "48dp", "48dp"
+                pos_hint: {'center_y':.5}
+                group: 'style'
+            OrangeLabel:
+                halign: 'center'
+                text: 'Pushers/    Retrievers'
+            MDCheckbox:
+                size_hint: None, None
+                size: "48dp", "48dp"
+                pos_hint: {'center_y':.5}
+                group: 'style'

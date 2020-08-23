@@ -21,6 +21,9 @@ class SaveScreen(MDScreen):
         self.picked_game_data = None
         self.full_list = None
 
+    def on_pre_enter(self, *args):
+        self.app.root.ids.my_toolbar.right_action_items = [["settings", lambda x:
+                                                            self.app.root.ids.my_toolbar.show_dialog_confirmation()]]
     def saved_match_list(self):
         """Creates a list with all saved games"""
         self.ids.match_list.clear_widgets()  # To avoid duplication of widgets

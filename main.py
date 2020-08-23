@@ -7,7 +7,7 @@ He also gives additional information on every point. [x]
 
 Example : Bob wins the first point (Backhand winner)
 
-Then the app saves all the data [x] and shows interesting and useful statistics. []
+Then the app saves all the data [x] and shows interesting and useful statistics. [x]
 The app als helps the player by giving interesting advices depending on the results. []
 
 [x] : Done
@@ -28,7 +28,6 @@ from kivy.core.window import Window
 from kivy.uix.colorpicker import get_color_from_hex
 from kivy.core.text import LabelBase
 
-
 from gamescreen import GameScreen
 from mytoolbar import MyToolbar
 from inputscreen import InputScreen
@@ -37,6 +36,8 @@ from datascreen import DataScreen
 from analysisscreen import AnalysisScreen
 
 Window.size = (350, 600)
+
+
 #  Uncomment to simulate a phone screen
 
 
@@ -48,11 +49,20 @@ class HomeScreen(MDScreen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.app = TennisApp.get_running_app()
+        self.condition = False
+
+    def on_pre_enter(self, *args):
+        if self.condition:  # Makes sure it doesn't happen the first time
+            self.app.root.ids.my_toolbar.right_action_items = [["settings", lambda x:
+                                                                self.app.root.ids.my_toolbar.show_dialog_confirmation()]]
+        else:
+            self.condition = True
     """Homepage"""
 
 
 class SettingScreen(MDScreen):
     """Screen that contains all the settings"""
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.app = TennisApp.get_running_app()

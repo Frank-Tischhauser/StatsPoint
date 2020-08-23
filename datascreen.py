@@ -111,9 +111,9 @@ class DataScreen(MDScreen):
             self.confirmation_dialog = MDDialog(title='Do you want to check the analysis (experimental)?',
                                  size_hint=(0.7, 1),
                                  buttons=[
-                                     MDFlatButton(text='Yes',
+                                     MDRaisedButton(text='Yes', text_color=self.app.theme_cls.primary_color,
                                                   on_release=lambda x: self.go_to_analysis()),
-                                     MDRaisedButton(text='No cancel', text_color=self.app.theme_cls.primary_color,
+                                     MDFlatButton(text='No cancel', text_color=self.app.theme_cls.primary_color,
                                                   on_release=lambda x: self.confirmation_dialog.dismiss())])
         self.confirmation_dialog.open()
 
