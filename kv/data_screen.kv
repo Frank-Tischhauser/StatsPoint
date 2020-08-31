@@ -80,7 +80,7 @@
                 icon: 'tennis'
                 on_pre_enter: set1_scroll.scroll_y = 1
                 pos_hint: {'center_x':.5}
-                ScrollView:
+                RecycleView:
                     id: set1_scroll
                     pos_hint: {"top": 1, "left": 1}
                     size_hint: 1, 1
@@ -98,7 +98,7 @@
                 MDSeparator:
                     height: '1dp'
                     pos_hint: {'top': 1}
-                ScrollView:
+                RecycleView:
                     id: set2_scroll
                     pos_hint: {"top": 1, "left": 1}
                     size_hint: 1, 1
@@ -116,7 +116,7 @@
                 MDSeparator:
                     height: '1dp'
                     pos_hint: {'top': 1}
-                ScrollView:
+                RecycleView:
                     id: set3_scroll
                     pos_hint: {"top": 1, "left": 1}
                     size_hint: 1, 1

@@ -69,6 +69,7 @@ class DataScreen(MDScreen):
     def on_pre_enter(self, *args):
         self.app.root.ids.my_toolbar.right_action_items = [["magnify", lambda x: self.show_confirmation_dialog()]]
         self.confirmation_dialog = None
+        self.app.root.ids.my_toolbar.title = 'Statistics'
 
     def start(self):
         self.ids.set1_scroll.add_widget(self.set1_stats)

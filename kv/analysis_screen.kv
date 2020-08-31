@@ -1,4 +1,4 @@
-<OrangeLabel@MDLabel>:
+<ColorLabel@MDLabel>:
     halign: 'center'
     theme_text_color: 'Custom'
     text_color: app.theme_cls.primary_color
@@ -25,7 +25,7 @@
             size_hint_x : 1
             height: self.minimum_height
             #  spacing: dp(-100)
-            OrangeLabel:
+            ColorLabel:
                 halign: 'right'
                 text: 'Player1'
                 id: player1
@@ -34,7 +34,8 @@
                 size: "48dp", "48dp"
                 pos_hint: {'center_y':.5}
                 group: 'players'
-            OrangeLabel:
+                id: check_player1
+            ColorLabel:
                 halign: 'right'
                 text: 'Player2'
                 id: player2
@@ -43,6 +44,13 @@
                 size: "48dp", "48dp"
                 pos_hint: {'center_y':.5}
                 group: 'players'
+                id: check_player2
+        MDSeparator:
+            height: '1dp'
+            size_hint_x: .95
+            pos_hint: {'center_x':.5}
+        Widget:
+            height: '10dp'
         MDLabel:
             text: 'Level'
             halign: 'left'
@@ -51,15 +59,17 @@
             size_hint_x : 1
             height: self.minimum_height
             #  spacing: dp(-100)
-            OrangeLabel:
+            ColorLabel:
                 halign: 'center'
                 text: 'Begin.'
+                text_color: 0, .5, 0, 1
             MDCheckbox:
                 size_hint: None, None
                 size: "48dp", "48dp"
                 pos_hint: {'center_y':.5}
                 group: 'level'
-            OrangeLabel:
+                id: check_level1
+            ColorLabel:
                 halign: 'center'
                 text: 'Interm.'
             MDCheckbox:
@@ -67,23 +77,34 @@
                 size: "48dp", "48dp"
                 pos_hint: {'center_y':.5}
                 group: 'level'
-            OrangeLabel:
+                id: check_level2
+            ColorLabel:
                 halign: 'center'
                 text: 'Adv.'
+                text_color: 5., 0 ,0, 1
             MDCheckbox:
                 size_hint: None, None
                 size: "48dp", "48dp"
                 pos_hint: {'center_y':.5}
                 group: 'level'
+                id: check_level3
+        MDSeparator:
+            height: '1dp'
+            size_hint_x: .95
+            pos_hint: {'center_x':.5}
+        Widget:
+            height: '10dp'
         MDLabel:
             text: 'Which profile do you feel closest to?'
             halign: 'left'
+        Widget:
+            height: '10dp'
         MDBoxLayout:
             size_hint_y: None
             size_hint_x : 1
             height: self.minimum_height
             #  spacing: dp(-100)
-            OrangeLabel:
+            ColorLabel:
                 halign: 'center'
                 text: 'Attack the net'
             MDCheckbox:
@@ -91,7 +112,8 @@
                 size: "48dp", "48dp"
                 pos_hint: {'center_y':.5}
                 group: 'style'
-            OrangeLabel:
+                id: check_style1
+            ColorLabel:
                 halign: 'center'
                 text: 'All court'
             MDCheckbox:
@@ -99,12 +121,13 @@
                 size: "48dp", "48dp"
                 pos_hint: {'center_y':.5}
                 group: 'style'
+                id: check_style2
         MDBoxLayout:
             size_hint_y: None
             size_hint_x : 1
             height: self.minimum_height
             #  spacing: dp(-100)
-            OrangeLabel:
+            ColorLabel:
                 halign: 'center'
                 text: 'Aggressive/ Baseliner'
             MDCheckbox:
@@ -112,7 +135,8 @@
                 size: "48dp", "48dp"
                 pos_hint: {'center_y':.5}
                 group: 'style'
-            OrangeLabel:
+                id: check_style3
+            ColorLabel:
                 halign: 'center'
                 text: 'Pushers/    Retrievers'
             MDCheckbox:
@@ -120,3 +144,12 @@
                 size: "48dp", "48dp"
                 pos_hint: {'center_y':.5}
                 group: 'style'
+                id: check_style4
+        Widget:
+            height: '10dp'
+        MDRaisedButton:
+            text: 'DONE'
+            pos_hint: {'center_x':.5}
+            text_color: 1, 1, 1, 1
+            md_bg_color: 0.91, 0.46, 0.07, 1
+            theme_text_color: 'Custom'

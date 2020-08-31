@@ -5,7 +5,6 @@ from kivymd.uix.list import OneLineAvatarIconListItem, IconRightWidget, IconLeft
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton, MDRaisedButton
 
-
 from player import Player
 from match import Match
 
@@ -23,7 +22,9 @@ class SaveScreen(MDScreen):
 
     def on_pre_enter(self, *args):
         self.app.root.ids.my_toolbar.right_action_items = [["settings", lambda x:
-                                                            self.app.root.ids.my_toolbar.show_dialog_confirmation()]]
+        self.app.root.ids.my_toolbar.show_dialog_confirmation()]]
+        self.app.root.ids.my_toolbar.title = 'Saves'
+
     def saved_match_list(self):
         """Creates a list with all saved games"""
         self.ids.match_list.clear_widgets()  # To avoid duplication of widgets
@@ -58,7 +59,7 @@ class SaveScreen(MDScreen):
                                  size_hint=(0.7, 1),
                                  buttons=[
                                      MDRaisedButton(text='Continue',
-                                                  on_release=lambda x: self.continue_game(data, full_list)),
+                                                    on_release=lambda x: self.continue_game(data, full_list)),
                                      MDFlatButton(text='Stats / Analysis', text_color=self.app.theme_cls.primary_color,
                                                   on_release=lambda x: self.data_choice(data))])
         self.save.open()

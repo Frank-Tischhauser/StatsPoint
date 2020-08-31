@@ -40,6 +40,7 @@ class GameScreen(MDScreen):
         self.ids.pl1_btn.text = self.player1.get_name()
         self.ids.pl2_btn.text = self.player2.get_name()
         self.update_scoreboard(self.winner, self.looser, self.match, False)
+        self.app.root.ids.my_toolbar.title = 'Game'
 
     def update_scoreboard(self, winner, opponent, match, score_change=True):
         """Updates the scoreboard each time a player wons a point"""

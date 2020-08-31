@@ -24,7 +24,7 @@ from kivymd.font_definitions import theme_font_styles
 
 from kivy.lang import Builder
 from kivy.uix.screenmanager import SlideTransition
-from kivy.core.window import Window
+#  from kivy.core.window import Window
 from kivy.uix.colorpicker import get_color_from_hex
 from kivy.core.text import LabelBase
 
@@ -35,10 +35,9 @@ from savescreen import SaveScreen
 from datascreen import DataScreen
 from analysisscreen import AnalysisScreen
 
-Window.size = (350, 600)
 
-
-#  Uncomment to simulate a phone screen
+#  Window.size = (350, 600)
+#  Uncomment to simulate a phone screen size
 
 
 class NavDrawer(MDNavigationDrawer):
@@ -67,11 +66,8 @@ class SettingScreen(MDScreen):
         super().__init__(**kwargs)
         self.app = TennisApp.get_running_app()
 
-    def style_switcher(self):
-        if not self.ids.style_switch.active:
-            self.app.theme_cls.theme_style = 'Light'
-        else:
-            self.app.theme_cls.theme_style = 'Dark'
+    def on_pre_enter(self, *args):
+        self.app.root.ids.my_toolbar.title = 'Settings'
 
 
 class TennisApp(MDApp):
