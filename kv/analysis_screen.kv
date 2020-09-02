@@ -33,7 +33,7 @@
                 size_hint: None, None
                 size: "48dp", "48dp"
                 pos_hint: {'center_y':.5}
-                group: 'players'
+                group: 'player'
                 id: check_player1
             ColorLabel:
                 halign: 'right'
@@ -43,7 +43,7 @@
                 size_hint: None, None
                 size: "48dp", "48dp"
                 pos_hint: {'center_y':.5}
-                group: 'players'
+                group: 'player'
                 id: check_player2
         MDSeparator:
             height: '1dp'
@@ -146,10 +146,24 @@
                 group: 'style'
                 id: check_style4
         Widget:
-            height: '10dp'
+            height: '20dp'
         MDRaisedButton:
             text: 'DONE'
             pos_hint: {'center_x':.5}
             text_color: 1, 1, 1, 1
             md_bg_color: 0.91, 0.46, 0.07, 1
             theme_text_color: 'Custom'
+            on_release: root.questions_done()
+        Widget:
+            height: '5dp'
+        MDLabel:
+            halign: 'center'
+            text: 'Checkboxes are missing!'
+            id: error_message
+            markup: True
+            color: (1, 0 , 0, 1)
+            pos_hint: {'center_x': .5, 'center_y': .3}
+            font_style: "H3"
+            font_size: "12sp"
+            padding: [0, '12dp']
+

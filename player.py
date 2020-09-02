@@ -45,10 +45,12 @@ class Player:
                 'winners': [0, 0, 0],
                 'backhand_winners': [0, 0, 0],
                 'forehand_winners': [0, 0, 0],
+                'net_winners': [0, 0, 0],
                 'net_points': [0, 0, 0],
                 'unforced_errors': [0, 0, 0],
                 'backhand_unforced_errors': [0, 0, 0],
                 'forehand_unforced_errors': [0, 0, 0],
+                'net_unforced_errors': [0, 0, 0],
                 'service_stats': {
                      'ace': [0, 0, 0],
                      'double_faults': [0, 0, 0],

@@ -162,6 +162,8 @@ class DataScreen(MDScreen):
             'Forehand winners': 'max',
             'Backhand winners': 'max',
             'Net points': 'max',
+            'Net winners': 'max',
+            'Net unforced errors': 'min',
             'Return points won': 'ratio',
             'Unforced errors': 'min',
             'Forehand unforced errors': 'min',
@@ -205,7 +207,8 @@ class DataScreen(MDScreen):
                          ratio_first_service_won,
                          ratio_second_service_won, break_points_ratio, full_stats['winners'][manche],
                          full_stats['forehand_winners'][manche], full_stats['backhand_winners'][manche],
-                         full_stats['net_points'][manche], return_ratio,
+                         full_stats['net_points'][manche],
+                         full_stats['net_winners'][manche], full_stats['net_unforced_errors'][manche], return_ratio,
                          full_stats['unforced_errors'][manche], full_stats['forehand_unforced_errors'][manche],
                          full_stats['backhand_unforced_errors'][manche]][::-1]
 

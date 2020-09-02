@@ -1,0 +1,46 @@
+<ResultScreen>
+    MDBoxLayout:
+        orientation: 'vertical'
+        pos_hint: {'center_x':.5, 'top': .9}
+        size_hint_y: None
+        size_hint_x: .8
+        spacing: '60dp'
+        #  md_bg_color: 1, 0 ,0,1
+        adaptive_height: True
+        MDBoxLayout:
+            id: charts1
+            orientation: 'horizontal'
+            size_hint_y: None
+            spacing: '15dp'
+
+            MDLabel:
+                text: '[u]Winners[/u] \n\n1: Backhand\n2: Forehand\n3: Volley/Smash'
+                font_size: '13sp'
+                font_name: 'fonts/ProximaNova-Regular.otf'
+                halign: 'center'
+                markup: True
+        MDBoxLayout:
+            id: charts2
+            orientation: 'horizontal'
+            size_hint_y: None
+            spacing: '15dp'
+            MDLabel:
+                text: '[u]Unforced Errors[/u] \n\n1: Backhand\n2: Forehand\n3: Volley/Smash'
+                font_size: '13sp'
+                font_name: 'fonts/ProximaNova-Regular.otf'
+                halign: 'center'
+                markup: True
+
+        MDBoxLayout:
+            id: charts3
+            orientation: 'horizontal'
+            size_hint_y: None
+            spacing: '30dp'
+            MDLabel:
+                text: '[u]Winner/Error ratio[/u] \n\n1: Winners\n2: Unforced Errors'
+                font_size: '13sp'
+                font_name: 'fonts/ProximaNova-Regular.otf'
+                halign: 'center'
+                markup: True
+
+

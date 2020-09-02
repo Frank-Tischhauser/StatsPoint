@@ -24,9 +24,10 @@ from kivymd.font_definitions import theme_font_styles
 
 from kivy.lang import Builder
 from kivy.uix.screenmanager import SlideTransition
-#  from kivy.core.window import Window
-from kivy.uix.colorpicker import get_color_from_hex
+from kivy.core.window import Window
+from kivy.utils import get_color_from_hex
 from kivy.core.text import LabelBase
+from kivymd.color_definitions import palette, colors
 
 from gamescreen import GameScreen
 from mytoolbar import MyToolbar
@@ -34,9 +35,10 @@ from inputscreen import InputScreen
 from savescreen import SaveScreen
 from datascreen import DataScreen
 from analysisscreen import AnalysisScreen
+from resultscreen import ResultScreen
 
 
-#  Window.size = (350, 600)
+Window.size = (350, 600)
 #  Uncomment to simulate a phone screen size
 
 
@@ -82,7 +84,6 @@ class TennisApp(MDApp):
     change_screen(screen_name, direction='left'):
         Switches from one screen to another.
     """
-
     def build(self):
         """
         Creates the app
@@ -105,6 +106,7 @@ class TennisApp(MDApp):
             False,
             0.15,
         ]
+        print(get_color_from_hex(colors[palette[0]]['500']))
         return Builder.load_file("kv/main.kv")
 
     def on_start(self):

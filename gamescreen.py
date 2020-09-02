@@ -206,8 +206,13 @@ class GameScreen(MDScreen):
         self.winner.stats['winners'][self.match.set_index] += 1
 
     def press_volley(self):
-        if self.detail_context == 'winner' or self.detail_context == 'forced_error':
+        if self.detail_context == 'forced_error':
             self.winner.stats['net_points'][self.match.set_index] += 1
+        elif self.detail_context == 'winner':
+            self.winner.stats['net_points'][self.match.set_index] += 1
+            self.winner.stats['net_winners'][self.match.set_index] += 1
+        elif self.detail_context == 'unforced_error':
+            self.looser.stats['net_unforced_errors'][self.match.set_index] += 1
         self.update_scoreboard(self.winner, self.looser, self.match)
         self.ids.game_manager.current = 'service'
 
