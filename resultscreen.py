@@ -4,6 +4,7 @@ import random
 from kivymd.app import MDApp
 from kivymd.uix.screen import MDScreen
 from kivy.metrics import dp
+from kivy.utils import platform
 from akivymd.uix.piechart import AKPieChart
 
 
@@ -31,10 +32,15 @@ class ResultScreen(MDScreen):
         self.app.root.ids.my_toolbar.right_action_items = [["arrow-right", lambda x: log.info('Next Screen (Incoming)')]]
         self.match_stats = self.app.root.ids.analysis_screen.match_stats
         self.analysis_info = self.app.root.ids.analysis_screen.analysis_info
-        if self.piechart1 is not None:
+
+        if platform == 'win':  # Unwanted on phone
+            self.ids.diagram_layout.spacing = dp(60)
+
+        if self.piechart1 is not None:  # Resets all piecharts
             self.ids.charts1.remove_widget(self.piechart1)
             self.ids.charts2.remove_widget(self.piechart2)
             self.ids.charts3.remove_widget(self.piechart3)
+
         items = self.get_piechart_stats()
         self.piechart1 = self.make_piechart(items[0])
         self.piechart2 = self.make_piechart(items[1])

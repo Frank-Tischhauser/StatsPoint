@@ -25,9 +25,12 @@ from kivymd.font_definitions import theme_font_styles
 from kivy.lang import Builder
 from kivy.uix.screenmanager import SlideTransition
 from kivy.core.window import Window
+from kivy.utils import platform
 from kivy.utils import get_color_from_hex
 from kivy.core.text import LabelBase
 from kivymd.color_definitions import palette, colors
+
+# All the imports below are actually necessary (Do not remove them!!)
 
 from gamescreen import GameScreen
 from mytoolbar import MyToolbar
@@ -38,8 +41,9 @@ from analysisscreen import AnalysisScreen
 from resultscreen import ResultScreen
 
 
-Window.size = (350, 600)
-#  Uncomment to simulate a phone screen size
+if platform == 'win':
+    Window.size = (350, 600)
+#  Simulate a phone screen
 
 
 class NavDrawer(MDNavigationDrawer):
@@ -106,7 +110,7 @@ class TennisApp(MDApp):
             False,
             0.15,
         ]
-        print(get_color_from_hex(colors[palette[0]]['500']))
+        log.info(get_color_from_hex(colors[palette[0]]['500']))
         return Builder.load_file("kv/main.kv")
 
     def on_start(self):

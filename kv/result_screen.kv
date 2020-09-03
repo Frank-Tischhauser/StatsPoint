@@ -1,11 +1,13 @@
 <ResultScreen>
+    md_bg_color: app.get_rgba_from_hex('#EEEEEE')
     MDBoxLayout:
+        id: diagram_layout
         orientation: 'vertical'
         padding: [0, '20dp', 0, '20dp']
         pos_hint: {'center_x':.5, 'top': .9}
         size_hint_y: None
         size_hint_x: .8
-        spacing: '60dp'
+        spacing: '120dp'
         #  md_bg_color: 1, 0 ,0,1
         adaptive_height: True
         MDBoxLayout:
