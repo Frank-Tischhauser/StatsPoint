@@ -2,6 +2,9 @@ from kivymd.app import MDApp
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.behaviors import RectangularElevationBehavior
 from kivymd.uix.boxlayout import MDBoxLayout
+from kivymd.uix.button import MDFlatButton
+from kivymd.uix.dialog import MDDialog
+from kivymd.uix.snackbar import Snackbar
 import logging as log
 
 
@@ -30,6 +33,7 @@ class AnalysisScreen(MDScreen):
             'level': '',
             'style': '',
         }
+        self.warning = None
 
     def on_pre_enter(self, *args):
         self.match_stats = self.app.root.ids.data_screen.match_stats
@@ -59,6 +63,21 @@ class AnalysisScreen(MDScreen):
                     counter += 1
         if counter == 3:
             self.get_checkbox_info()
-            self.app.change_screen('result_screen')
+            self.check_enough_data()
         else:
             self.ids.error_message.opacity = 1
+
+    def check_enough_data(self):
+        pl_stats = self.match_stats['{}_stats'.format(self.analysis_info['player'])]
+        critical_stats = [pl_stats['backhand_unforced_errors'], pl_stats['forehand_unforced_errors'],
+                          pl_stats['backhand_winners'], pl_stats['forehand_winners'], pl_stats['net_winners'],
+                          pl_stats['net_unforced_errors']]
+        enough_data = True
+        for stat in critical_stats:
+            if sum(stat) == 0:
+                enough_data = False
+        if not enough_data:  # To avoid error with diagrams (later : will just skip the diagrams to the next screen)
+            Snackbar(text='Error! Not enough stats. Play more points!').show()
+
+        else:
+            self.app.change_screen('result_screen')

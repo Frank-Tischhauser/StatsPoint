@@ -1,5 +1,6 @@
 import logging as log
-
+from math import ceil
+import random
 from kivymd.app import MDApp
 from kivymd.uix.screen import MDScreen
 from kivy.metrics import dp
@@ -31,7 +32,7 @@ class ResultScreen(MDScreen):
         self.match_stats = self.app.root.ids.analysis_screen.match_stats
         self.analysis_info = self.app.root.ids.analysis_screen.analysis_info
         if self.piechart1 is not None:
-            self.ids.charts1.remove_widget(self.piechart)
+            self.ids.charts1.remove_widget(self.piechart1)
             self.ids.charts2.remove_widget(self.piechart2)
             self.ids.charts3.remove_widget(self.piechart3)
         items = self.get_piechart_stats()
@@ -48,29 +49,30 @@ class ResultScreen(MDScreen):
         forehand_winners = sum(player_stats['forehand_winners'])
         net_winners = sum(player_stats['net_winners'])
         total_winners = backhand_winners + forehand_winners + net_winners
-        backhand_winners_ratio = round(safe_div(backhand_winners, total_winners) * 100)
-        forehand_winners_ratio = round(safe_div(forehand_winners, total_winners) * 100)
-        net_winners_ratio = round(safe_div(net_winners, total_winners) * 100)
+        backhand_winners_ratio = ceil(safe_div(backhand_winners, total_winners) * 100)
+        forehand_winners_ratio = ceil(safe_div(forehand_winners, total_winners) * 100)
+        net_winners_ratio = ceil(safe_div(net_winners, total_winners) * 100)
         
         backhand_unforced_errors = sum(player_stats['backhand_unforced_errors'])
         forehand_unforced_errors = sum(player_stats['forehand_unforced_errors'])
         net_unforced_errors = sum(player_stats['net_unforced_errors'])
         total_unforced_errors = backhand_unforced_errors + forehand_unforced_errors + net_unforced_errors
-        backhand_unforced_errors_ratio = round(safe_div(backhand_unforced_errors, total_unforced_errors) * 100)
-        forehand_unforced_errors_ratio = round(safe_div(forehand_unforced_errors, total_unforced_errors) * 100)
-        net_unforced_errors_ratio = round(safe_div(net_unforced_errors, total_unforced_errors) * 100)
+        backhand_unforced_errors_ratio = ceil(safe_div(backhand_unforced_errors, total_unforced_errors) * 100)
+        forehand_unforced_errors_ratio = ceil(safe_div(forehand_unforced_errors, total_unforced_errors) * 100)
+        net_unforced_errors_ratio = ceil(safe_div(net_unforced_errors, total_unforced_errors) * 100)
 
-        errors_ratio = round(safe_div(total_unforced_errors, total_unforced_errors + total_winners) * 100)
-        winners_ratio = round(safe_div(total_winners, total_unforced_errors + total_winners) * 100)
+        errors_ratio = ceil(safe_div(total_unforced_errors, total_unforced_errors + total_winners) * 100)
+        winners_ratio = ceil(safe_div(total_winners, total_unforced_errors + total_winners) * 100)
         item1 = [{'1': backhand_winners_ratio, '2': forehand_winners_ratio, '3': net_winners_ratio}]
 
         item2 = [{'1': backhand_unforced_errors_ratio,
                   '2': forehand_unforced_errors_ratio,
                   '3': net_unforced_errors_ratio}]
-        item3 = [{'1': errors_ratio, '2': winners_ratio}]
-        print(sum(item1[0].values()))
-        print(sum(item2[0].values()))
-        print(sum(item3[0].values()))
+        item3 = [{'1': winners_ratio, '2': errors_ratio}]
+        for item in [item1[0], item2[0], item3[0]]:  # Trick to always have a total of 100 percent (May improve)
+            while sum(item.values()) > 100:
+                i = random.randint(1, len(item))
+                item[str(i)] -= 1
         return [item1, item2, item3]
 
     def make_piechart(self, items):
