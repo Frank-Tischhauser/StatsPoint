@@ -46,6 +46,9 @@ if platform == 'win':
 #  Simulate a phone screen
 
 
+
+
+
 class NavDrawer(MDNavigationDrawer):
     """Navigation Drawer controlled by the toolbar"""
 
@@ -53,7 +56,7 @@ class NavDrawer(MDNavigationDrawer):
 class HomeScreen(MDScreen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.app = TennisApp.get_running_app()
+        self.app = StatsPointApp.get_running_app()
         self.condition = False
 
     def on_pre_enter(self, *args):
@@ -70,13 +73,13 @@ class SettingScreen(MDScreen):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.app = TennisApp.get_running_app()
+        self.app = StatsPointApp.get_running_app()
 
     def on_pre_enter(self, *args):
         self.app.root.ids.my_toolbar.title = 'Settings'
 
 
-class TennisApp(MDApp):
+class StatsPointApp(MDApp):
     """
     This class represents the app.
     It is necessary in order to use the kivy/kivyMD module.
@@ -87,7 +90,10 @@ class TennisApp(MDApp):
         Builds the app.
     change_screen(screen_name, direction='left'):
         Switches from one screen to another.
+
     """
+    icon = 'logo.png'
+
     def build(self):
         """
         Creates the app
@@ -135,4 +141,4 @@ class TennisApp(MDApp):
 
 
 if __name__ == "__main__":
-    TennisApp().run()
+    StatsPointApp().run()
