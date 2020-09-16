@@ -15,6 +15,7 @@ from kivymd.uix.behaviors import RectangularElevationBehavior
 from kivymd.uix.button import MDRaisedButton, MDFlatButton
 from kivymd.uix.dialog import MDDialog
 
+
 def safe_div(num1, num2):
     """Returns an integer division.
     Avoids error if division by zero."""
@@ -110,12 +111,15 @@ class DataScreen(MDScreen):
     def show_confirmation_dialog(self):
         if not self.confirmation_dialog:
             self.confirmation_dialog = MDDialog(title='Do you want to check the analysis (experimental)?',
-                                 size_hint=(0.7, 1),
-                                 buttons=[
-                                     MDRaisedButton(text='Yes', text_color=self.app.theme_cls.primary_color,
-                                                  on_release=lambda x: self.go_to_analysis()),
-                                     MDFlatButton(text='No cancel', text_color=self.app.theme_cls.primary_color,
-                                                  on_release=lambda x: self.confirmation_dialog.dismiss())])
+                                                size_hint=(0.7, 1),
+                                                buttons=[
+                                                    MDRaisedButton(text='Yes',
+                                                                   text_color=self.app.theme_cls.primary_color,
+                                                                   on_release=lambda x: self.go_to_analysis()),
+                                                    MDFlatButton(text='No cancel',
+                                                                 text_color=self.app.theme_cls.primary_color,
+                                                                 on_release=lambda
+                                                                     x: self.confirmation_dialog.dismiss())])
         self.confirmation_dialog.open()
 
     def go_to_analysis(self):

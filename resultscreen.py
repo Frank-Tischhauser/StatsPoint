@@ -29,7 +29,8 @@ class ResultScreen(MDScreen):
 
     def on_pre_enter(self, *args):
         self.app.root.ids.my_toolbar.title = 'Diagrams'
-        self.app.root.ids.my_toolbar.right_action_items = [["arrow-right", lambda x: log.info('Next Screen (Incoming)')]]
+        self.app.root.ids.my_toolbar.right_action_items = [["arrow-right",
+                                                            lambda x: self.app.change_screen('training_screen')]]
         self.match_stats = self.app.root.ids.analysis_screen.match_stats
         self.analysis_info = self.app.root.ids.analysis_screen.analysis_info
 

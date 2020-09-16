@@ -7,6 +7,7 @@
 #:include kv/setting_screen.kv
 #:include kv/analysis_screen.kv
 #:include kv/result_screen.kv
+#:include kv/training_screen.kv
 
 
 NavigationLayout:
@@ -21,13 +22,12 @@ NavigationLayout:
                 MyToolbar:
                     id: my_toolbar
                     title: "Homepage"
-                    elevation: 5
+                    elevation: 0
                     left_action_items: [['menu', lambda x: nav_drawer.set_state()]]
                     right_action_items: [["settings", lambda x: self.show_dialog_confirmation()]]
                     action_icon_color: 1, 1 ,1, 1
                     specific_text_color: 1, 1, 1, 1
-                    md_bg_color: 0.91, 0.46, 0.07, .8
-
+                    md_bg_color: 0.91, 0.46, 0.07, 1
                 ScreenManager:
                     id: manager
 
@@ -62,6 +62,10 @@ NavigationLayout:
                     ResultScreen:
                         name : 'result_screen'
                         id: result_screen
+
+                    TrainingScreen:
+                        name: 'training_screen'
+                        id: training_screen
 
     NavDrawer:
         id: nav_drawer

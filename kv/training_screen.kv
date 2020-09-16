@@ -1,0 +1,40 @@
+<TrainingScreen>
+    MDTabs:
+        id: android_tabs
+        on_tab_switch: root.on_tab_switch(*args)
+        text_color_normal: [1, 1, 0, 1]
+        Tab:
+            text: 'Drill 1'
+        Tab:
+            text: 'Drill 2'
+        Tab:
+            text: 'Drill 3'
+
+
+<Tab>:
+    name: 'Drill 1'
+
+    MDLabel:
+        id: title
+        text: 'Bryan Brothers drill (Volley)'
+        theme_text_color: 'Custom'
+        text_color: app.theme_cls.primary_color
+        halign: 'center'
+        font_name: 'fonts/ProximaNova-Bold.otf'
+        font_size: '18sp'
+        size_hint_x: .8
+        pos_hint: {'center_x':.5, 'center_y': .9}
+    MDLabel:
+        halign: 'justify'
+        font_name: 'fonts/ProximaNova-Regular.otf'
+        size_hint_x: .8
+        font_size: '14sp'
+        pos_hint: {'center_x':.5, 'center_y': .5}
+        text:
+            """Goal : Improve footwork, volley accuracy and mental focus.\n\n Description : this exercise is about cooperation and footwork. A and B stand diagonally on the service line. They play volleys. While doing so, each player moves from his side to the other. \n\nExample : If A starts on the left side and B on the right, then A moves to the right and B simultaneously to the left during the rally. Then A and B come back and repeat the pattern until there is a mistake."""
+    MDFloatingActionButton:
+        id: video
+        on_release: root.open_url('https://www.youtube.com/watch?v=yArf4uOcC5k')
+        icon: "youtube"
+        md_bg_color: app.theme_cls.primary_color
+        pos_hint: {'center_x' :.8, 'center_y': .1}

@@ -39,14 +39,12 @@ from savescreen import SaveScreen
 from datascreen import DataScreen
 from analysisscreen import AnalysisScreen
 from resultscreen import ResultScreen
+from trainingscreen import TrainingScreen
 
 
 if platform == 'win':
     Window.size = (350, 600)
 #  Simulate a phone screen
-
-
-
 
 
 class NavDrawer(MDNavigationDrawer):
