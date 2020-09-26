@@ -29,6 +29,8 @@ from kivy.utils import platform
 from kivy.utils import get_color_from_hex
 from kivy.core.text import LabelBase
 from kivymd.color_definitions import palette, colors
+from kivy.config import Config
+
 
 # All the imports below are actually necessary (Do not remove them!!)
 
@@ -45,6 +47,8 @@ from trainingscreen import TrainingScreen
 if platform == 'win':
     Window.size = (350, 600)
 #  Simulate a phone screen
+
+Config.set('kivy', 'exit_on_escape', '0')  # To avoid app shutdown by pressing 'return' on phone
 
 
 class NavDrawer(MDNavigationDrawer):
@@ -115,6 +119,7 @@ class StatsPointApp(MDApp):
             0.15,
         ]
         log.info(get_color_from_hex(colors[palette[0]]['500']))
+
         return Builder.load_file("kv/main.kv")
 
     def on_start(self):

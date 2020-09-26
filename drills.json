@@ -1,0 +1,23 @@
+[
+  {
+    "id" : 1,
+    "difficulty": ["medium", "advanced"],
+    "title": "Bryan Brothers drill (Volley)",
+    "type": "volley",
+    "description": "Goal : Improve footwork, volley accuracy and mental focus.\n\n Description : This exercise is about cooperation and footwork. A and B stand diagonally on the service line. They play volleys. While doing so, each player moves from his side to the other. \n\nExample : If A starts on the left side and B on the right, then A moves to the right and B simultaneously to the left during the rally. Then A and B come back and repeat the pattern until there is a mistake."
+  },
+  {
+    "id": 2,
+    "difficulty": ["medium", "advanced"],
+    "title": "Rain of volleys",
+    "type": "volley",
+    "description": "Goal : Improve reaction time, volley accuracy and cooperation.\n\n Description : The drill is a double, but all players must play volleys in the service box (No doubles’ tramlines). They all start on the service line. After the first hit the aim is to finish the point as soon as possible with a “decisive” volley, thus if all players are good, the average rally length should be short.\n\n Note : If you are only 2 players, do the same, but use only half of the service box."
+  },
+  {
+    "id" : 3,
+    "difficulty": ["beginner", "medium"],
+    "title": "Stop and Go (Volley)",
+    "type": "volley",
+    "description": "Goal : Improve ball control and coordination.\n\n Duration : 5min\n\n Description : A and B must play volleys in the service box. The aim is to keep the ball in play as long as possible, so it’s a cooperation game. Before his volley, every player should bounce the ball once with his racquet.\n\n Example : A hits the ball, B bounces the ball once with his racquet and hits the ball back, A do the same thing, and the pattern repeats till there is a mistake."
+  }
+]
