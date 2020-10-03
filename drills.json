@@ -2,22 +2,71 @@
   {
     "id" : 1,
     "difficulty": ["medium", "advanced"],
-    "title": "Bryan Brothers drill (Volley)",
-    "type": "volley",
-    "description": "Goal : Improve footwork, volley accuracy and mental focus.\n\n Description : This exercise is about cooperation and footwork. A and B stand diagonally on the service line. They play volleys. While doing so, each player moves from his side to the other. \n\nExample : If A starts on the left side and B on the right, then A moves to the right and B simultaneously to the left during the rally. Then A and B come back and repeat the pattern until there is a mistake."
+    "title": "Bryan Brothers drill",
+    "type": ["volley"],
+    "description": "Goal : Improve footwork, volley accuracy and mental focus.\\n\\n Description : This exercise is about cooperation and footwork. A and B stand diagonally on the service line. They play volleys. While doing so, each player moves from his side to the other. \\n\\nExample : If A starts on the left side and B on the right, then A moves to the right and B simultaneously to the left during the rally. Then A and B come back and repeat the pattern until there is a mistake."
   },
   {
     "id": 2,
     "difficulty": ["medium", "advanced"],
     "title": "Rain of volleys",
-    "type": "volley",
-    "description": "Goal : Improve reaction time, volley accuracy and cooperation.\n\n Description : The drill is a double, but all players must play volleys in the service box (No doubles’ tramlines). They all start on the service line. After the first hit the aim is to finish the point as soon as possible with a “decisive” volley, thus if all players are good, the average rally length should be short.\n\n Note : If you are only 2 players, do the same, but use only half of the service box."
+    "type": ["volley"],
+    "description": "Goal : Improve reaction time, volley accuracy and cooperation.\\n\\n Description : The drill is a double, but all players must play volleys in the service box (No doubles’ tramlines). They all start on the service line. After the first hit the aim is to finish the point as soon as possible with a “decisive” volley, thus if all players are good, the average rally length should be short.\\n\\n Note : If you are only 2 players, do the same, but use only half of the service box."
   },
   {
     "id" : 3,
     "difficulty": ["beginner", "medium"],
-    "title": "Stop and Go (Volley)",
-    "type": "volley",
-    "description": "Goal : Improve ball control and coordination.\n\n Duration : 5min\n\n Description : A and B must play volleys in the service box. The aim is to keep the ball in play as long as possible, so it’s a cooperation game. Before his volley, every player should bounce the ball once with his racquet.\n\n Example : A hits the ball, B bounces the ball once with his racquet and hits the ball back, A do the same thing, and the pattern repeats till there is a mistake."
+    "title": "Stop and Go",
+    "type": ["volley"],
+    "description": "Goal : Improve ball control and coordination.\\n\\n Duration : 5min\\n\\n Description : A and B must play volleys in the service box. The aim is to keep the ball in play as long as possible, so it’s a cooperation game. Before his volley, every player should bounce the ball once with his racquet.\\n\\n Example : A hits the ball, B bounces the ball once with his racquet and hits the ball back, A do the same thing, and the pattern repeats till there is a mistake."
+  },
+  {
+    "id" : 4,
+    "difficulty": ["beginner", "medium", "advanced"],
+    "title": "High Five Doubles",
+    "type": ["forehand"],
+    "description": "Goal : Strengthen muscles used in forehand, increase hitting speed (Forehand).\\n\\n Duration : 10min\\n\\n Description : Players play a double in the service box. But they have no racquets and no balls, but only a heavy ball (2/3kg). The ball should be only thrown like a forehand : The player catches the ball and throw it by rotating his chest and doing a 'from bottom to top' movement, thus imitating a forehand. After every shot, the player gives a high five to his teammate. If the heavy ball bounces twice, outside the service box or goes into the net, the rally is finished. The first team to reach 15 points wins."
+  },
+  {
+    "id" : 5,
+    "difficulty": ["medium", "advanced"],
+    "title": "Go Cocktail (Forehand)",
+    "type": ["forehand"],
+    "description": "Goal : Improve forehand \\n\\n Duration : 12min \\n\\n Description : A and B play cross court forehands and try not to make any mistakes. The coach shouts “GO” after at least 5 hits : the following hit is down the line. The rally goes on freely, and players try to win the point. The first player to reach 15 points wins."
+  },
+  {
+    "id" : 6,
+    "difficulty": ["medium", "advanced"],
+    "title": "Go Cocktail (Backhand)",
+    "type": ["backhand"],
+    "description": "Goal : Improve backhand \\n\\n Duration : 12min \\n\\n Description : A and B play cross court backhands and try not to make any mistakes. The coach shouts “GO” after at least 5 hits : the following hit is down the line. The rally goes on freely, and players try to win the point. The first player to reach 15 points wins."
+  },
+ {
+    "id" : 7,
+    "difficulty": ["medium", "advanced"],
+    "title": "Inside Out",
+    "type": ["forehand"],
+    "description": "Goal : Improve inside out forehand \\n\\n Description : Play 6 inside out forehands at full speed and at maximum intensity. Then have a small break (30s) and repeat the pattern at least 5 times. The footwork is the key here. If you feel physically well, you can increase the number of forehands in a row (e.g. 12)."
+  },
+ {
+    "id" : 8,
+    "difficulty": ["medium", "advanced"],
+    "title": "Return and volley",
+    "type": ["return", "volley"],
+    "description": "Goal : Improve return control, winning volley \\n\\n Description : The coach or the sparring partner serves at a moderated speed. The player returns aggressively by taking the ball early and comes up to the net, and finally tries to finish the point by a winning volley. Repeat the pattern as long as you need."
+  },
+ {
+    "id" : 9,
+    "difficulty": ["medium", "advanced"],
+    "title": "Longest rally",
+    "type": ["forehand"],
+    "description": "Goal : Improve footwork, regularity, and control. \\n\\n Description :  A and B play together and try to have the longest rally possible. A plays only forehands :  2 cross-courts and 1 down the line. On the other side B plays 2 cross court forehands and 1 down the line backhand. Then A and B repeat the pattern.  To make the exercise work, A must start the rally with the 1st cross court forehand. Note : If the ball is slightly out, the rally goes on. However, you should really avoid net balls!"
+  },
+   {
+    "id" : 10,
+    "difficulty": ["medium", "advanced"],
+    "title": "Deep return",
+    "type": ["service", "return"],
+    "description": "Goal : Improve service and return  \\n\\n Description :  This drill is like a single, but with bonus points. Players create a zone that is delimited by a line, which is drawn in the court, 1 meter from the baseline. If the return bounces in the zone, thus being long enough, the receiver earns 1 bonus point. And if the server makes an ace or winning service, the server earns 1 bonus point as well. The first player to reach 15 points wins the match. The server changes every 6 points."
   }
 ]
