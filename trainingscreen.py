@@ -13,6 +13,10 @@ class Tab(MDFloatLayout, MDTabsBase):
     """Class implementing content for a tab."""
 
 
+def open_url(url):
+    webbrowser.open(url)
+
+
 class TrainingScreen(MDScreen):
 
     def __init__(self, **kwargs):
@@ -22,23 +26,26 @@ class TrainingScreen(MDScreen):
         self.youtube_button = [None, None, None]
 
     def on_pre_enter(self, *args):
-        for widget in self.youtube_button:
+        index = 0
+        pages = [self.ids.drill1, self.ids.drill2, self.ids.drill3]
+        for widget in self.youtube_button:  # Remove youtube button, if there is one
             if widget is not None:
-                self.remove_widget(widget)
+                pages[index].remove_widget(widget)
+                self.youtube_button[index] = None
+            index += 1
         self.app.root.ids.my_toolbar.right_action_items = [["settings", lambda x:
                                                             self.app.root.ids.my_toolbar.show_dialog_confirmation()]]
         self.app.root.ids.my_toolbar.title = 'Training'
         self.ids.android_tabs.background_color = self.app.root.ids.my_toolbar.md_bg_color
         self.choose_drill()
         self.show_drill()
-        print(self.ids)
 
     def choose_drill(self):
         self.drill_manager = DrillManager()
         self.drill_manager.sort_drills(self.drill_manager.analysis_info['level'])
-        self.drill_manager.make_drill_schedule()
+        if self.drill_manager.analysis_info['level'] != 'beginner':
+            self.drill_manager.make_drill_schedule()
         self.drill_manager.pick_drill()
-        print(self.drill_manager.picked_drills)
 
     def show_drill(self):
         i = 0
@@ -49,17 +56,10 @@ class TrainingScreen(MDScreen):
                 floating_button = MDFloatingActionButton(pos_hint={'center_x': 0.8, 'center_y': 0.1},
                                                          icon='youtube')
                 floating_button.md_bg_color = self.app.theme_cls.primary_color
-                floating_button.bind(on_release=lambda x, link=self.drill_manager.picked_drills[i]['link']: self.open_url(link))
+                floating_button.bind(on_release=lambda x, link=self.drill_manager.picked_drills[i]['link']: open_url(link))
                 page.add_widget(floating_button)
                 self.youtube_button[i] = floating_button
             i += 1
 
-    def open_url(self, url):
-        webbrowser.open(url)
-
-    def on_tab_switch(
-        self, instance_tabs, instance_tab, instance_tab_label, tab_text
-    ):
+    def on_tab_switch(self, instance_tabs, instance_tab, instance_tab_label, tab_text):
         instance_tab.name = tab_text
-
-

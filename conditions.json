@@ -1,0 +1,78 @@
+[
+  {
+    "style": "net",
+    "service":
+    {
+      "general": [55, 70],
+      "first_serve_in": [25, 40],
+      "first_serve_won": [50, 65],
+      "second_serve_won": [30, 35]
+    },
+    "winner": {
+      "general": [7, 15]
+    },
+    "unforced_error": {
+      "general": [20, 15]
+    },
+    "return": {
+      "general": [60, 60]
+    }
+  },
+  {
+    "style": "all_court",
+    "service":
+    {
+      "general": [60, 75],
+      "first_serve_in": [30, 45],
+      "first_serve_won": [55, 70],
+      "second_serve_won": [35, 40]
+    },
+    "winner": {
+      "general": [7, 15]
+    },
+    "unforced_error": {
+      "general": [20, 15]
+    },
+    "return": {
+      "general": [65, 65]
+    }
+  },
+  {
+    "style": "baseliner",
+    "service":
+    {
+      "general": [55, 70],
+      "first_serve_in": [25, 40],
+      "first_serve_won": [50, 65],
+      "second_serve_won": [35, 40]
+    },
+    "winner": {
+      "general": [7, 15]
+    },
+    "unforced_error": {
+      "general": [20, 15]
+    },
+    "return": {
+      "general": [65, 65]
+    }
+  },
+  {
+    "style": "pusher",
+    "service":
+    {
+      "general": [55, 70],
+      "first_serve_in": [25, 40],
+      "first_serve_won": [50, 65],
+      "second_serve_won": [35, 40]
+    },
+    "winner": {
+      "general": [5, 7]
+    },
+    "unforced_error": {
+      "general": [10, 5]
+    },
+    "return": {
+      "general": [60, 60]
+    }
+  }
+]
