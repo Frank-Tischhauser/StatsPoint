@@ -28,6 +28,7 @@ class AnalysisScreen(MDScreen):
         super().__init__(**kwargs)
         self.app = MDApp.get_running_app()
         self.match_stats = None
+        self.player_info = None
         self.analysis_info = {
             'player': '',
             'level': '',
@@ -69,6 +70,13 @@ class AnalysisScreen(MDScreen):
 
     def check_enough_data(self):
         pl_stats = self.match_stats['{}_stats'.format(self.analysis_info['player'])]
+        compteur = 0
+        for i in self.match_stats['sets_winners']:
+            if i is not None:
+                compteur += 1
+        pl_stats['ended_sets'] = compteur
+        print(pl_stats)
+        self.player_info = pl_stats
         critical_stats = [pl_stats['backhand_unforced_errors'], pl_stats['forehand_unforced_errors'],
                           pl_stats['backhand_winners'], pl_stats['forehand_winners'], pl_stats['net_winners'],
                           pl_stats['net_unforced_errors']]

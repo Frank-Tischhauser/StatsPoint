@@ -21,8 +21,7 @@ class ResultScreen(MDScreen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.app = MDApp.get_running_app()
-        self.match_stats = None
-        self.analysis_info = None
+        self.player_info = None
         self.piechart1 = None
         self.piechart2 = None
         self.piechart3 = None
@@ -31,8 +30,7 @@ class ResultScreen(MDScreen):
         self.app.root.ids.my_toolbar.title = 'Diagrams'
         self.app.root.ids.my_toolbar.right_action_items = [["arrow-right",
                                                             lambda x: self.app.change_screen('training_screen')]]
-        self.match_stats = self.app.root.ids.analysis_screen.match_stats
-        self.analysis_info = self.app.root.ids.analysis_screen.analysis_info
+        self.player_info = self.app.root.ids.analysis_screen.player_info
 
         if platform == 'win':  # Unwanted on phone
             self.ids.diagram_layout.spacing = dp(60)
@@ -51,7 +49,7 @@ class ResultScreen(MDScreen):
         self.ids.charts3.add_widget(self.piechart3, 1)
 
     def get_piechart_stats(self):
-        player_stats = self.match_stats['{}_stats'.format(self.analysis_info['player'])]
+        player_stats = self.player_info
         backhand_winners = sum(player_stats['backhand_winners'])
         forehand_winners = sum(player_stats['forehand_winners'])
         net_winners = sum(player_stats['net_winners'])

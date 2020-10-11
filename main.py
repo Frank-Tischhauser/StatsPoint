@@ -8,7 +8,7 @@ He also gives additional information on every point. [x]
 Example : Bob wins the first point (Backhand winner)
 
 Then the app saves all the data [x] and shows interesting and useful statistics. [x]
-The app als helps the player by giving interesting advices depending on the results. []
+The app als helps the player by giving interesting advices depending on the results. [x]
 
 [x] : Done
 [] : To Do
