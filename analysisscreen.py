@@ -2,8 +2,6 @@ from kivymd.app import MDApp
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.behaviors import RectangularElevationBehavior
 from kivymd.uix.boxlayout import MDBoxLayout
-from kivymd.uix.button import MDFlatButton
-from kivymd.uix.dialog import MDDialog
 from kivymd.uix.snackbar import Snackbar
 import logging as log
 
@@ -75,7 +73,6 @@ class AnalysisScreen(MDScreen):
             if i is not None:
                 compteur += 1
         pl_stats['ended_sets'] = compteur
-        print(pl_stats)
         self.player_info = pl_stats
         critical_stats = [pl_stats['backhand_unforced_errors'], pl_stats['forehand_unforced_errors'],
                           pl_stats['backhand_winners'], pl_stats['forehand_winners'], pl_stats['net_winners'],
@@ -84,8 +81,9 @@ class AnalysisScreen(MDScreen):
         for stat in critical_stats:
             if sum(stat) == 0:
                 enough_data = False
-        if not enough_data:  # To avoid error with diagrams (later : will just skip the diagrams to the next screen)
-            Snackbar(text='Error! Not enough stats. Play more points!').show()
-
+        if self.player_info['ended_sets'] == 0:
+            Snackbar(text='You need to finish at least 1 set!').show()
+        elif not enough_data and self.player_info['ended_sets'] > 0:
+            self.app.change_screen('training_screen')
         else:
             self.app.change_screen('result_screen')
