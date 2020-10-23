@@ -16,7 +16,7 @@ def safe_div(num1, num2):
     return num1 / num2
 
 
-class ResultScreen(MDScreen):
+class DiagramScreen(MDScreen):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

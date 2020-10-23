@@ -41,6 +41,7 @@ class GameScreen(MDScreen):
         self.ids.pl2_btn.text = self.player2.get_name()
         self.update_scoreboard(self.winner, self.looser, self.match, False)
         self.app.root.ids.my_toolbar.title = 'Game'
+        # self.app.root.ids.my_toolbar.right_action_items = [["undo", lambda x: print('cool')]]
 
     def update_scoreboard(self, winner, opponent, match, score_change=True):
         """Updates the scoreboard each time a player wons a point"""
@@ -89,10 +90,12 @@ class GameScreen(MDScreen):
         """Shows a dialog box to ask which player serves first"""
         if not self.dialog:
             self.dialog = MDDialog(title='Who serves first?', size_hint=(0.7, 1), buttons=[
-                MDFlatButton(text=self.app.root.ids.input_screen.ids.entry1.text, text_color=self.app.theme_cls.primary_color,
+                MDFlatButton(text=self.app.root.ids.input_screen.ids.entry1.text,
+                             text_color=self.app.theme_cls.primary_color,
                              on_release=lambda x: self.server(
                                  self.player1, self.player2)),
-                MDFlatButton(text=self.app.root.ids.input_screen.ids.entry2.text, text_color=self.app.theme_cls.primary_color,
+                MDFlatButton(text=self.app.root.ids.input_screen.ids.entry2.text,
+                             text_color=self.app.theme_cls.primary_color,
                              on_release=lambda x: self.server(
                                  self.player2, self.player1))])
         self.dialog.open()
@@ -141,7 +144,7 @@ class GameScreen(MDScreen):
                             # Rewrite the json file, without the duplication
             self.app.change_screen('home_screen')
             self.cancel()
-            self.match.save_match()
+            self.match.save_match(match_end)
 
     def check_service_degree(self):
         if self.winner.name == self.match.server.name:
@@ -196,8 +199,9 @@ class GameScreen(MDScreen):
 
     def press_forced_error(self):
         self.detail_context = 'forced_error'
-        self.ids.detail2_box.ids.caption.text = "Which shot by {} caused the forced error?".format(self.winner.name)
-        self.ids.game_manager.current = 'game_details2'
+        # self.ids.detail2_box.ids.caption.text = "Which shot by {} caused the forced error?".format(self.winner.name)
+        self.update_scoreboard(self.winner, self.looser, self.match)
+        self.ids.game_manager.current = 'service'
 
     def press_winner(self):
         self.detail_context = 'winner'
@@ -231,4 +235,3 @@ class GameScreen(MDScreen):
             self.looser.stats['forehand_unforced_errors'][self.match.set_index] += 1
         elif self.detail_context == 'winner':
             self.winner.stats['forehand_winners'][self.match.set_index] += 1
-

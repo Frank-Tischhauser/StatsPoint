@@ -62,14 +62,15 @@ class SaveScreen(MDScreen):
                                                     on_release=lambda x: self.continue_game(data, full_list)),
                                      MDFlatButton(text='Stats / Analysis', text_color=self.app.theme_cls.primary_color,
                                                   on_release=lambda x: self.data_choice(data))])
-        self.save.open()
+        if not data['match_ended']:
+            self.save.open()
+        else:
+            self.data_choice(data)
 
     def data_choice(self, data):
         """Goes to the data_screen depending on the user's choice"""
         if self.save is not None:
-            self.app.root.ids.data_screen.show_scoreboard(data)
-            self.app.root.ids.data_screen.show_stats(data)
-            self.app.root.ids.data_screen.check_stat_winner()
+            self.app.root.ids.data_screen.data = data
             self.app.change_screen('data_screen')
             self.save.dismiss()
             self.save = None

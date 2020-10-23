@@ -40,7 +40,7 @@ from inputscreen import InputScreen
 from savescreen import SaveScreen
 from datascreen import DataScreen
 from analysisscreen import AnalysisScreen
-from resultscreen import ResultScreen
+from diagramscreen import DiagramScreen
 from trainingscreen import TrainingScreen
 
 

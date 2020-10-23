@@ -49,10 +49,6 @@ class Match:
         Is called at the start of a Tie-Break.
         Resets all the points_amount.
 
-    end_match(winner, opponent):
-        Is called at the end of a match.
-        Creates a dict with the data of the match. Returns write_json method.
-
     change_server():
         The server becomes the receiver, and the receiver becomes the server.
     """
@@ -177,7 +173,7 @@ class Match:
 
         self.points_games_counter(winner)
 
-    def save_match(self):
+    def save_match(self, match_ended):
         player1_name = self.player1.get_name()
         player2_name = self.player2.get_name()
         players = [self.player1, self.player2]
@@ -192,7 +188,8 @@ class Match:
                 "player2_stats": self.player2.stats,
                 "server": self.server.name,
                 "receiver": self.receiver.name,
-                "sets_winners": self.sets_winners
+                "sets_winners": self.sets_winners,
+                "match_ended": match_ended,
                 }
         with open('data.json', 'r') as file:
             existant_data = json.load(file)

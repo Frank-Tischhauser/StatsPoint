@@ -35,7 +35,7 @@ class AnalysisScreen(MDScreen):
         self.warning = None
 
     def on_pre_enter(self, *args):
-        self.match_stats = self.app.root.ids.data_screen.match_stats
+        self.match_stats = self.app.root.ids.data_screen.data
         self.app.root.ids.my_toolbar.right_action_items = [["arrow-left",
                                                             lambda x: self.app.change_screen('data_screen', 'right')]]
         self.app.root.ids.my_toolbar.title = 'Questions'
@@ -86,4 +86,4 @@ class AnalysisScreen(MDScreen):
         elif not enough_data and self.player_info['ended_sets'] > 0:
             self.app.change_screen('training_screen')
         else:
-            self.app.change_screen('result_screen')
+            self.app.change_screen('diagram_screen')

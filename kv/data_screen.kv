@@ -53,7 +53,7 @@
 
 <DataScreen>:
     on_pre_enter: bottom_navigation._refresh_tabs()
-    on_pre_enter: set1_scroll.scroll_y = 1 ; set2_scroll.scroll_y = 1 ; set3_scroll.scroll_y = 1
+    on_pre_enter: set1_scroll.scroll_y = 1 ; set2_scroll.scroll_y = 1 ; set3_scroll.scroll_y = 1 ; total_scroll.scroll_y = 1
     on_pre_enter: bottom_navigation.switch_tab('set1')
     MDBoxLayout:
         orientation: 'vertical'
@@ -118,6 +118,24 @@
                     pos_hint: {'top': 1}
                 RecycleView:
                     id: set3_scroll
+                    pos_hint: {"top": 1, "left": 1}
+                    size_hint: 1, 1
+                    canvas.before:
+                        Color:
+                            rgba: 1, 1, 1, 1
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+            MDBottomNavigationItem:
+                name: 'total'
+                text: 'Match'
+                icon: 'tennis'
+                on_pre_enter: total_scroll.scroll_y = 1
+                MDSeparator:
+                    height: '1dp'
+                    pos_hint: {'top': 1}
+                RecycleView:
+                    id: total_scroll
                     pos_hint: {"top": 1, "left": 1}
                     size_hint: 1, 1
                     canvas.before:
