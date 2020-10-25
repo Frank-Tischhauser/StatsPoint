@@ -1,17 +1,14 @@
 """
-Tennis tracker app.
+StatsPoint.
 
 This module helps tennis players to improve their game by saving the data of their games.
-The user / spectator enters the result of every point until the end of the match. [x]
-He also gives additional information on every point. [x]
+The user / spectator enters the result of every point until the end of the match.
+He also gives additional information on every point.
 
 Example : Bob wins the first point (Backhand winner)
 
-Then the app saves all the data [x] and shows interesting and useful statistics. [x]
-The app als helps the player by giving interesting advices depending on the results. [x]
-
-[x] : Done
-[] : To Do
+Then the app saves all the data and shows interesting and useful statistics.
+The app also helps the player by giving interesting drills depending on the results.
 
 Author : Frank Tischhauser
 """
@@ -94,7 +91,7 @@ class StatsPointApp(MDApp):
         Switches from one screen to another.
 
     """
-    icon = 'logo.png'
+    icon = 'windows_logo.png'
 
     def build(self):
         """
