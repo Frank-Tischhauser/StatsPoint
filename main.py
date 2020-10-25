@@ -63,7 +63,7 @@ class HomeScreen(MDScreen):
 
     def on_pre_enter(self, *args):
         if self.condition:  # Makes sure it doesn't happen the first time
-            self.app.root.ids.my_toolbar.right_action_items = [["settings", lambda x:
+            self.app.root.ids.my_toolbar.right_action_items = [["cog", lambda x:
                                                                 self.app.root.ids.my_toolbar.show_dialog_confirmation()]]
         else:
             self.condition = True

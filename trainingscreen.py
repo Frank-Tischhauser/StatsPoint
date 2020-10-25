@@ -33,7 +33,7 @@ class TrainingScreen(MDScreen):
                 pages[index].remove_widget(widget)
                 self.youtube_button[index] = None
             index += 1
-        self.app.root.ids.my_toolbar.right_action_items = [["settings", lambda x:
+        self.app.root.ids.my_toolbar.right_action_items = [["cog", lambda x:
                                                             self.app.root.ids.my_toolbar.show_dialog_confirmation()]]
         self.app.root.ids.my_toolbar.title = 'Training'
         self.ids.android_tabs.background_color = self.app.root.ids.my_toolbar.md_bg_color

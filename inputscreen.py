@@ -12,7 +12,7 @@ class InputScreen(MDScreen):
 
     def on_pre_enter(self, *args):
         self.app.root.ids.my_toolbar.title = 'Create a game'
-        self.app.root.ids.my_toolbar.right_action_items = [["settings",
+        self.app.root.ids.my_toolbar.right_action_items = [["cog",
                                                             lambda x: self.app.root.ids.my_toolbar.show_dialog_confirmation()]]
 
     def create_match(self):

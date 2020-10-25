@@ -23,9 +23,9 @@ NavigationLayout:
                     id: my_toolbar
                     title: "Homepage"
                     elevation: 0
-                    left_action_items: [['menu', lambda x: nav_drawer.set_state()]]
-                    right_action_items: [["settings", lambda x: self.show_dialog_confirmation()]]
-                    action_icon_color: 1, 1 ,1, 1
+                    left_action_items: [["menu", lambda x: nav_drawer.set_state()]]
+                    right_action_items: [["cog", lambda x: self.show_dialog_confirmation()]]
+                    #  action_icon_color: 1, 1 ,1, 1
                     specific_text_color: 1, 1, 1, 1
                     md_bg_color: 0.91, 0.46, 0.07, 1
                 ScreenManager:
