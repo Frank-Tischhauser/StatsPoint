@@ -1,11 +1,71 @@
+"""
+DrillManger
+
+Finds 3 drills depending on a player's stats.
+Using a sorting algorithm that is based on a player's :
+Level, Style and result.
+"""
+
+
 from kivymd.app import MDApp
+
 import json
 import itertools
 import random
 
 
 class DrillManager:
+    """
+    Class which manages all the drill sorting algorithm.
+    ...
+    Attributes
+    ----------
+    app : object
+        Instance of the class StatsPointApp.
 
+    analysis_info : dict
+        Contains all the information about the chosen player in order to provide a good analysis.
+
+    drills : list
+        Contains the list of all available drills with all their information.
+
+    conditions : list
+        Contains all the limit conditions / rates that tell if a game part is a weakness of the player or not.
+
+    player_info: dict
+        All the stats of the player.
+
+    avg_stats: dict
+        The average of a player's stats for all completed sets.
+
+    sorted_drills: list
+        The list of all drills that corresponds to a player's level.
+
+    picked_drills: list
+        All the drills that are picked by the sorting module.
+
+    drill_schedule: dict
+        Contains all the weaknesses of a player found by the module.
+
+    Methods
+    -------
+    sort_drills(level):
+        Sort drills depending on the player's level.
+
+    get_average_stats():
+        Get the value of the avg_stats attribute.
+
+    make_drill_schedule():
+        Get the value of the drill_schedule attribute using the conditions attribute.
+
+    pick_drill():
+        Picks 3 drills depending on the statistics of a player.
+
+
+
+    make_piechart():
+        Creates the piechart.
+    """
     def __init__(self):
 
         with open('drills.json', 'r', encoding='utf-8') as drills_file:
@@ -23,11 +83,13 @@ class DrillManager:
         self.drill_schedule = {}
 
     def sort_drills(self, level):
-        for drill in self.drills:  # Sort depending on the level
+        """Sort drills depending on the player's level"""
+        for drill in self.drills:
             if level in drill["difficulty"]:
                 self.sorted_drills.append(drill)
 
     def get_average_stats(self):
+        """Get the value of the avg_stats attribute"""
         sorting_stats = {}
         for key, value in self.player_info.items():
             result = 0
@@ -48,6 +110,7 @@ class DrillManager:
         return sorting_stats
 
     def make_drill_schedule(self):
+        """Get the value of the drill_schedule attribute using the conditions attribute"""
         parameters = {}
         for condition in self.conditions:
             if condition['style'] == self.analysis_info['style']:
@@ -104,6 +167,7 @@ class DrillManager:
             self.drill_schedule['unforced_error'] = unforced_errors_order
 
     def pick_drill(self):
+        """Picks 3 drills depending on the statistics of a player"""
         if self.analysis_info['level'] == 'beginner':
             self.picked_drills = self.sorted_drills.copy()
         else:
@@ -128,7 +192,7 @@ class DrillManager:
                 compteur += 1
 
             while len(self.picked_drills) < 3:  # Backup if not enough drill chosen
-                drill = self.sorted_drills[random.randint(0, len(self.sorted_drills))]
+                drill = self.sorted_drills[random.randint(0, len(self.sorted_drills) - 1)]
                 if drill not in self.picked_drills:
                     self.picked_drills.append(drill)
 
