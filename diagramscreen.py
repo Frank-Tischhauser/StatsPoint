@@ -30,7 +30,7 @@ class DiagramScreen(MDScreen):
         self.app.root.ids.my_toolbar.title = 'Diagrams'
         self.app.root.ids.my_toolbar.right_action_items = [["arrow-right",
                                                             lambda x: self.app.change_screen('training_screen')]]
-        self.player_info = self.app.root.ids.analysis_screen.player_info
+        self.player_info = self.app.root.ids.form_screen.player_info
 
         if platform == 'win':  # Unwanted on phone
             self.ids.diagram_layout.spacing = dp(60)

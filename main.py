@@ -36,7 +36,7 @@ from mytoolbar import MyToolbar
 from inputscreen import InputScreen
 from savescreen import SaveScreen
 from datascreen import DataScreen
-from analysisscreen import AnalysisScreen
+from formscreen import FormScreen
 from diagramscreen import DiagramScreen
 from trainingscreen import TrainingScreen
 

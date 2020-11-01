@@ -15,8 +15,8 @@ class DrillManager:
             self.conditions = json.load(conditions_file)
 
         self.app = MDApp.get_running_app()
-        self.player_info = self.app.root.ids.analysis_screen.player_info
-        self.analysis_info = self.app.root.ids.analysis_screen.analysis_info
+        self.player_info = self.app.root.ids.form_screen.player_info
+        self.analysis_info = self.app.root.ids.form_screen.analysis_info
         self.avg_stats = self.get_average_stats()
         self.sorted_drills = []
         self.picked_drills = []

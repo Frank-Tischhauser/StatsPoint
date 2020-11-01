@@ -10,7 +10,7 @@ class WhiteBox(RectangularElevationBehavior, MDBoxLayout):
     pass
 
 
-class AnalysisScreen(MDScreen):
+class FormScreen(MDScreen):
 
     ids_names = {'check_player1': 'player1',
                  'check_player2': 'player2',

@@ -201,5 +201,5 @@ class DataScreen(MDScreen):
         self.confirmation_dialog.open()
 
     def go_to_analysis(self):
-        self.app.change_screen('analysis_screen')
+        self.app.change_screen('form_screen')
         self.confirmation_dialog.dismiss()
