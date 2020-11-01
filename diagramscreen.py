@@ -1,4 +1,10 @@
-import logging as log
+"""
+DiagramScreen
+
+This module contains the DiagramScreen class.
+It creates and displays nice and clean diagrams with a player's statistics.
+"""
+
 from math import ceil
 import random
 from kivymd.app import MDApp
@@ -17,16 +23,39 @@ def safe_div(num1, num2):
 
 
 class DiagramScreen(MDScreen):
+    """
+    Screen which contains 3 diagrams about the player's match.
+    ...
+    Attributes
+    ----------
+    app : object
+        Instance of the class StatsPointApp.
 
+    player_info : dict
+        Contains all the information about the chosen player in order to provide a good analysis.
+
+    piecharts : list
+        Contains all the piechart widgets (UI).
+
+    Methods
+    -------
+    on_pre_enter():
+        Is called just before the user sees the screen.
+
+    get_piechart_stats():
+        Get all the stats necessary for the 3 piecharts.
+
+    make_piechart():
+        Creates the piechart.
+    """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.app = MDApp.get_running_app()
         self.player_info = None
-        self.piechart1 = None
-        self.piechart2 = None
-        self.piechart3 = None
+        self.piecharts = [0, 0, 0]
 
     def on_pre_enter(self, *args):
+        """Is called just before the user sees the screen."""
         self.app.root.ids.my_toolbar.title = 'Diagrams'
         self.app.root.ids.my_toolbar.right_action_items = [["arrow-right",
                                                             lambda x: self.app.change_screen('training_screen')]]
@@ -35,20 +64,20 @@ class DiagramScreen(MDScreen):
         if platform == 'win':  # Unwanted on phone
             self.ids.diagram_layout.spacing = dp(60)
 
-        if self.piechart1 is not None:  # Resets all piecharts
-            self.ids.charts1.remove_widget(self.piechart1)
-            self.ids.charts2.remove_widget(self.piechart2)
-            self.ids.charts3.remove_widget(self.piechart3)
+        if self.piecharts[0] != 0:  # Resets all piecharts
+            self.ids.charts1.remove_widget(self.piecharts[0])
+            self.ids.charts2.remove_widget(self.piecharts[1])
+            self.ids.charts3.remove_widget(self.piecharts[2])
 
         items = self.get_piechart_stats()
-        self.piechart1 = self.make_piechart(items[0])
-        self.piechart2 = self.make_piechart(items[1])
-        self.piechart3 = self.make_piechart(items[2])
-        self.ids.charts1.add_widget(self.piechart1, 1)
-        self.ids.charts2.add_widget(self.piechart2, 1)
-        self.ids.charts3.add_widget(self.piechart3, 1)
+        for i in range(3):
+            self.piecharts[i] = self.make_piechart(items[i])
+        self.ids.charts1.add_widget(self.piecharts[0], 1)
+        self.ids.charts2.add_widget(self.piecharts[1], 1)
+        self.ids.charts3.add_widget(self.piecharts[2], 1)
 
     def get_piechart_stats(self):
+        """"Get all the stats necessary for the 3 piecharts"""
         player_stats = self.player_info
         backhand_winners = sum(player_stats['backhand_winners'])
         forehand_winners = sum(player_stats['forehand_winners'])
@@ -81,6 +110,7 @@ class DiagramScreen(MDScreen):
         return [item1, item2, item3]
 
     def make_piechart(self, items):
+        """Creates the piechart"""
         piechart = AKPieChart(
             items=items, pos_hint={'center_x': 0.5, 'center_y': .5},
             size_hint=[None, None],

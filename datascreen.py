@@ -74,7 +74,14 @@ class DataLine(MDBoxLayout, RectangularElevationBehavior):
 
 
 class LeaderBoard(MDGridLayout):
-    """Table which contains DataLines"""
+    """
+    Table which contains DataLines
+    ...
+    Methods
+    -------
+    add_rows(rows_number)
+        Adds the rows that will include all the stats.
+    """
 
     def add_rows(self, rows_number=18):
         """Add the rows that will include all the stats"""
@@ -87,24 +94,69 @@ class LeaderBoard(MDGridLayout):
 
 
 class DataScreen(MDScreen):
-    """Shows the data of a match"""
+    """
+    Shows the data of a match
+    ...
+    Attributes
+    ----------
+    app : object
+        Instance of the class StatsPointApp.
+
+    stats_widgets : list
+        Contains the four widgets which display the stats.
+
+    data : dict
+        Contains the data of the whole match.
+
+    stats_display : object
+        Instance of the class StatsDisplay.
+
+    confirmation_dialog : object
+        Instance of MDDialog class. It is a UI widget.
+
+    Methods
+    -------
+    on_pre_enter():
+        Is called just before the user sees the screen.
+
+    start():
+        Is called only once, at the start of the application to initialize widgets.
+
+    show_scoreboard():
+        Shows a scoreboard displaying the result of the tennis match.
+
+    change_square_design(player_name, line_score, data):
+        Changes the square design if a player wins a set.
+
+    show_stats():
+        Shows all statistics of a tennis match.
+
+    check_stat_winner():
+        Highlights the best statistic between both players.
+
+    reset_square_design(square):
+        Resets the design of a square.
+
+    show_confirmation_dialog():
+        Shows the confirmation dialog (MDDialog class).
+
+    go_to_form():
+        Switches to the form screen and dismisses the dialog box.
+
+    """
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.app = MDApp.get_running_app()
-        self.set1_stats = LeaderBoard()
-        self.set1_stats.add_rows()
-        self.set2_stats = LeaderBoard()
-        self.set2_stats.add_rows()
-        self.set3_stats = LeaderBoard()
-        self.set3_stats.add_rows()
-        self.total_stats = LeaderBoard()
-        self.total_stats.add_rows()
-        self.stats_display = None
+        self.stats_widgets = [LeaderBoard(), LeaderBoard(), LeaderBoard(), LeaderBoard()]
+        for widget in self.stats_widgets:
+            widget.add_rows()
         self.data = None
+        self.stats_display = None
         self.confirmation_dialog = None
 
     def on_pre_enter(self, *args):
+        """Is called just before the user sees the screen"""
         self.app.root.ids.my_toolbar.right_action_items = [["magnify", lambda x: self.show_confirmation_dialog()]]
         self.confirmation_dialog = None
         self.app.root.ids.my_toolbar.title = 'Statistics'
@@ -113,10 +165,11 @@ class DataScreen(MDScreen):
         self.check_stat_winner()
 
     def start(self):
-        self.ids.set1_scroll.add_widget(self.set1_stats)
-        self.ids.set2_scroll.add_widget(self.set2_stats)
-        self.ids.set3_scroll.add_widget(self.set3_stats)
-        self.ids.total_scroll.add_widget(self.total_stats)
+        """Is called only once, at the start of the application to initialize widgets"""
+        self.ids.set1_scroll.add_widget(self.stats_widgets[0])
+        self.ids.set2_scroll.add_widget(self.stats_widgets[1])
+        self.ids.set3_scroll.add_widget(self.stats_widgets[2])
+        self.ids.total_scroll.add_widget(self.stats_widgets[3])
 
     def show_scoreboard(self):
         """Shows a scoreboard with the result of the tennis match"""
@@ -145,23 +198,23 @@ class DataScreen(MDScreen):
     def show_stats(self):
         """Shows all statistics of a tennis match"""
         players = ['player1', 'player2']
-        leaderboard = [self.set1_stats, self.set2_stats, self.set3_stats]
+        leaderboard = self.stats_widgets.copy()
+        leaderboard.pop(-1)
         self.stats_display = StatsDisplay(self.data)
         for manche in range(3):
             self.stats_display.write_captions(leaderboard[manche])
             for player in players:
                 stats = self.stats_display.get_stats_sets(manche, player)
                 self.stats_display.display_stats(stats, leaderboard[manche], player)
-        self.stats_display.write_captions(self.total_stats)
+        self.stats_display.write_captions(self.stats_widgets[3])
         for player in players:
             stats = self.stats_display.get_match_stats(player)
-            self.stats_display.display_stats(stats, self.total_stats, player)
+            self.stats_display.display_stats(stats, self.stats_widgets[3], player)
 
     def check_stat_winner(self):
         """Highlights the best statistic between both players"""
 
-        sets = [self.set1_stats, self.set2_stats, self.set3_stats, self.total_stats]
-        for manche in sets:
+        for manche in self.stats_widgets:
             for row in manche.children:
                 cols = [row.ids.col1, row.ids.col3]
                 winner_col, looser_col = number_comparison(cols[0], cols[1], row.highlight)
@@ -187,19 +240,21 @@ class DataScreen(MDScreen):
         square.elevation = 0
 
     def show_confirmation_dialog(self):
+        """Shows the confirmation dialog (MDDialog class)"""
         if not self.confirmation_dialog:
             self.confirmation_dialog = MDDialog(title='Do you want to check the analysis (experimental)?',
                                                 size_hint=(0.7, 1),
                                                 buttons=[
                                                     MDRaisedButton(text='Yes',
                                                                    text_color=self.app.theme_cls.primary_color,
-                                                                   on_release=lambda x: self.go_to_analysis()),
+                                                                   on_release=lambda x: self.go_to_form()),
                                                     MDFlatButton(text='No cancel',
                                                                  text_color=self.app.theme_cls.primary_color,
                                                                  on_release=lambda
                                                                      x: self.confirmation_dialog.dismiss())])
         self.confirmation_dialog.open()
 
-    def go_to_analysis(self):
+    def go_to_form(self):
+        """Switches to the form screen and dismisses the dialog box"""
         self.app.change_screen('form_screen')
         self.confirmation_dialog.dismiss()
