@@ -242,7 +242,7 @@ class DataScreen(MDScreen):
     def show_confirmation_dialog(self):
         """Shows the confirmation dialog (MDDialog class)"""
         if not self.confirmation_dialog:
-            self.confirmation_dialog = MDDialog(title='Do you want to check the analysis (experimental)?',
+            self.confirmation_dialog = MDDialog(title='Do you want to get more details about your performance?',
                                                 size_hint=(0.7, 1),
                                                 buttons=[
                                                     MDRaisedButton(text='Yes',

@@ -60,11 +60,6 @@ class DrillManager:
 
     pick_drill():
         Picks 3 drills depending on the statistics of a player.
-
-
-
-    make_piechart():
-        Creates the piechart.
     """
     def __init__(self):
 

@@ -1,3 +1,10 @@
+"""
+GameScreen
+
+Module that manges the scoreboard system and the input of the information for every point.
+"""
+
+
 import logging as log
 import json
 from kivymd.uix.screen import MDScreen
@@ -10,21 +17,118 @@ from kivy.properties import StringProperty
 
 
 class ScoreLine(MDBoxLayout, RectangularElevationBehavior):
+    """Box containing the score with a shadow effect"""
     pass
 
 
 class Square(MDBoxLayout, RectangularElevationBehavior):
+    """Square set in the kv file, contains numbers / stats"""
     pass
 
 
 class Box(MDBoxLayout, RectangularElevationBehavior):
+    """White box with shadow effect"""
     pass
 
 
 class GameScreen(MDScreen):
-    """Contains all the buttons that are used by the user during a match"""
+    """
+    Contains all the buttons that are used by the user during a match
+    ...
+    Attributes
+    ----------
+    app : object
+        Instance of the class StatsPointApp.
+        
+    winner : object
+        Instance of the class Player. The player who won the point.
+        
+    looser : object
+        Instance of the class Player. The player who lost the point.
+    
+    dialog : object
+        Instance of MDDialog class. It is a UI widget.    
+        
+    confirmation_save_match : object
+        Instance of MDDialog class. It is a UI widget.
+
+    Methods
+    -------
+    on_pre_enter():
+        Is called just before the user sees the screen.
+
+    update_scoreboard(winner, opponent, match, score_change=True):
+        Updates the scoreboard each time a player wins a point.
+    
+    square_design(player, line_score):
+        Change the design of the square object when a player wins a set.
+    
+    check_server(match):
+        Hide or show the tennis-ball icon depending on which player serves.
+    
+    set_winner(winner, looser):
+        Sets which player wins the point.
+    
+    show_dialog_server():
+        Shows a dialog box to ask which player serves first.
+    
+    server(server, receiver):
+        Sets which player serves or receives, depending on user's choice.
+    
+    show_dialog_save_match_confirmation():
+        Shows a dialog box to ask if the player wants to save the match.
+    
+    cancel():
+        Cancels the confirmation_save_match dialog.
+    
+    leave_match(match_end=False):
+        Leaves and saves the match.
+    
+    check_service_degree():
+        Checks if it's a first or second serve.
+    
+    press_ace():
+        Called at each ace.
+
+    press_rally():
+        Called each time there is a rally.
+
+    press_fault():
+        Called each time there is a fault in the service.
+
+    press_save():
+        Called each time the user wants to save the match.
+
+    press_player(winner_pl, looser_pl):
+        Called when the user chose the winner of the point.
+
+    press_unforced_error():
+        Called when there is an unforced error.
+
+    press_forced_error():
+        Called when there is a forced error.
+
+    press_winner():
+        Called when there is a winner.
+
+    press_volley():
+        Called if the last shot was a volley.
+
+    press_backhand():
+        Called if the last shot was a backhand.
+
+    press_forehand():
+        Called if the last shot was a forehand.
+    """
 
     detail_context = StringProperty('')
+    """
+    Detail about how a point ended.
+    Can be "unforced_error", "forced_error" or "winner".
+
+    :attr:`detail_context` is a :class:`~kivy.properties.StringProperty`
+    and defaults to `''`.
+    """
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -44,7 +148,7 @@ class GameScreen(MDScreen):
         # self.app.root.ids.my_toolbar.right_action_items = [["undo", lambda x: print('cool')]]
 
     def update_scoreboard(self, winner, opponent, match, score_change=True):
-        """Updates the scoreboard each time a player wons a point"""
+        """Updates the scoreboard each time a player wins a point"""
         if score_change:
             match.points_win(winner, opponent)
         players = [match.player1, match.player2]
@@ -126,11 +230,13 @@ class GameScreen(MDScreen):
         self.confirmation_save_match.open()
 
     def cancel(self):
+        """Cancels the confirmation_save_match dialog"""
         if self.confirmation_save_match is not None:
             self.confirmation_save_match.dismiss()
             self.confirmation_save_match = None
 
     def leave_match(self, match_end=False):
+        """Leaves and saves the match"""
         if self.confirmation_save_match is not None or match_end:
             full_list = self.app.root.ids.save_screen.full_list  # Full json file (list format)
             to_remove_dict = self.app.root.ids.save_screen.picked_game_data
@@ -147,6 +253,7 @@ class GameScreen(MDScreen):
             self.match.save_match(match_end)
 
     def check_service_degree(self):
+        """Checks if it's a first or second serve"""
         if self.winner.name == self.match.server.name:
             if self.ids.fault.text == 'Fault':
                 self.match.server.service_stats['first_service_won'][self.match.set_index] += 1
@@ -155,6 +262,7 @@ class GameScreen(MDScreen):
         log.info('First Service Won {}'.format(self.match.server.service_stats['first_service_won']))
 
     def press_ace(self):
+        """Called at each ace"""
         self.set_winner(self.match.server, self.match.receiver)
         self.check_service_degree()
         self.match.receiver.stats['return_points_played'][self.match.set_index] -= 1
@@ -163,10 +271,11 @@ class GameScreen(MDScreen):
         log.info('yes' + str(self.match.server.total_points))
 
     def press_rally(self):
+        """Called each time there is a rally"""
         self.ids.game_manager.current = 'on_court'
 
     def press_fault(self):
-
+        """Called each time there is a fault in the service"""
         if self.ids.fault.text == "Fault":
             self.ids.fault.text = 'Double Fault'
             self.match.server.service_stats['second_service'][self.match.set_index] += 1
@@ -181,9 +290,11 @@ class GameScreen(MDScreen):
             self.update_scoreboard(self.match.receiver, self.match.server, self.match)
 
     def press_save(self):
+        """Called when the user wants to save the match"""
         self.show_dialog_save_match_confirmation()
 
     def press_player(self, winner_pl, looser_pl):
+        """Called when the user chose the winner of the point"""
         self.set_winner(winner_pl, looser_pl)
         self.check_service_degree()
         if self.match.receiver.name == self.winner.name:
@@ -192,24 +303,28 @@ class GameScreen(MDScreen):
         self.ids.game_manager.current = 'game_details1'
 
     def press_unforced_error(self):
+        """Called when there is an unforced error"""
         self.detail_context = 'unforced_error'
         self.ids.detail2_box.ids.caption.text = "{}'s unforced error was a ...".format(self.looser.get_name())
         self.looser.stats['unforced_errors'][self.match.set_index] += 1
         self.ids.game_manager.current = 'game_details2'
 
     def press_forced_error(self):
+        """Called when there is a forced error"""
         self.detail_context = 'forced_error'
         # self.ids.detail2_box.ids.caption.text = "Which shot by {} caused the forced error?".format(self.winner.name)
         self.update_scoreboard(self.winner, self.looser, self.match)
         self.ids.game_manager.current = 'service'
 
     def press_winner(self):
+        """Called when there is a winner"""
         self.detail_context = 'winner'
         self.ids.detail2_box.ids.caption.text = "{}'s winner was a ...".format(self.winner.get_name())
         self.ids.game_manager.current = 'game_details2'
         self.winner.stats['winners'][self.match.set_index] += 1
 
     def press_volley(self):
+        """Called if the last shot was a volley"""
         if self.detail_context == 'forced_error':
             self.winner.stats['net_points'][self.match.set_index] += 1
         elif self.detail_context == 'winner':
@@ -221,6 +336,7 @@ class GameScreen(MDScreen):
         self.ids.game_manager.current = 'service'
 
     def press_backhand(self):
+        """Called if the last shot was a backhand"""
         self.update_scoreboard(self.winner, self.looser, self.match)
         self.ids.game_manager.current = 'service'
         if self.detail_context == 'unforced_error':
@@ -229,6 +345,7 @@ class GameScreen(MDScreen):
             self.winner.stats['backhand_winners'][self.match.set_index] += 1
 
     def press_forehand(self):
+        """Called if the last shot was a forehand"""
         self.update_scoreboard(self.winner, self.looser, self.match)
         self.ids.game_manager.current = 'service'
         if self.detail_context == 'unforced_error':
