@@ -1,3 +1,9 @@
+"""
+Match
+
+Module that manages the scoring and saving of a tennis match.
+"""
+
 import json
 import logging as log
 
@@ -25,6 +31,15 @@ class Match:
     receiver : object
         Instance of the class Player. It is the player who receives.
 
+    app : object
+        Instance of the class StatsPointApp.
+
+    set_index : int
+        Number of played sets.
+
+    sets_winners : list
+        Winner of each set.
+
     Methods
     -------
     points_games_counter(winner):
@@ -49,6 +64,16 @@ class Match:
         Is called at the start of a Tie-Break.
         Resets all the points_amount.
 
+    save_match(match_ended):
+        Is called when the game stops.
+        Saves the game in a JSON file.
+
+    ace_played():
+        Called when a player serves an ace.
+
+    check_break_point(winner, opponent):
+        Checks if it's a break point, if yes +1 in the statistics.
+
     change_server():
         The server becomes the receiver, and the receiver becomes the server.
     """
@@ -67,6 +92,12 @@ class Match:
             Instance of the class Player. It is the player 2 of the match.
         match_name : str
             Name of the match.
+        server : object
+            Instance of the class Player. The player who is serving.
+        receiver : object
+            Instance of the class Player. The player who is returning.
+        sets_winners : list
+            Winner of each set.
         """
         if server is None:
             server = player1
@@ -93,6 +124,7 @@ class Match:
         log.info('Résumé des jeux gagnés dans le match {}'.format(winner.get_total_games_amount()))
 
     def get_match_name(self):
+        """Gets the name of the match"""
         return self.match_name
 
     def points_win(self, winner, opponent):
@@ -124,6 +156,8 @@ class Match:
         self.points_games_counter(winner)
 
     def games_win(self, winner, opponent):
+        """Is called each time a player wins a game.
+        Returns the appropriate method depending on the scoreboard."""
         if self.server == opponent:  # Counts the number of return games won
             winner.stats['return_game_won'][self.set_index] += 1
         if winner.games_amount == 5 and opponent.games_amount < 5:
@@ -147,6 +181,10 @@ class Match:
         self.points_games_counter(winner)
 
     def sets_win(self, winner, opponent):
+        """
+        Is called each time a player wins a set.
+        Returns the appropriate method depending on the scoreboard.
+        """
         self.points_games_counter(winner)
         self.change_server()
         index = Match.sets.index(winner.sets_amount)
@@ -161,6 +199,8 @@ class Match:
             self.app.root.ids.game_screen.leave_match(True)  # Forces the end of the match
 
     def tie_break(self, winner, opponent):
+        """Is called at the start of a Tie-Break.
+        Resets all the points_amount."""
         winner.points_amount += 1
 
         if winner.points_amount < 7 or abs(winner.points_amount - opponent.points_amount) < 2:
@@ -174,6 +214,8 @@ class Match:
         self.points_games_counter(winner)
 
     def save_match(self, match_ended):
+        """Is called when the game stops.
+        Saves the game in a JSON file."""
         player1_name = self.player1.get_name()
         player2_name = self.player2.get_name()
         players = [self.player1, self.player2]
@@ -198,6 +240,7 @@ class Match:
             json.dump(existant_data, js, indent=4, sort_keys=True)
 
     def change_server(self):
+        """The server becomes the receiver, and the receiver becomes the server"""
         if self.server == self.player1:
             self.server = self.player2
             self.receiver = self.player1
@@ -207,6 +250,7 @@ class Match:
         log.info('Le serveur est ' + self.server.get_name())
 
     def ace_played(self):
+        """Called when a player serves an ace"""
         log.info(self.server.name)
         self.server.service_stats['ace'][self.set_index] += 1
 

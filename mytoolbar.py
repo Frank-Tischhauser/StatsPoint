@@ -1,3 +1,9 @@
+"""
+MyToolbar
+
+Represents a KivyMD toolbar.
+"""
+
 from kivymd.app import MDApp
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.dialog import MDDialog
@@ -5,7 +11,25 @@ from kivymd.uix.toolbar import MDToolbar
 
 
 class MyToolbar(MDToolbar):
+    """
+    Represents KivyMD Toolbar.
+    ...
+    Attributes
+    ----------
+    app : object
+        Instance of the class StatsPointApp.
 
+    confirmation : object
+        Instance of the class MDDialog.
+
+    Methods
+    -------
+    show_dialog_confirmation():
+        Shows a dialog box to confirm the user's choice.
+
+    dismiss_confirmation():
+        Dismisses confirmation dialog box.
+    """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.app = MDApp.get_running_app()
@@ -24,4 +48,5 @@ class MyToolbar(MDToolbar):
         self.confirmation.open()
 
     def dismiss_confirmation(self):
+        """Dismisses confirmation dialog box"""
         self.confirmation.dismiss()

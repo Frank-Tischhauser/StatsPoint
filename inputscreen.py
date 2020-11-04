@@ -1,3 +1,9 @@
+"""
+InputScreen
+
+Module that manages the creation of a match / game.
+"""
+
 from kivymd.app import MDApp
 from kivymd.uix.screen import MDScreen
 from player import Player
@@ -5,12 +11,31 @@ from match import Match
 
 
 class InputScreen(MDScreen):
-    """The user gives all the information for the creation of a match"""
+    """
+    The user gives all the information for the creation of a match
+    ...
+    Attributes
+    ----------
+    app : object
+        Instance of the class StatsPointApp.
+
+    Methods
+    -------
+    on_pre_enter():
+        Is called just before the user sees the screen.
+
+    create_match():
+        Creates a match when button pressed.
+
+    check_text():
+        Checks if the text written respects the all the conditions.
+    """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.app = MDApp.get_running_app()
 
     def on_pre_enter(self, *args):
+        """Is called just before the user sees the screen"""
         self.app.root.ids.my_toolbar.title = 'Create a game'
         self.app.root.ids.my_toolbar.right_action_items = [["cog",
                                                             lambda x: self.app.root.ids.my_toolbar.show_dialog_confirmation()]]

@@ -53,28 +53,58 @@ class NavDrawer(MDNavigationDrawer):
 
 
 class HomeScreen(MDScreen):
+    """
+    Homepage screen.
+
+    ...
+    Attributes
+    ----------
+    app : object
+        Instance of the class StatsPointApp.
+
+    condition : bool
+        Condition to avoid the calling of some functions during app launch (could cause crash).
+
+    Methods
+    -------
+    on_pre_enter():
+        Is called just before the user sees the screen.
+    """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.app = StatsPointApp.get_running_app()
         self.condition = False
 
     def on_pre_enter(self, *args):
+        """Is called just before the user sees the screen"""
         if self.condition:  # Makes sure it doesn't happen the first time
             self.app.root.ids.my_toolbar.right_action_items = [["cog", lambda x:
                                                                 self.app.root.ids.my_toolbar.show_dialog_confirmation()]]
         else:
             self.condition = True
-    """Homepage"""
 
 
 class SettingScreen(MDScreen):
-    """Screen that contains all the settings"""
+    """
+    Screen that contains all the settings
+    ...
+    Attributes
+    ----------
+    app : object
+        Instance of the class StatsPointApp.
+
+    Methods
+    -------
+    on_pre_enter():
+        Is called just before the user sees the screen.
+    """
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.app = StatsPointApp.get_running_app()
 
     def on_pre_enter(self, *args):
+        """Is called just before the user sees the screen"""
         self.app.root.ids.my_toolbar.title = 'Settings'
 
 
@@ -87,8 +117,15 @@ class StatsPointApp(MDApp):
     -------
     build():
         Builds the app.
+
     change_screen(screen_name, direction='left'):
         Switches from one screen to another.
+
+    on_start():
+        Called on launch.
+
+    get_rgba_from_hex(color):
+        Converts the hex color format into rgba color format.
 
     """
     icon = 'windows_logo.png'
@@ -120,6 +157,7 @@ class StatsPointApp(MDApp):
         return Builder.load_file("kv/main.kv")
 
     def on_start(self):
+        """Called on launch"""
         self.root.ids.data_screen.start()
 
     def change_screen(self, screen_name, direction='left'):
@@ -137,6 +175,7 @@ class StatsPointApp(MDApp):
         self.root.ids.manager.current = screen_name
 
     def get_rgba_from_hex(self, color):
+        """Converts the hex color format into rgba color format."""
         return get_color_from_hex(color)
 
 
