@@ -18,6 +18,7 @@ from kivymd.app import MDApp
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.navigationdrawer import MDNavigationDrawer
 from kivymd.font_definitions import theme_font_styles
+from kivymd.color_definitions import palette, colors
 
 from kivy.lang import Builder
 from kivy.uix.screenmanager import SlideTransition
@@ -25,7 +26,6 @@ from kivy.core.window import Window
 from kivy.utils import platform
 from kivy.utils import get_color_from_hex
 from kivy.core.text import LabelBase
-from kivymd.color_definitions import palette, colors
 from kivy.config import Config
 
 
@@ -78,8 +78,8 @@ class HomeScreen(MDScreen):
     def on_pre_enter(self, *args):
         """Is called just before the user sees the screen"""
         if self.condition:  # Makes sure it doesn't happen the first time
-            self.app.root.ids.my_toolbar.right_action_items = [["cog", lambda x:
-                                                                self.app.root.ids.my_toolbar.show_dialog_confirmation()]]
+            self.app.root.ids.my_toolbar.right_action_items = [
+                ["cog", lambda x: self.app.root.ids.my_toolbar.show_dialog_confirmation()]]
         else:
             self.condition = True
 

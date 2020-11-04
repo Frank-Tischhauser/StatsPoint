@@ -105,7 +105,7 @@ class Match:
             receiver = player2
         if sets_winners is None:
             sets_winners = [None, None, None]
-            
+
         self.player1 = player1
         self.player2 = player2
         self.match_name = match_name
@@ -120,7 +120,8 @@ class Match:
         winner.total_points[self.set_index] += 1
         winner.total_games[self.set_index] = winner.games_amount
         log.info('{} a {}pts'.format(winner.get_name(), winner.get_points_amount()))
-        log.info('Résumé des points gagnés dans le match {}'.format(winner.get_total_points_amount()))
+        log.info('Résumé des points gagnés dans le match {}'.format(
+            winner.get_total_points_amount()))
         log.info('Résumé des jeux gagnés dans le match {}'.format(winner.get_total_games_amount()))
 
     def get_match_name(self):
@@ -223,21 +224,21 @@ class Match:
             player.stats['points'] = player.points_amount
             player.stats['games'] = player.games_amount
             player.stats['sets'] = player.sets_amount
-        dict = {"match_name": self.get_match_name(),
-                "player1_name": player1_name,
-                "player1_stats": self.player1.stats,
-                "player2_name": player2_name,
-                "player2_stats": self.player2.stats,
-                "server": self.server.name,
-                "receiver": self.receiver.name,
-                "sets_winners": self.sets_winners,
-                "match_ended": match_ended,
-                }
+        dictionnary = {"match_name": self.get_match_name(),
+                       "player1_name": player1_name,
+                       "player1_stats": self.player1.stats,
+                       "player2_name": player2_name,
+                       "player2_stats": self.player2.stats,
+                       "server": self.server.name,
+                       "receiver": self.receiver.name,
+                       "sets_winners": self.sets_winners,
+                       "match_ended": match_ended,
+                       }
         with open('data.json', 'r') as file:
             existant_data = json.load(file)
-            existant_data.append(dict)
-        with open('data.json', 'w') as js:
-            json.dump(existant_data, js, indent=4, sort_keys=True)
+            existant_data.append(dictionnary)
+        with open('data.json', 'w') as js_file:
+            json.dump(existant_data, js_file, indent=4, sort_keys=True)
 
     def change_server(self):
         """The server becomes the receiver, and the receiver becomes the server"""

@@ -1,3 +1,8 @@
+"""
+StatsDisplay
+
+Displays the statistics of a match for both players set by set (and total).
+"""
 from kivymd.app import MDApp
 
 
@@ -99,14 +104,15 @@ class StatsDisplay:
         return_ratio = '{}/{}'.format(full_stats['return_points_won'][manche],
                                       full_stats['return_points_played'][manche])
 
-        stats = [name, full_stats['total_points'][manche], aces, double_faults, ratio_first_service_in,
-                 ratio_first_service_won,
-                 ratio_second_service_won, break_points_ratio, full_stats['winners'][manche],
-                 full_stats['forehand_winners'][manche], full_stats['backhand_winners'][manche],
-                 full_stats['net_points'][manche],
-                 full_stats['net_winners'][manche], full_stats['net_unforced_errors'][manche], return_ratio,
-                 full_stats['unforced_errors'][manche], full_stats['forehand_unforced_errors'][manche],
-                 full_stats['backhand_unforced_errors'][manche]][::-1]
+        stats = [
+            name, full_stats['total_points'][manche], aces, double_faults, ratio_first_service_in,
+            ratio_first_service_won,
+            ratio_second_service_won, break_points_ratio, full_stats['winners'][manche],
+            full_stats['forehand_winners'][manche], full_stats['backhand_winners'][manche],
+            full_stats['net_points'][manche], full_stats['net_winners'][manche],
+            full_stats['net_unforced_errors'][manche], return_ratio,
+            full_stats['unforced_errors'][manche], full_stats['forehand_unforced_errors'][manche],
+            full_stats['backhand_unforced_errors'][manche]][::-1]
         return stats
 
     def get_match_stats(self, player):
@@ -138,8 +144,8 @@ class StatsDisplay:
                  ratio_first_service_won,
                  ratio_second_service_won, break_points_ratio, sum(full_stats['winners']),
                  sum(full_stats['forehand_winners']), sum(full_stats['backhand_winners']),
-                 sum(full_stats['net_points']),
-                 sum(full_stats['net_winners']), sum(full_stats['net_unforced_errors']), return_ratio,
+                 sum(full_stats['net_points']), sum(full_stats['net_winners']),
+                 sum(full_stats['net_unforced_errors']), return_ratio,
                  sum(full_stats['unforced_errors']), sum(full_stats['forehand_unforced_errors']),
                  sum(full_stats['backhand_unforced_errors'])][::-1]
         return stats

@@ -37,8 +37,8 @@ class InputScreen(MDScreen):
     def on_pre_enter(self, *args):
         """Is called just before the user sees the screen"""
         self.app.root.ids.my_toolbar.title = 'Create a game'
-        self.app.root.ids.my_toolbar.right_action_items = [["cog",
-                                                            lambda x: self.app.root.ids.my_toolbar.show_dialog_confirmation()]]
+        self.app.root.ids.my_toolbar.right_action_items = [
+            ["cog", lambda x: self.app.root.ids.my_toolbar.show_dialog_confirmation()]]
 
     def create_match(self):
         """Creates a match when button pressed"""
@@ -47,7 +47,8 @@ class InputScreen(MDScreen):
         self.app.root.ids.game_screen.player1 = player1
         self.app.root.ids.game_screen.player2 = player2
         self.app.root.ids.game_screen.match = Match(player1, player2, self.ids.entry3.text)
-        self.app.root.ids.game_screen.ids.score_line1.ids.server.opacity = 0  # Fixes small graphic bug
+        self.app.root.ids.game_screen.ids.score_line1.ids.server.opacity = 0
+        # Fixes small graphic bug
         self.app.root.ids.game_screen.ids.score_line2.ids.server.opacity = 0
 
     def check_text(self):
@@ -74,6 +75,7 @@ class InputScreen(MDScreen):
         if condition:  # If everything is fine, creates the match
             self.create_match()
             self.app.root.ids.game_screen.show_dialog_server()
-            self.app.root.ids.save_screen.picked_game_data = None  # To avoid problems with saved games
+            self.app.root.ids.save_screen.picked_game_data = None
+            # To avoid problems with saved games
             self.app.root.ids.save_screen.full_list = None
             self.app.change_screen('game_screen')

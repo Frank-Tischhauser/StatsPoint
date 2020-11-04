@@ -1,3 +1,10 @@
+"""
+Player
+
+Manages the information about a player in a match.
+"""
+
+
 class Player:
     """
     A class to represent a Tennis Player.
@@ -71,13 +78,13 @@ class Player:
                 'forehand_unforced_errors': [0, 0, 0],
                 'net_unforced_errors': [0, 0, 0],
                 'service_stats': {
-                     'ace': [0, 0, 0],
-                     'double_faults': [0, 0, 0],
-                     'second_service': [0, 0, 0],
-                     'second_service_in': [0, 0, 0],
-                     'service_points_played': [0, 0, 0],
-                     'first_service_won': [0, 0, 0],
-                     'second_service_won': [0, 0, 0]}
+                    'ace': [0, 0, 0],
+                    'double_faults': [0, 0, 0],
+                    'second_service': [0, 0, 0],
+                    'second_service_in': [0, 0, 0],
+                    'service_points_played': [0, 0, 0],
+                    'first_service_won': [0, 0, 0],
+                    'second_service_won': [0, 0, 0]}
                 }
         self.name = name
         self.stats = stats

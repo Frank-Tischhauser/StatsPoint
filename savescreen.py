@@ -1,3 +1,10 @@
+"""
+SaveScreen
+
+Screen that manages all match saves.
+"""
+
+
 import json
 
 from kivymd.app import MDApp
@@ -41,7 +48,8 @@ class SaveScreen(MDScreen):
         Creates a list with all saved games.
 
     show_dialog_saves(data, full_list):
-        Gives the choice to the user : Whether he continues the game, or he checks the stats of the game.
+        Gives the choice to the user :
+        Whether he continues the game, or he checks the stats of the game.
 
     data_choice(data):
         Goes to the data screen depending on the user choice.
@@ -59,8 +67,8 @@ class SaveScreen(MDScreen):
 
     def on_pre_enter(self, *args):
         """Is called just before the user sees the screen"""
-        self.app.root.ids.my_toolbar.right_action_items = [["cog", lambda x:
-                                                            self.app.root.ids.my_toolbar.show_dialog_confirmation()]]
+        self.app.root.ids.my_toolbar.right_action_items = [
+            ["cog", lambda x: self.app.root.ids.my_toolbar.show_dialog_confirmation()]]
         self.app.root.ids.my_toolbar.title = 'Saves'
 
     def saved_match_list(self):
@@ -74,10 +82,12 @@ class SaveScreen(MDScreen):
                 match_info['match_name'], match_info['player1_name'],
                 match_info['player2_name']))  # Add a OneListItem widget (UI)
             result.bind(on_press=lambda a, i=match_info: self.show_dialog_saves(i, data))
-            delete_save = DeleteSave(icon='close',
-                                     on_press=lambda x, i=match_info: DeleteSave().show_dialog_delete_save(i))
-            tennis_icon = IconLeftWidget(icon='tennis',
-                                         on_press=lambda a, i=match_info: self.show_dialog_saves(i, data))
+            delete_save = DeleteSave(
+                icon='close',
+                on_press=lambda x, i=match_info: DeleteSave().show_dialog_delete_save(i))
+            tennis_icon = IconLeftWidget(
+                icon='tennis',
+                on_press=lambda a, i=match_info: self.show_dialog_saves(i, data))
             result.add_widget(tennis_icon)
             # Adds a button to delete the match
             result.add_widget(delete_save)
@@ -93,13 +103,17 @@ class SaveScreen(MDScreen):
         """Gives the choice to the user :
         Whether he continues the game, or he checks the data of the game"""
         if not self.save:
-            self.save = MDDialog(title='Do you want to continue the match or see the statistics?',
-                                 size_hint=(0.7, 1),
-                                 buttons=[
-                                     MDRaisedButton(text='Continue',
-                                                    on_release=lambda x: self.continue_game(data, full_list)),
-                                     MDFlatButton(text='Stats / Analysis', text_color=self.app.theme_cls.primary_color,
-                                                  on_release=lambda x: self.data_choice(data))])
+            self.save = MDDialog(
+                title='Do you want to continue the match or see the statistics?',
+                size_hint=(0.7, 1),
+                buttons=[
+                    MDRaisedButton(
+                        text='Continue',
+                        on_release=lambda x: self.continue_game(data, full_list)),
+                    MDFlatButton(
+                        text='Stats / Analysis', text_color=self.app.theme_cls.primary_color,
+                        on_release=lambda x: self.data_choice(data))])
+
         if not data['match_ended']:
             self.save.open()
         else:
@@ -124,12 +138,12 @@ class SaveScreen(MDScreen):
             self.app.root.ids.game_screen.player2 = player2
 
             if data['server'] == player1.name:
-                self.app.root.ids.game_screen.match = Match(player1, player2, data['match_name'], player1, player2,
-                                                            data['sets_winners'])
+                self.app.root.ids.game_screen.match = Match(
+                    player1, player2, data['match_name'], player1, player2, data['sets_winners'])
                 # Those repetitions will be removed
             else:
-                self.app.root.ids.game_screen.match = Match(player1, player2, data['match_name'], player2, player1,
-                                                            data['sets_winners'])
+                self.app.root.ids.game_screen.match = Match(
+                    player1, player2, data['match_name'], player2, player1, data['sets_winners'])
                 # Those repetitions will be removed
             self.app.root.ids.game_screen.check_server(self.app.root.ids.game_screen.match)
             self.app.change_screen('game_screen')
@@ -166,15 +180,19 @@ class DeleteSave(IconRightWidget):
     def show_dialog_delete_save(self, to_remove_data):
         """Ask the user to confirm his choice"""
         if not self.delete_confirmation:
-            self.delete_confirmation = MDDialog(title='Do you want to delete this game?',
-                                                size_hint=(0.7, 1),
-                                                buttons=[
-                                                    MDFlatButton(text='Yes',
-                                                                 text_color=self.app.theme_cls.primary_color,
-                                                                 on_release=lambda x: self.delete_data(to_remove_data)),
-                                                    MDFlatButton(text='No, cancel',
-                                                                 text_color=self.app.theme_cls.primary_color,
-                                                                 on_release=lambda x: self.cancel())])
+            self.delete_confirmation = MDDialog(
+                title='Do you want to delete this game?',
+                size_hint=(0.7, 1),
+                buttons=[
+                    MDFlatButton(
+                        text='Yes',
+                        text_color=self.app.theme_cls.primary_color,
+                        on_release=lambda x: self.delete_data(to_remove_data)),
+                    MDFlatButton(
+                        text='No, cancel',
+                        text_color=self.app.theme_cls.primary_color,
+                        on_release=lambda x: self.cancel())])
+
         self.delete_confirmation.open()
 
     def cancel(self):
@@ -185,12 +203,12 @@ class DeleteSave(IconRightWidget):
     def delete_data(self, to_remove_data):
         """Deletes the selected game"""
         if self.delete_confirmation is not None:
-            with open('data.json', 'r') as js:
-                file = json.load(js)
+            with open('data.json', 'r') as js_file:
+                file = json.load(js_file)
             for game in file:
                 if to_remove_data == game:  # Removes the right dictionary
                     file.remove(to_remove_data)
-            with open('data.json', 'w') as js:  # Rewrites the file without the removed dict
-                json.dump(file, js, indent=4, sort_keys=True)
+            with open('data.json', 'w') as js_file:  # Rewrites the file without the removed dict
+                json.dump(file, js_file, indent=4, sort_keys=True)
             self.app.root.ids.save_screen.saved_match_list()  # Updates the screen
             self.cancel()

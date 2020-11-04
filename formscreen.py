@@ -5,14 +5,13 @@ This module contains the FormScreen class.
 It creates the form that the user needs to complete.
 """
 
+import logging as log
 
 from kivymd.app import MDApp
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.behaviors import RectangularElevationBehavior
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.snackbar import Snackbar
-
-import logging as log
 
 
 class WhiteBox(RectangularElevationBehavior, MDBoxLayout):
@@ -76,10 +75,10 @@ class FormScreen(MDScreen):
     def on_pre_enter(self, *args):
         """Is called just before the user sees the screen"""
         self.match_stats = self.app.root.ids.data_screen.data
-        self.app.root.ids.my_toolbar.right_action_items = [["arrow-left",
-                                                            lambda x: self.app.change_screen('data_screen', 'right')]]
+        self.app.root.ids.my_toolbar.right_action_items = [
+            ["arrow-left", lambda x: self.app.change_screen('data_screen', 'right')]]
         self.app.root.ids.my_toolbar.title = 'Questions'
-        log.info('Stats  : ' + str(self.match_stats))
+        log.info('Stats  : {}'.format(self.match_stats))
         self.ids.player1.text = self.match_stats['player1_name']
         self.ids.player2.text = self.match_stats['player2_name']
         self.ids.error_message.opacity = 0
@@ -117,9 +116,10 @@ class FormScreen(MDScreen):
                 compteur += 1
         pl_stats['ended_sets'] = compteur
         self.player_info = pl_stats
-        critical_stats = [pl_stats['backhand_unforced_errors'], pl_stats['forehand_unforced_errors'],
-                          pl_stats['backhand_winners'], pl_stats['forehand_winners'], pl_stats['net_winners'],
-                          pl_stats['net_unforced_errors']]
+        critical_stats = [
+            pl_stats['backhand_unforced_errors'], pl_stats['forehand_unforced_errors'],
+            pl_stats['backhand_winners'], pl_stats['forehand_winners'], pl_stats['net_winners'],
+            pl_stats['net_unforced_errors']]
         enough_data = True
         for stat in critical_stats:
             if sum(stat) == 0:

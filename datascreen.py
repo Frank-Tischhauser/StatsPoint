@@ -89,7 +89,7 @@ class LeaderBoard(MDGridLayout):
         rows_liste = []
         for i in range(rows_number):
             rows_liste.append(Rows())
-        for row, j in zip(rows_liste, range(rows_number)):
+        for row in rows_liste:
             self.add_widget(row)
 
 
@@ -157,7 +157,8 @@ class DataScreen(MDScreen):
 
     def on_pre_enter(self, *args):
         """Is called just before the user sees the screen"""
-        self.app.root.ids.my_toolbar.right_action_items = [["magnify", lambda x: self.show_confirmation_dialog()]]
+        self.app.root.ids.my_toolbar.right_action_items = [
+            ["magnify", lambda x: self.show_confirmation_dialog()]]
         self.confirmation_dialog = None
         self.app.root.ids.my_toolbar.title = 'Statistics'
         self.show_scoreboard()
@@ -175,7 +176,8 @@ class DataScreen(MDScreen):
         """Shows a scoreboard with the result of the tennis match"""
         players = [self.ids.player1, self.ids.player2]
         stats = [self.data['player1_stats'], self.data['player2_stats']]
-        for player, name, stat in zip(players, [self.data['player1_name'], self.data['player2_name']], stats):
+        for player, name, stat in zip(
+                players, [self.data['player1_name'], self.data['player2_name']], stats):
             player.ids.player_name.text = name
             player.ids.set1.ids.label.text = str(stat['total_games'][0])
             player.ids.set2.ids.label.text = str(stat['total_games'][1])
@@ -242,16 +244,17 @@ class DataScreen(MDScreen):
     def show_confirmation_dialog(self):
         """Shows the confirmation dialog (MDDialog class)"""
         if not self.confirmation_dialog:
-            self.confirmation_dialog = MDDialog(title='Do you want to get more details about your performance?',
-                                                size_hint=(0.7, 1),
-                                                buttons=[
-                                                    MDRaisedButton(text='Yes',
-                                                                   text_color=self.app.theme_cls.primary_color,
-                                                                   on_release=lambda x: self.go_to_form()),
-                                                    MDFlatButton(text='No cancel',
-                                                                 text_color=self.app.theme_cls.primary_color,
-                                                                 on_release=lambda
-                                                                     x: self.confirmation_dialog.dismiss())])
+            self.confirmation_dialog = MDDialog(
+                title='Do you want to get more details about your performance?',
+                size_hint=(0.7, 1),
+                buttons=[
+                    MDRaisedButton(text='Yes',
+                                   text_color=self.app.theme_cls.primary_color,
+                                   on_release=lambda x: self.go_to_form()),
+                    MDFlatButton(text='No cancel',
+                                 text_color=self.app.theme_cls.primary_color,
+                                 on_release=lambda
+                                     x: self.confirmation_dialog.dismiss())])
         self.confirmation_dialog.open()
 
     def go_to_form(self):

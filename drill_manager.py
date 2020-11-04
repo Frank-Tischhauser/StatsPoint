@@ -6,12 +6,11 @@ Using a sorting algorithm that is based on a player's :
 Level, Style and result.
 """
 
-
-from kivymd.app import MDApp
-
 import json
 import itertools
 import random
+
+from kivymd.app import MDApp
 
 
 class DrillManager:
@@ -30,7 +29,8 @@ class DrillManager:
         Contains the list of all available drills with all their information.
 
     conditions : list
-        Contains all the limit conditions / rates that tell if a game part is a weakness of the player or not.
+        Contains all the limit conditions / rates
+        that tell if a game part is a weakness of the player or not.
 
     player_info: dict
         All the stats of the player.
@@ -115,11 +115,14 @@ class DrillManager:
         else:
             index = 0
 
-        if 100 * (self.avg_stats['first_service_won'] + self.avg_stats['second_service_won']) / self.avg_stats[
-                    'service_points_played'] < parameters['service']['general'][index]:
+        if 100 * (self.avg_stats['first_service_won']
+                  + self.avg_stats['second_service_won']) \
+                / self.avg_stats['service_points_played'] < \
+                parameters['service']['general'][index]:
 
             service_order = []
-            first_serve_in = self.avg_stats['service_points_played'] - self.avg_stats['second_service']
+            first_serve_in = (self.avg_stats['service_points_played']
+                              - self.avg_stats['second_service'])
             first_serve_in_ratio = first_serve_in * 100 / self.avg_stats['service_points_played']
             first_serve_won_ratio = self.avg_stats['first_service_won'] * 100 / first_serve_in
             second_serve_won_ratio = self.avg_stats['second_service_won'] * 100 / self.avg_stats[
@@ -145,8 +148,8 @@ class DrillManager:
             }
             winners = sorted(winners.items(), key=lambda kv: (kv[1], kv[0]))
             winner_order = []
-            for x in winners:
-                winner_order.append(x[0])
+            for winner in winners:
+                winner_order.append(winner[0])
             self.drill_schedule['winner'] = winner_order
 
         if self.avg_stats['unforced_errors'] > parameters['unforced_error']['general'][index]:
@@ -155,10 +158,11 @@ class DrillManager:
                 'forehand': self.avg_stats['forehand_unforced_errors'],
                 'net': self.avg_stats['net_unforced_errors']
             }
-            unforced_errors = sorted(unforced_errors.items(), key=lambda kv: (kv[1], kv[0]), reverse=True)
+            unforced_errors = sorted(
+                unforced_errors.items(), key=lambda kv: (kv[1], kv[0]), reverse=True)
             unforced_errors_order = []
-            for x in unforced_errors:
-                unforced_errors_order.append(x[0])
+            for unforced_error in unforced_errors:
+                unforced_errors_order.append(unforced_error[0])
             self.drill_schedule['unforced_error'] = unforced_errors_order
 
     def pick_drill(self):
@@ -173,7 +177,8 @@ class DrillManager:
                     for shot, drill in itertools.product(value, self.sorted_drills):
                         for shot_drill, category in drill['details'].items():
                             #  print(shot_drill, category)
-                            if shot_drill == shot and key in category and drill not in self.picked_drills:
+                            if shot_drill == shot and key in category \
+                                    and drill not in self.picked_drills:
                                 self.picked_drills.append(drill)
                                 new_ordered_list = value.copy()
                                 new_ordered_list.remove(shot)

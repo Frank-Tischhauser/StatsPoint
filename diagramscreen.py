@@ -57,8 +57,8 @@ class DiagramScreen(MDScreen):
     def on_pre_enter(self, *args):
         """Is called just before the user sees the screen."""
         self.app.root.ids.my_toolbar.title = 'Diagrams'
-        self.app.root.ids.my_toolbar.right_action_items = [["arrow-right",
-                                                            lambda x: self.app.change_screen('training_screen')]]
+        self.app.root.ids.my_toolbar.right_action_items = [
+            ["arrow-right", lambda x: self.app.change_screen('training_screen')]]
         self.player_info = self.app.root.ids.form_screen.player_info
 
         if platform == 'win':  # Unwanted on phone
@@ -86,7 +86,7 @@ class DiagramScreen(MDScreen):
         backhand_winners_ratio = ceil(safe_div(backhand_winners, total_winners) * 100)
         forehand_winners_ratio = ceil(safe_div(forehand_winners, total_winners) * 100)
         net_winners_ratio = ceil(safe_div(net_winners, total_winners) * 100)
-        
+
         backhand_unforced_errors = sum(player_stats['backhand_unforced_errors'])
         forehand_unforced_errors = sum(player_stats['forehand_unforced_errors'])
         net_unforced_errors = sum(player_stats['net_unforced_errors'])
@@ -103,7 +103,8 @@ class DiagramScreen(MDScreen):
                   '2': forehand_unforced_errors_ratio,
                   '3': net_unforced_errors_ratio}]
         item3 = [{'1': winners_ratio, '2': errors_ratio}]
-        for item in [item1[0], item2[0], item3[0]]:  # Trick to always have a total of 100 percent (May improve)
+        for item in [item1[0], item2[0], item3[0]]:
+            # Trick to always have a total of 100 percent (May improve)
             while sum(item.values()) > 100:
                 i = random.randint(1, len(item))
                 item[str(i)] -= 1

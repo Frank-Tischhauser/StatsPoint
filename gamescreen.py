@@ -1,3 +1,4 @@
+# pylint: disable=E1101
 """
 GameScreen
 
@@ -18,17 +19,14 @@ from kivy.properties import StringProperty
 
 class ScoreLine(MDBoxLayout, RectangularElevationBehavior):
     """Box containing the score with a shadow effect"""
-    pass
 
 
 class Square(MDBoxLayout, RectangularElevationBehavior):
     """Square set in the kv file, contains numbers / stats"""
-    pass
 
 
 class Box(MDBoxLayout, RectangularElevationBehavior):
     """White box with shadow effect"""
-    pass
 
 
 class GameScreen(MDScreen):
@@ -39,16 +37,16 @@ class GameScreen(MDScreen):
     ----------
     app : object
         Instance of the class StatsPointApp.
-        
+
     winner : object
         Instance of the class Player. The player who won the point.
-        
+
     looser : object
         Instance of the class Player. The player who lost the point.
-    
+
     dialog : object
-        Instance of MDDialog class. It is a UI widget.    
-        
+        Instance of MDDialog class. It is a UI widget.
+
     confirmation_save_match : object
         Instance of MDDialog class. It is a UI widget.
 
@@ -59,34 +57,34 @@ class GameScreen(MDScreen):
 
     update_scoreboard(winner, opponent, match, score_change=True):
         Updates the scoreboard each time a player wins a point.
-    
+
     square_design(player, line_score):
         Change the design of the square object when a player wins a set.
-    
+
     check_server(match):
         Hide or show the tennis-ball icon depending on which player serves.
-    
+
     set_winner(winner, looser):
         Sets which player wins the point.
-    
+
     show_dialog_server():
         Shows a dialog box to ask which player serves first.
-    
+
     server(server, receiver):
         Sets which player serves or receives, depending on user's choice.
-    
+
     show_dialog_save_match_confirmation():
         Shows a dialog box to ask if the player wants to save the match.
-    
+
     cancel():
         Cancels the confirmation_save_match dialog.
-    
+
     leave_match(match_end=False):
         Leaves and saves the match.
-    
+
     check_service_degree():
         Checks if it's a first or second serve.
-    
+
     press_ace():
         Called at each ace.
 
@@ -217,16 +215,17 @@ class GameScreen(MDScreen):
     def show_dialog_save_match_confirmation(self):
         """Shows a dialog box to ask if the player wants to save the match"""
         if not self.confirmation_save_match:
-            self.confirmation_save_match = MDDialog(title='Do you want to save the match?',
-                                                    size_hint=(0.7, 1),
-                                                    buttons=[
-                                                        MDFlatButton(text='Yes',
-                                                                     text_color=self.app.theme_cls.primary_color,
-                                                                     on_release=lambda x: self.leave_match()
-                                                                     ),
-                                                        MDFlatButton(text='No, cancel',
-                                                                     text_color=self.app.theme_cls.primary_color,
-                                                                     on_release=lambda x: self.cancel())])
+            self.confirmation_save_match = MDDialog(
+                title='Do you want to save the match?',
+                size_hint=(0.7, 1),
+                buttons=[
+                    MDFlatButton(text='Yes',
+                                 text_color=self.app.theme_cls.primary_color,
+                                 on_release=lambda x: self.leave_match()
+                                 ),
+                    MDFlatButton(text='No, cancel',
+                                 text_color=self.app.theme_cls.primary_color,
+                                 on_release=lambda x: self.cancel())])
         self.confirmation_save_match.open()
 
     def cancel(self):
@@ -241,7 +240,8 @@ class GameScreen(MDScreen):
             full_list = self.app.root.ids.save_screen.full_list  # Full json file (list format)
             to_remove_dict = self.app.root.ids.save_screen.picked_game_data
             # Lines that we want to remove, to avoid duplication of saves
-            if full_list is not None and to_remove_dict is not None:  # Check to avoid errors, if the file is empty
+            if full_list is not None and to_remove_dict is not None:
+                # Check to avoid errors, if the file is empty
                 for i in full_list:
                     if to_remove_dict == i:
                         full_list.remove(self.app.root.ids.save_screen.picked_game_data)
@@ -259,7 +259,8 @@ class GameScreen(MDScreen):
                 self.match.server.service_stats['first_service_won'][self.match.set_index] += 1
             elif self.ids.fault.text == 'Double Fault':
                 self.match.server.service_stats['second_service_won'][self.match.set_index] += 1
-        log.info('First Service Won {}'.format(self.match.server.service_stats['first_service_won']))
+        log.info('First Service Won {}'.format(
+            self.match.server.service_stats['first_service_won']))
 
     def press_ace(self):
         """Called at each ace"""
@@ -299,27 +300,29 @@ class GameScreen(MDScreen):
         self.check_service_degree()
         if self.match.receiver.name == self.winner.name:
             self.match.receiver.stats['return_points_won'][self.match.set_index] += 1
-        self.ids.detail1_box.ids.caption.text = 'Why did {} win the point?'.format(self.winner.get_name())
+        self.ids.detail1_box.ids.caption.text = 'Why did {} win the point?'.format(
+            self.winner.get_name())
         self.ids.game_manager.current = 'game_details1'
 
     def press_unforced_error(self):
         """Called when there is an unforced error"""
         self.detail_context = 'unforced_error'
-        self.ids.detail2_box.ids.caption.text = "{}'s unforced error was a ...".format(self.looser.get_name())
+        self.ids.detail2_box.ids.caption.text = "{}'s unforced error was a ...".format(
+            self.looser.get_name())
         self.looser.stats['unforced_errors'][self.match.set_index] += 1
         self.ids.game_manager.current = 'game_details2'
 
     def press_forced_error(self):
         """Called when there is a forced error"""
         self.detail_context = 'forced_error'
-        # self.ids.detail2_box.ids.caption.text = "Which shot by {} caused the forced error?".format(self.winner.name)
         self.update_scoreboard(self.winner, self.looser, self.match)
         self.ids.game_manager.current = 'service'
 
     def press_winner(self):
         """Called when there is a winner"""
         self.detail_context = 'winner'
-        self.ids.detail2_box.ids.caption.text = "{}'s winner was a ...".format(self.winner.get_name())
+        self.ids.detail2_box.ids.caption.text = "{}'s winner was a ...".format(
+            self.winner.get_name())
         self.ids.game_manager.current = 'game_details2'
         self.winner.stats['winners'][self.match.set_index] += 1
 
