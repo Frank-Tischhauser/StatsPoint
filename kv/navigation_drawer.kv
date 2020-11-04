@@ -9,21 +9,21 @@
                 id: item_drawer
                 OneLineAvatarListItem:
                     text: 'Homepage'
-                    on_press: app.change_screen('home_screen')
+                    on_press: root.check_game_screen('home_screen')
                     on_press: root.set_state('close')
                     #  bg_color: 0.91, 0.46, 0.07, 1
                     IconLeftWidget:
                         icon: 'home-outline'
                 OneLineAvatarListItem:
                     text: 'Saves'
-                    on_press: app.change_screen('save_screen')
+                    on_press: root.check_game_screen('save_screen')
                     on_press: root.set_state('close')
                     #  bg_color: 0.91, 0.46, 0.07, 1
                     IconLeftWidget:
                         icon: 'content-save'
                 OneLineAvatarListItem:
                     text: 'Play a match'
-                    on_press: app.change_screen('input_screen')
+                    on_press: root.check_game_screen('input_screen')
                     on_press: root.set_state('close')
                     IconLeftWidget:
                         icon: 'tennis'

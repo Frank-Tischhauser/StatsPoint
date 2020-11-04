@@ -19,6 +19,8 @@ from kivymd.uix.screen import MDScreen
 from kivymd.uix.navigationdrawer import MDNavigationDrawer
 from kivymd.font_definitions import theme_font_styles
 from kivymd.color_definitions import palette, colors
+from kivymd.uix.dialog import MDDialog
+from kivymd.uix.button import MDFlatButton
 
 from kivy.lang import Builder
 from kivy.uix.screenmanager import SlideTransition
@@ -49,7 +51,57 @@ Config.set('kivy', 'exit_on_escape', '0')  # To avoid app shutdown by pressing '
 
 
 class NavDrawer(MDNavigationDrawer):
-    """Navigation Drawer controlled by the toolbar"""
+    """
+    Navigation Drawer controlled by the toolbar
+    ...
+    Attributes
+    ----------
+    app : object
+        Instance of the class StatsPointApp.
+
+    confirmation_leave : object
+        Instance of MDDialog.
+
+    Methods
+    -------
+    check_game_screen(screen_name):
+        Shows a dialog if the user is on the game_screen.
+
+    show_confirmation_leave(screen_name):
+        Shows a dialog box to confirm the user's choice.
+
+    dismiss_confirmation_leave():
+        Dismisses confirmation leave dialog box.
+    """
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.app = StatsPointApp.get_running_app()
+        self.confirmation_leave = None
+
+    def check_game_screen(self, screen_name):
+        """Shows a dialog if the user is on the game_screen"""
+        self.confirmation_leave = None
+        if self.app.root.ids.manager.current == 'game_screen':
+            self.show_confirmation_leave(screen_name)
+        else:
+            self.app.change_screen(screen_name)
+
+    def show_confirmation_leave(self, screen_name):
+        """Shows a dialog box to confirm the user's choice"""
+        if not self.confirmation_leave:
+            self.confirmation_leave = MDDialog(
+                title="Do you want to leave the game and loose your save?",
+                size_hint=(0.7, 1), buttons=[
+                    MDFlatButton(text='Yes', text_color=self.app.theme_cls.primary_color,
+                                 on_press=lambda x: self.app.change_screen(screen_name),
+                                 on_release=lambda x: self.dismiss_confirmation_leave()),
+                    MDFlatButton(text='No, Cancel', text_color=self.app.theme_cls.primary_color,
+                                 on_release=lambda x: self.dismiss_confirmation_leave())])
+        self.confirmation_leave.open()
+
+    def dismiss_confirmation_leave(self):
+        """Dismisses confirmation dialog box"""
+        self.confirmation_leave.dismiss()
 
 
 class HomeScreen(MDScreen):

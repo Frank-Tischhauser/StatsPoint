@@ -55,6 +55,9 @@ class GameScreen(MDScreen):
     on_pre_enter():
         Is called just before the user sees the screen.
 
+    on_pre_leave():
+        Is called just before leaving the screen.
+
     update_scoreboard(winner, opponent, match, score_change=True):
         Updates the scoreboard each time a player wins a point.
 
@@ -137,13 +140,17 @@ class GameScreen(MDScreen):
         self.app = MDApp.get_running_app()
 
     def on_pre_enter(self, *args):
+        """Is called just before the user sees the screen"""
         self.ids.score_line1.ids.player_name.text = self.player1.get_name()
         self.ids.score_line2.ids.player_name.text = self.player2.get_name()
         self.ids.pl1_btn.text = self.player1.get_name()
         self.ids.pl2_btn.text = self.player2.get_name()
         self.update_scoreboard(self.winner, self.looser, self.match, False)
         self.app.root.ids.my_toolbar.title = 'Game'
-        # self.app.root.ids.my_toolbar.right_action_items = [["undo", lambda x: print('cool')]]
+
+    def on_pre_leave(self, *args):
+        """Called just before leaving the screen"""
+        self.ids.game_manager.current = 'service'
 
     def update_scoreboard(self, winner, opponent, match, score_change=True):
         """Updates the scoreboard each time a player wins a point"""
