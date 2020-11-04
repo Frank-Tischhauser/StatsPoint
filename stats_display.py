@@ -10,6 +10,43 @@ def safe_div(num1, num2):
 
 
 class StatsDisplay:
+    """
+    Displays statistics of a match on a screen.
+    ...
+    Attributes
+    ----------
+    app : object
+        Instance of the class StatsPointApp.
+
+    data : dict
+        Data of the match.
+
+    players : list
+        Index of players.
+
+    settings: dict
+        Configuration of the data display.
+
+    caption: list
+        Captions of all statistics.
+
+    highlights: list
+        Highlighting systems for each stat.
+
+    Methods
+    -------
+    get_stats_sets(manche, player):
+        Get the stats of the match for each set.
+
+    get_match_stats(player):
+        Get the stats of the entire match.
+
+    display_stats(stats, leaderboard, player)
+        Displays the statistics on the screen.
+
+    write_captions(leaderboard):
+        Write all the captions on the screen.
+    """
     def __init__(self, data):
         self.app = MDApp.get_running_app()
         self.data = data
@@ -38,6 +75,7 @@ class StatsDisplay:
         self.highlights = list(self.settings.values())[::-1]
 
     def get_stats_sets(self, manche, player):
+        """Get the stats of the match for each set"""
         name = self.data[str(player + '_name')]
         full_stats = self.data[str(player + '_stats')]
         serving_stats = full_stats['service_stats']
@@ -72,6 +110,7 @@ class StatsDisplay:
         return stats
 
     def get_match_stats(self, player):
+        """Get the stats of the entire match"""
         name = self.data[str(player + '_name')]
         full_stats = self.data[str(player + '_stats')]
         serving_stats = full_stats['service_stats']
@@ -106,6 +145,7 @@ class StatsDisplay:
         return stats
 
     def display_stats(self, stats, leaderboard, player):
+        """Displays the statistics on the screen"""
         stats = list(map(str, stats))
 
         for row, j in zip(leaderboard.children, range(len(self.caption))):
@@ -119,6 +159,7 @@ class StatsDisplay:
                 cols[self.players.index(player)].md_bg_color = (1, 1, 1, 1)
 
     def write_captions(self, leaderboard):
+        """Write all the captions on the screen"""
         for row, i in zip(leaderboard.children, range(len(self.caption))):
             row.ids.col2.text = self.caption[i]  # Writes all the captions
             row.highlight = self.highlights[i]

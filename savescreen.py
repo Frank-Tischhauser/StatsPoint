@@ -1,4 +1,5 @@
 import json
+
 from kivymd.app import MDApp
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.list import OneLineAvatarIconListItem, IconRightWidget, IconLeftWidget
@@ -10,17 +11,54 @@ from match import Match
 
 
 class SaveScreen(MDScreen):
-    """Contains all the saved games on a list"""
+    """
+    Screen that displays all the saved games on a list
 
+    ...
+    Attributes
+    ----------
+    app : object
+        Instance of the class StatsPointApp.
+
+    save : object
+        Instance of the class MDDialog.
+
+    empty : bool
+        Whether the save list is empty or not.
+
+    picked_game_data : dict
+        Data of the match picked by the user.
+
+    full_list : list
+        Contains all saves.
+
+    Methods
+    -------
+    on_pre_enter():
+        Is called just before the user sees the screen.
+
+    saved_match_list():
+        Creates a list with all saved games.
+
+    show_dialog_saves(data, full_list):
+        Gives the choice to the user : Whether he continues the game, or he checks the stats of the game.
+
+    data_choice(data):
+        Goes to the data screen depending on the user choice.
+
+    continue_game(data, full_list):
+        Continues the game.
+    """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.app = MDApp.get_running_app()
         self.save = None
-        self.empty = True  # Checks whether there are saves or not
+        self.empty = True
         self.picked_game_data = None
         self.full_list = None
 
     def on_pre_enter(self, *args):
+        """Is called just before the user sees the screen"""
         self.app.root.ids.my_toolbar.right_action_items = [["cog", lambda x:
                                                             self.app.root.ids.my_toolbar.show_dialog_confirmation()]]
         self.app.root.ids.my_toolbar.title = 'Saves'
@@ -76,10 +114,10 @@ class SaveScreen(MDScreen):
             self.save = None
 
     def continue_game(self, data, full_list):
+        """Continues the game"""
         if self.save is not None:
             self.picked_game_data = data  # To get the information from another class
             self.full_list = full_list
-            """Continues the game"""
             player1 = Player(data['player1_name'], data['player1_stats'])
             player2 = Player(data['player2_name'], data['player2_stats'])
             self.app.root.ids.game_screen.player1 = player1
@@ -100,12 +138,30 @@ class SaveScreen(MDScreen):
 
 
 class DeleteSave(IconRightWidget):
-    """Contains the button to delete a game"""
+    """
+    Manages the button to delete the game.
+    ...
+    Attributes
+    ----------
+    app : object
+        Instance of the class StatsPointApp.
+
+    Methods
+    -------
+    show_dialog_delete_save(to_remove_data):
+        Ask the user to confirm his choice.
+
+    cancel():
+        Dismisses the confirmation dialog box.
+
+    delete_data():
+        Deletes the selected game.
+    """
     delete_confirmation = None
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.app = MDApp.get_running_app()  # To get all app methods / attributes
+        self.app = MDApp.get_running_app()
 
     def show_dialog_delete_save(self, to_remove_data):
         """Ask the user to confirm his choice"""

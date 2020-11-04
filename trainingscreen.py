@@ -14,11 +14,39 @@ class Tab(MDFloatLayout, MDTabsBase):
 
 
 def open_url(url):
+    """Opens a weblink from the phone"""
     webbrowser.open(url)
 
 
 class TrainingScreen(MDScreen):
+    """
+    Screen that contains all the settings
+    ...
+    Attributes
+    ----------
+    app : object
+        Instance of the class StatsPointApp.
 
+    drill_manager : object
+        Instance of the class DrillManager.
+
+    youtube_button : list
+        Contains the youtube button to open a youtube link if there is one.
+
+    Methods
+    -------
+    on_pre_enter():
+        Is called just before the user sees the screen.
+
+    choose_drill():
+        Picks the 3 drills with the DrillManager class.
+
+    show_drill():
+        Shows all the chosen drills on the screen.
+
+    on_tab_switch(instance_tabs, instance_tab, instance_tab_label, tab_text):
+        Called when the user switches the drill.
+    """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.app = MDApp.get_running_app()
@@ -26,6 +54,7 @@ class TrainingScreen(MDScreen):
         self.youtube_button = [None, None, None]
 
     def on_pre_enter(self, *args):
+        """Is called just before the user sees the screen"""
         index = 0
         pages = [self.ids.drill1, self.ids.drill2, self.ids.drill3]
         for widget in self.youtube_button:  # Remove youtube button, if there is one
@@ -41,6 +70,7 @@ class TrainingScreen(MDScreen):
         self.show_drill()
 
     def choose_drill(self):
+        """Picks the 3 drills with the DrillManager class"""
         self.drill_manager = DrillManager()
         self.drill_manager.sort_drills(self.drill_manager.analysis_info['level'])
         if self.drill_manager.analysis_info['level'] != 'beginner':
@@ -48,6 +78,7 @@ class TrainingScreen(MDScreen):
         self.drill_manager.pick_drill()
 
     def show_drill(self):
+        """Shows all the chosen drills on the screen"""
         i = 0
         for page in [self.ids.drill1, self.ids.drill2, self.ids.drill3]:
             page.ids.title.text = self.drill_manager.picked_drills[i]['title']
@@ -62,4 +93,5 @@ class TrainingScreen(MDScreen):
             i += 1
 
     def on_tab_switch(self, instance_tabs, instance_tab, instance_tab_label, tab_text):
+        """Called when the user switches the drill"""
         instance_tab.name = tab_text
