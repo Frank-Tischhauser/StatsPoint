@@ -2,33 +2,83 @@
     MDBoxLayout:
         id: content_drawer
         orientation: "vertical"
-        padding: "8dp"
+        padding: ['8dp', '20dp', '8dp', '8dp']
         spacing: "8dp"
+        md_bg_color: 0.91, 0.46, 0.07, 1
+        MDBoxLayout:
+            #  anchor_x: "left"
+            size_hint_y: None
+            height: avatar.height
+            spacing: dp(-15)
+            size_hint_x: 1
+
+            Image:
+                id: avatar
+                size_hint: None, None
+                size: "56dp", "56dp"
+                source: "assets/logo.png"
+
+            MDLabel:
+                text: "tatsPoint"
+                markup: True
+                theme_text_color: 'Custom'
+                text_color: 1, 1, 1, 1
+                font_name: 'fonts/ProximaNova-Regular.otf'
+                font_size: '30sp'
+                size_hint_y: None
+                height: self.texture_size[1]
+        MDSeparator:
+            height: '1dp'
+            color: 1, 1, 1, .8
         ScrollView:
+            do_scroll: False
             MDList:
                 id: item_drawer
                 OneLineAvatarListItem:
-                    text: 'Homepage'
+                    text: '[size=20sp]Homepage[/size]'
+                    font_style: 'H3'
+                    markup: True
                     on_press: root.check_game_screen('home_screen')
                     on_press: root.set_state('close')
+                    #  bg_color: 0.91, 0.46, 0.07, .8
+                    divider_color: 1, 1, 1, 1
+                    theme_text_color: 'Custom'
+                    text_color: 1, 1, 1, 1
                     #  bg_color: 0.91, 0.46, 0.07, 1
                     IconLeftWidget:
                         icon: 'home-outline'
+                        theme_text_color: 'Custom'
+                        text_color: 1, 1, 1, 1
                 OneLineAvatarListItem:
-                    text: 'Saves'
+                    text: '[size=20sp]Saves[/size]'
+                    font_style: 'H3'
                     on_press: root.check_game_screen('save_screen')
                     on_press: root.set_state('close')
-                    #  bg_color: 0.91, 0.46, 0.07, 1
+                    #  bg_color: 0.91, 0.46, 0.07, .8
+                    theme_text_color: 'Custom'
+                    text_color: 1, 1, 1, 1
+                    divider: 'Full'
                     IconLeftWidget:
                         icon: 'content-save'
+                        theme_text_color: 'Custom'
+                        text_color: 1, 1, 1, 1
                 OneLineAvatarListItem:
-                    text: 'Play a match'
+                    text: '[size=20sp]Play a match[/size]'
+                    font_style: 'H3'
                     on_press: root.check_game_screen('input_screen')
                     on_press: root.set_state('close')
+                    theme_text_color: 'Custom'
+                    text_color: 1, 1, 1, 1
+                    #  bg_color: 0.91, 0.46, 0.07, .8
+                    #  divider: None
                     IconLeftWidget:
                         icon: 'tennis'
+                        theme_text_color: 'Custom'
+                        text_color: 1, 1, 1, 1
         MDIconButton:
             icon: 'close'
             on_release: root.set_state('close')
             user_font_size: "30sp"
             pos_hint: {'center_x': .9}
+            theme_text_color: 'Custom'
+            text_color: 1, 1, 1, 1
