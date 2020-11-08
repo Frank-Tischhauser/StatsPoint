@@ -63,10 +63,10 @@ class DrillManager:
     """
     def __init__(self):
 
-        with open('drills.json', 'r', encoding='utf-8') as drills_file:
+        with open('JSON_files/drills.json', 'r', encoding='utf-8') as drills_file:
             self.drills = json.load(drills_file)
 
-        with open('conditions.json', 'r', encoding='utf-8') as conditions_file:
+        with open('JSON_files/conditions.json', 'r', encoding='utf-8') as conditions_file:
             self.conditions = json.load(conditions_file)
 
         self.app = MDApp.get_running_app()
