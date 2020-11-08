@@ -186,7 +186,7 @@ class StatsPointApp(MDApp):
         Converts the hex color format into rgba color format.
 
     """
-    icon = 'windows_logo.png'
+    icon = 'assets/logo.png'
 
     def build(self):
         """
