@@ -112,7 +112,6 @@ class SaveScreen(MDScreen):
                 on_release=lambda x: self.continue_game(data, full_list),
             )
             raised_button.text_color = (1, 1, 1, 1)
-            raised_button.font_size = '16sp'
             self.save = MDDialog(
                 title="What's your choice?",
                 size_hint=(0.7, 1),
@@ -122,8 +121,6 @@ class SaveScreen(MDScreen):
                     MDFlatButton(
                         text='Stats',
                         text_color=self.app.theme_cls.primary_color,
-                        theme_text_color='Primary',
-                        font_size='16sp',
                         on_release=lambda x: self.data_choice(data))])
 
         if not data['match_ended']:

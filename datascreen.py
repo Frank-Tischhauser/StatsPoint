@@ -251,7 +251,6 @@ class DataScreen(MDScreen):
 
             )
             raised_button.text_color = (1, 1, 1, 1)
-            raised_button.font_size = '16sp'
             self.confirmation_dialog = MDDialog(
                 title="Want more information?",
                 text='More details about your performance.',
@@ -261,8 +260,7 @@ class DataScreen(MDScreen):
                     MDFlatButton(
                         text='No, cancel',
                         text_color=self.app.theme_cls.primary_color,
-                        on_release=lambda x: self.confirmation_dialog.dismiss(),
-                        font_size='16sp')])
+                        on_release=lambda x: self.confirmation_dialog.dismiss())])
         self.confirmation_dialog.open()
 
     def go_to_form(self):
