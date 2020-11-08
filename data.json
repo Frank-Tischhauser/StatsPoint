@@ -1,402 +1,155 @@
 [
     {
-        "match_ended": false,
-        "match_name": "RG Final",
-        "player1_name": "Nadal",
+        "match_ended": true,
+        "match_name": "Example",
+        "player1_name": "Federer",
         "player1_stats": {
             "backhand_unforced_errors": [
-                1,
-                0,
-                0
-            ],
-            "backhand_winners": [
-                2,
-                0,
-                0
-            ],
-            "break_points": [
-                2,
-                0,
-                0
-            ],
-            "forehand_unforced_errors": [
-                3,
-                0,
-                0
-            ],
-            "forehand_winners": [
-                1,
-                0,
-                0
-            ],
-            "games": 0,
-            "net_points": [
-                1,
-                0,
-                0
-            ],
-            "net_unforced_errors": [
-                4,
-                0,
-                0
-            ],
-            "net_winners": [
-                1,
-                0,
-                0
-            ],
-            "points": 15,
-            "return_game_won": [
-                1,
-                0,
-                0
-            ],
-            "return_points_played": [
-                18,
-                0,
-                0
-            ],
-            "return_points_won": [
                 6,
-                0,
-                0
-            ],
-            "service_stats": {
-                "ace": [
-                    6,
-                    1,
-                    0
-                ],
-                "double_faults": [
-                    2,
-                    0,
-                    0
-                ],
-                "first_service_won": [
-                    11,
-                    1,
-                    0
-                ],
-                "second_service": [
-                    2,
-                    0,
-                    0
-                ],
-                "second_service_in": [
-                    0,
-                    0,
-                    0
-                ],
-                "second_service_won": [
-                    0,
-                    0,
-                    0
-                ],
-                "service_points_played": [
-                    22,
-                    1,
-                    0
-                ]
-            },
-            "sets": 0,
-            "total_games": [
-                3,
-                0,
-                0
-            ],
-            "total_points": [
-                19,
-                1,
-                0
-            ],
-            "unforced_errors": [
-                8,
-                0,
-                0
-            ],
-            "winners": [
-                4,
-                0,
-                0
-            ]
-        },
-        "player2_name": "Federer",
-        "player2_stats": {
-            "backhand_unforced_errors": [
-                1,
-                0,
+                6,
                 0
             ],
             "backhand_winners": [
                 5,
-                0,
+                1,
                 0
             ],
             "break_points": [
                 3,
-                0,
+                2,
                 0
             ],
             "forehand_unforced_errors": [
-                0,
-                0,
+                3,
+                4,
                 0
             ],
             "forehand_winners": [
-                2,
-                1,
+                5,
+                5,
                 0
             ],
             "games": 0,
             "net_points": [
-                3,
-                0,
+                2,
+                1,
                 0
             ],
             "net_unforced_errors": [
-                2,
+                1,
                 0,
                 0
             ],
             "net_winners": [
-                3,
-                0,
+                2,
+                1,
                 0
             ],
             "points": 0,
             "return_game_won": [
                 2,
-                0,
+                2,
                 0
             ],
             "return_points_played": [
-                14,
-                0,
+                26,
+                26,
                 0
             ],
             "return_points_won": [
-                9,
-                0,
+                12,
+                11,
                 0
             ],
             "service_stats": {
                 "ace": [
-                    6,
-                    0,
+                    2,
+                    3,
                     0
                 ],
                 "double_faults": [
-                    2,
+                    1,
                     0,
                     0
                 ],
                 "first_service_won": [
-                    17,
-                    0,
+                    10,
+                    9,
                     0
                 ],
                 "second_service": [
-                    4,
-                    0,
+                    12,
+                    8,
                     0
                 ],
                 "second_service_in": [
-                    2,
-                    0,
+                    11,
+                    8,
                     0
                 ],
                 "second_service_won": [
-                    1,
-                    0,
+                    8,
+                    7,
                     0
                 ],
                 "service_points_played": [
                     26,
-                    0,
+                    19,
                     0
                 ]
             },
-            "sets": 1,
+            "sets": 2,
             "total_games": [
                 6,
-                0,
+                6,
                 0
             ],
             "total_points": [
-                29,
-                0,
+                30,
+                27,
                 0
             ],
             "unforced_errors": [
-                3,
-                0,
+                10,
+                10,
                 0
             ],
             "winners": [
-                11,
-                0,
+                12,
+                8,
                 0
             ]
         },
-        "receiver": "Federer",
-        "server": "Nadal",
-        "sets_winners": [
-            "Federer",
-            null,
-            null
-        ]
-    },
-    {
-        "match_ended": false,
-        "match_name": "Test",
-        "player1_name": "J",
-        "player1_stats": {
+        "player2_name": "Nadal",
+        "player2_stats": {
             "backhand_unforced_errors": [
-                0,
-                0,
+                3,
+                6,
                 0
             ],
             "backhand_winners": [
                 0,
-                0,
+                1,
                 0
             ],
             "break_points": [
-                0,
-                0,
-                0
-            ],
-            "forehand_unforced_errors": [
-                0,
-                0,
-                0
-            ],
-            "forehand_winners": [
-                0,
-                0,
-                0
-            ],
-            "games": 0,
-            "net_points": [
-                0,
-                0,
-                0
-            ],
-            "net_unforced_errors": [
-                0,
-                0,
-                0
-            ],
-            "net_winners": [
-                0,
-                0,
-                0
-            ],
-            "points": 15,
-            "return_game_won": [
-                0,
-                0,
-                0
-            ],
-            "return_points_played": [
-                0,
-                0,
-                0
-            ],
-            "return_points_won": [
-                0,
-                0,
-                0
-            ],
-            "service_stats": {
-                "ace": [
-                    1,
-                    0,
-                    0
-                ],
-                "double_faults": [
-                    0,
-                    0,
-                    0
-                ],
-                "first_service_won": [
-                    1,
-                    0,
-                    0
-                ],
-                "second_service": [
-                    0,
-                    0,
-                    0
-                ],
-                "second_service_in": [
-                    0,
-                    0,
-                    0
-                ],
-                "second_service_won": [
-                    0,
-                    0,
-                    0
-                ],
-                "service_points_played": [
-                    1,
-                    0,
-                    0
-                ]
-            },
-            "sets": 0,
-            "total_games": [
-                0,
-                0,
-                0
-            ],
-            "total_points": [
                 1,
                 0,
                 0
             ],
-            "unforced_errors": [
-                0,
-                0,
-                0
-            ],
-            "winners": [
-                0,
-                0,
-                0
-            ]
-        },
-        "player2_name": "B",
-        "player2_stats": {
-            "backhand_unforced_errors": [
-                0,
-                0,
-                0
-            ],
-            "backhand_winners": [
-                0,
-                0,
-                0
-            ],
-            "break_points": [
-                0,
-                0,
-                0
-            ],
             "forehand_unforced_errors": [
-                0,
-                0,
+                7,
+                6,
                 0
             ],
             "forehand_winners": [
-                0,
-                0,
+                3,
+                2,
                 0
             ],
             "games": 0,
             "net_points": [
-                0,
+                1,
                 0,
                 0
             ],
@@ -406,7 +159,7 @@
                 0
             ],
             "net_winners": [
-                0,
+                1,
                 0,
                 0
             ],
@@ -417,19 +170,19 @@
                 0
             ],
             "return_points_played": [
-                0,
-                0,
+                23,
+                17,
                 0
             ],
             "return_points_won": [
-                0,
-                0,
+                7,
+                3,
                 0
             ],
             "service_stats": {
                 "ace": [
-                    0,
-                    0,
+                    1,
+                    1,
                     0
                 ],
                 "double_faults": [
@@ -438,58 +191,58 @@
                     0
                 ],
                 "first_service_won": [
-                    0,
-                    0,
+                    13,
+                    7,
                     0
                 ],
                 "second_service": [
-                    0,
-                    0,
+                    7,
+                    13,
                     0
                 ],
                 "second_service_in": [
-                    0,
-                    0,
+                    7,
+                    13,
                     0
                 ],
                 "second_service_won": [
-                    0,
-                    0,
+                    2,
+                    9,
                     0
                 ],
                 "service_points_played": [
-                    0,
-                    0,
+                    27,
+                    27,
                     0
                 ]
             },
             "sets": 0,
             "total_games": [
-                0,
-                0,
+                2,
+                3,
                 0
             ],
             "total_points": [
-                0,
-                0,
+                23,
+                19,
                 0
             ],
             "unforced_errors": [
-                0,
-                0,
+                10,
+                12,
                 0
             ],
             "winners": [
-                0,
-                0,
+                4,
+                3,
                 0
             ]
         },
-        "receiver": "B",
-        "server": "J",
+        "receiver": "Nadal",
+        "server": "Federer",
         "sets_winners": [
-            null,
-            null,
+            "Federer",
+            "Federer",
             null
         ]
     }
