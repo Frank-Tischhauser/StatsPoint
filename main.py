@@ -84,24 +84,30 @@ class NavDrawer(MDNavigationDrawer):
         if self.app.root.ids.manager.current == 'game_screen':
             self.show_confirmation_leave(screen_name)
         else:
+            self.set_state('close')
             self.app.change_screen(screen_name)
 
     def show_confirmation_leave(self, screen_name):
         """Shows a dialog box to confirm the user's choice"""
         if not self.confirmation_leave:
             self.confirmation_leave = MDDialog(
-                title="Do you want to leave the game and loose your save?",
+                title="Leave the game and loose your save?",
                 size_hint=(0.7, 1), buttons=[
-                    MDFlatButton(text='Yes', text_color=self.app.theme_cls.primary_color,
-                                 on_press=lambda x: self.app.change_screen(screen_name),
-                                 on_release=lambda x: self.dismiss_confirmation_leave()),
-                    MDFlatButton(text='No, Cancel', text_color=self.app.theme_cls.primary_color,
-                                 on_release=lambda x: self.dismiss_confirmation_leave())])
+                    MDFlatButton(text='[size=16sp]Yes[/size]', text_color=self.app.theme_cls.primary_color,
+                                 on_release=lambda x: self.dismiss_confirmation_leave(screen_name),
+                                 markup=True),
+                    MDFlatButton(text='[size=16sp]No, Cancel[/size]',
+                                 text_color=self.app.theme_cls.primary_color,
+                                 markup=True,
+                                 on_release=lambda x: self.dismiss_confirmation_leave(close=False))])
         self.confirmation_leave.open()
 
-    def dismiss_confirmation_leave(self):
+    def dismiss_confirmation_leave(self, screen_name='homepage', close=True):
         """Dismisses confirmation dialog box"""
         self.confirmation_leave.dismiss()
+        if close:
+            self.set_state('close')
+            self.app.change_screen(screen_name)
 
 
 class HomeScreen(MDScreen):
@@ -131,7 +137,7 @@ class HomeScreen(MDScreen):
         """Is called just before the user sees the screen"""
         if self.condition:  # Makes sure it doesn't happen the first time
             self.app.root.ids.my_toolbar.right_action_items = [
-                ["cog", lambda x: self.app.root.ids.my_toolbar.show_dialog_confirmation()]]
+                ["information-outline", lambda x: self.app.root.ids.my_toolbar.show_dialog_confirmation()]]
         else:
             self.condition = True
 
@@ -157,7 +163,7 @@ class SettingScreen(MDScreen):
 
     def on_pre_enter(self, *args):
         """Is called just before the user sees the screen"""
-        self.app.root.ids.my_toolbar.title = 'Settings'
+        self.app.root.ids.my_toolbar.title = 'Help'
 
 
 class StatsPointApp(MDApp):
