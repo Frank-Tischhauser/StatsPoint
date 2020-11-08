@@ -4,7 +4,15 @@
         adaptive_height: True
         #adaptive_width: True
         pos_hint: {'top': .6, 'center_x': .5}
-        spacing: dp(50)
+        spacing: dp(200)
+        MDLabel:
+            font_name: 'fonts/ProximaNova-Regular.otf'
+            size_hint_x: .8
+            font_size: '14sp'
+            pos_hint: {'center_x':.5, 'center_y': 1}
+            halign: 'justify'
+            markup: True
+            text: "[size=18sp][color=#E7740F] Additional explanations to improve your experience : [/size][/color]\n\n - Unforced error : error caused by the player's own mistake. \n\n - Forced error : error caused by a very good shot coming from the opponent, that is considered as very difficult to return. \n\n  - Winner : when a player wins the point and that the looser didn't even touch the ball on the last shot. \n\n - A winning service which is not an ace is considered as part of the rally : it can become either an unforced error or a forced error."
         MDRaisedButton:
             pos_hint: {'center_x': .5}
             text: 'Quit'

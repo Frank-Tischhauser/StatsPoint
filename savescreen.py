@@ -68,7 +68,7 @@ class SaveScreen(MDScreen):
     def on_pre_enter(self, *args):
         """Is called just before the user sees the screen"""
         self.app.root.ids.my_toolbar.right_action_items = [
-            ["cog", lambda x: self.app.root.ids.my_toolbar.show_dialog_confirmation()]]
+            ["information-outline", lambda x: self.app.root.ids.my_toolbar.show_dialog_confirmation()]]
         self.app.root.ids.my_toolbar.title = 'Saves'
 
     def saved_match_list(self):
@@ -83,10 +83,14 @@ class SaveScreen(MDScreen):
                 match_info['player2_name']))  # Add a OneListItem widget (UI)
             result.bind(on_press=lambda a, i=match_info: self.show_dialog_saves(i, data))
             delete_save = DeleteSave(
+                theme_text_color='Custom',
+                text_color=(0.9, 0, 0, 1),
                 icon='close',
                 on_press=lambda x, i=match_info: DeleteSave().show_dialog_delete_save(i))
             tennis_icon = IconLeftWidget(
                 icon='tennis',
+                theme_text_color='Custom',
+                text_color=(0.9, 0.36, 0, 1),
                 on_press=lambda a, i=match_info: self.show_dialog_saves(i, data))
             result.add_widget(tennis_icon)
             # Adds a button to delete the match
@@ -103,15 +107,23 @@ class SaveScreen(MDScreen):
         """Gives the choice to the user :
         Whether he continues the game, or he checks the data of the game"""
         if not self.save:
+            raised_button = MDRaisedButton(
+                text='Continue',
+                on_release=lambda x: self.continue_game(data, full_list),
+            )
+            raised_button.text_color = (1, 1, 1, 1)
+            raised_button.font_size = '16sp'
             self.save = MDDialog(
-                title='Do you want to continue the match or see the statistics?',
+                title="What's your choice?",
                 size_hint=(0.7, 1),
+                text='Continue the match or see the statistics.',
                 buttons=[
-                    MDRaisedButton(
-                        text='Continue',
-                        on_release=lambda x: self.continue_game(data, full_list)),
+                    raised_button,
                     MDFlatButton(
-                        text='Stats / Analysis', text_color=self.app.theme_cls.primary_color,
+                        text='Stats',
+                        text_color=self.app.theme_cls.primary_color,
+                        theme_text_color='Primary',
+                        font_size='16sp',
                         on_release=lambda x: self.data_choice(data))])
 
         if not data['match_ended']:
@@ -181,7 +193,7 @@ class DeleteSave(IconRightWidget):
         """Ask the user to confirm his choice"""
         if not self.delete_confirmation:
             self.delete_confirmation = MDDialog(
-                title='Do you want to delete this game?',
+                title='Delete this game?',
                 size_hint=(0.7, 1),
                 buttons=[
                     MDFlatButton(

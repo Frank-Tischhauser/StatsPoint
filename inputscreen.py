@@ -38,7 +38,7 @@ class InputScreen(MDScreen):
         """Is called just before the user sees the screen"""
         self.app.root.ids.my_toolbar.title = 'Create a game'
         self.app.root.ids.my_toolbar.right_action_items = [
-            ["cog", lambda x: self.app.root.ids.my_toolbar.show_dialog_confirmation()]]
+            ["information-outline", lambda x: self.app.root.ids.my_toolbar.show_dialog_confirmation()]]
 
     def create_match(self):
         """Creates a match when button pressed"""
