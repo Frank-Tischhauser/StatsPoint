@@ -201,10 +201,12 @@ class GameScreen(MDScreen):
             self.dialog = MDDialog(title='Who serves first?', size_hint=(0.7, 1), buttons=[
                 MDFlatButton(text=self.app.root.ids.input_screen.ids.entry1.text,
                              text_color=self.app.theme_cls.primary_color,
+                             font_size='16sp',
                              on_release=lambda x: self.server(
                                  self.player1, self.player2)),
                 MDFlatButton(text=self.app.root.ids.input_screen.ids.entry2.text,
                              text_color=self.app.theme_cls.primary_color,
+                             font_size='16sp',
                              on_release=lambda x: self.server(
                                  self.player2, self.player1))])
         self.dialog.open()
@@ -228,10 +230,12 @@ class GameScreen(MDScreen):
                 buttons=[
                     MDFlatButton(text='Yes',
                                  text_color=self.app.theme_cls.primary_color,
-                                 on_release=lambda x: self.leave_match()
+                                 on_release=lambda x: self.leave_match(),
+                                 font_size='16sp'
                                  ),
                     MDFlatButton(text='No, cancel',
                                  text_color=self.app.theme_cls.primary_color,
+                                 font_size='16sp',
                                  on_release=lambda x: self.cancel())])
         self.confirmation_save_match.open()
 
