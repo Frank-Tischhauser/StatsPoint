@@ -16,9 +16,9 @@ This file contains the list of all the **drills** available in **StatsPoint** wi
 ### Rain of volleys
 **Goal :** Improve reaction time, volley accuracy and cooperation.
 
-**Description :** The drill is a double, but all players must play volleys in the service box (no doubles tramlines). Everyone starts on the service line. After the first hit the aim is to finish the point as soon as possible with a “decisive” volley, thus the exercise is well done, the average rally length should be short.
+**Description :** The drill is a double, but all players must play volleys in the service box (no doubles tramlines). Everyone starts on the service line. After the first hit the aim is to finish the point as soon as possible with a “decisive” volley, thus if the exercise is well done, the average rally length should be short.
 
-**Note :** If you are only 2 players, do the same, but use only half of the service box.
+**Note :** If you are only 2 players, do the same, but use only one half of the service box.
 ### Stop and Go
 
 **Goal :** Improve ball control and coordination.

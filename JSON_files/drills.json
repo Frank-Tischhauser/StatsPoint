@@ -4,7 +4,7 @@
     "difficulty": ["intermediate", "advanced"],
     "title": "Bryan Brothers drill",
     "details": {"net" : ["unforced_error", "control"]},
-    "description": "Goal : Improve footwork, volley accuracy and mental focus.\n\n Description : This exercise is about cooperation and footwork. A and B stand diagonally on the service line. They play volleys. While doing so, each player moves from his side to the other. \n\nExample : If A starts on the left side and B on the right, then A moves to the right and B simultaneously to the left during the rally. Then A and B come back and repeat the pattern until there is a mistake.",
+    "description": "[font=fonts/ProximaNova-Bold.otf]Goal :[/font] Improve footwork, volley accuracy and mental focus.\n\n [font=fonts/ProximaNova-Bold.otf]Description :[/font] This exercise is about cooperation and footwork. A and B stand diagonally on the service line. They play volleys. While doing so, each player moves from his side to the other. \n\n[font=fonts/ProximaNova-Bold.otf]Example :[/font] If A starts on the left side and B on the right, then A moves to the right and B simultaneously to the left during the rally. Then A and B come back and repeat the pattern until there is a mistake.",
     "link": "https://www.youtube.com/watch?v=yArf4uOcC5k",
     "category": "drill"
   },
@@ -13,7 +13,7 @@
     "difficulty": ["intermediate", "advanced"],
     "title": "Rain of volleys",
     "details": {"net":  ["winner", "winning_shot"]},
-    "description": "Goal : Improve reaction time, volley accuracy and cooperation.\n\n Description : The drill is a double, but all players must play volleys in the service box (No doubles’ tramlines). They all start on the service line. After the first hit the aim is to finish the point as soon as possible with a “decisive” volley, thus if all players are good, the average rally length should be short.\n\n Note : If you are only 2 players, do the same, but use only half of the service box.",
+    "description": "[font=fonts/ProximaNova-Bold.otf]Goal :[/font] Improve reaction time, volley accuracy and cooperation.\n\n [font=fonts/ProximaNova-Bold.otf]Description :[/font] The drill is a double, but all players must play volleys in the service box (no doubles tramlines). Everyone starts on the service line. After the first hit, the aim is to finish the point as soon as possible with a “decisive” volley, thus if the exercise is well done, the average rally length should be short.\n\n [font=fonts/ProximaNova-Bold.otf]Note :[/font] If you are only 2 players, do the same, but use only one half of the service box.",
     "link": null,
     "category": "rally"
   },
@@ -22,7 +22,7 @@
     "difficulty": ["beginner", "intermediate"],
     "title": "Stop and Go",
     "details": {"net": ["unforced_error", "control"]},
-    "description": "Goal : Improve ball control and coordination.\n\n Duration : 5min\n\n Description : A and B must play volleys in the service box. The aim is to keep the ball in play as long as possible, so it’s a cooperation game. Before his volley, every player should bounce the ball once with his racquet.\n\n Example : A hits the ball, B bounces the ball once with his racquet and hits the ball back, A do the same thing, and the pattern repeats till there is a mistake.",
+    "description": "[font=fonts/ProximaNova-Bold.otf]Goal :[/font] Improve ball control and coordination.\n\n [font=fonts/ProximaNova-Bold.otf]Duration :[/font] 5 min\n\n [font=fonts/ProximaNova-Bold.otf]Description :[/font] A and B must play volleys in the service box. The aim is to keep the ball in play as long as possible, thus it’s a cooperation game. Before his volley, every player should bounce the ball once with his racquet.\n\n [font=fonts/ProximaNova-Bold.otf]Example :[/font] A hits the ball, B bounces the ball once with his racquet and hits the ball back, A does the same thing, and the pattern repeats till there is a mistake.",
     "link": null,
     "category": "drill"
   },
@@ -31,16 +31,16 @@
     "difficulty": ["beginner", "intermediate", "advanced"],
     "title": "High Five Doubles",
     "details": {"forehand" :  ["winner", "strength"]},
-    "description": "Goal : Strengthen muscles used in forehand, increase hitting speed (Forehand).\n\n Duration : 10min\n\n Description : Players play a double in the service box. But they have no racquets and no balls, but only a heavy ball (2/3kg). The ball should be only thrown like a forehand : The player catches the ball and throw it by rotating his chest and doing a 'from bottom to top' movement, thus imitating a forehand. After every shot, the player gives a high five to his teammate. If the heavy ball bounces twice, outside the service box or goes into the net, the rally is finished. The first team to reach 15 points wins.",
+    "description": "[font=fonts/ProximaNova-Bold.otf]Goal :[/font] Strengthen muscles used in forehand, increase hitting speed.\n\n [font=fonts/ProximaNova-Bold.otf]Duration :[/font] 10 min\n\n [font=fonts/ProximaNova-Bold.otf]Description :[/font] Players play a double in the service box, but they have no [font=fonts/ProximaNova-Bold.otf]racquets[/font], no [font=fonts/ProximaNova-Bold.otf]balls[/font] and only a [font=fonts/ProximaNova-Bold.otf]heavy ball[/font] (2/3kg). This ball should be thrown imitating a [font=fonts/ProximaNova-Bold.otf]forehand[/font] : then the player catches the ball and throw it by rotating his chest and doing a 'from bottom to top' movement, thus copying a forehand. After every shot, the player gives a [font=fonts/ProximaNova-Bold.otf]high five[/font] to his teammate. If the heavy ball bounces twice, outside the service box or goes into the net, the rally is finished. The first team to reach 15 points wins.",
     "link": null,
     "category": "drill"
   },
   {
     "id" : 5,
     "difficulty": ["intermediate", "advanced"],
-    "title": "Go Cocktail (Forehand)",
+    "title": "Go Cocktail (forehand)",
     "details": {"forehand":  ["unforced_error","tactics"]},
-    "description": "Goal : Improve forehand \n\n Duration : 12min \n\n Description : A and B play cross court forehands and try not to make any mistakes. The coach shouts “GO” after at least 5 hits : the following hit is down the line. The rally goes on freely, and players try to win the point. The first player to reach 15 points wins.",
+    "description": "[font=fonts/ProximaNova-Bold.otf]Goal :[/font] Improve forehand. \n\n [font=fonts/ProximaNova-Bold.otf]Duration :[/font] 12 min \n\n [font=fonts/ProximaNova-Bold.otf]Description :[/font] A and B play cross court [font=fonts/ProximaNova-Bold.otf]forehands[/font] and try not to make any mistakes. The coach shouts [font=fonts/ProximaNova-Bold.otf]“GO”[/font] after at least 5 hits : the following hit is down the line. The rally goes on freely, and players try to win the point. The first player to reach 15 points wins.",
     "link": null,
     "category": "match"
   },
@@ -49,7 +49,7 @@
     "difficulty": ["intermediate", "advanced"],
     "title": "Go Cocktail (Backhand)",
     "details": {"backhand":  ["unforced_error","tactics"]},
-    "description": "Goal : Improve backhand \n\n Duration : 12min \n\n Description : A and B play cross court backhands and try not to make any mistakes. The coach shouts “GO” after at least 5 hits : the following hit is down the line. The rally goes on freely, and players try to win the point. The first player to reach 15 points wins.",
+    "description": "[font=fonts/ProximaNova-Bold.otf]Goal :[/font] Improve backhand. \n\n [font=fonts/ProximaNova-Bold.otf]Duration :[/font] 12 min \n\n [font=fonts/ProximaNova-Bold.otf]Description :[/font] A and B play cross court [font=fonts/ProximaNova-Bold.otf]backhands[/font] and try not to make any mistakes. The coach shouts [font=fonts/ProximaNova-Bold.otf]“GO”[/font] after at least 5 hits : the following hit is down the line. The rally goes on freely, and players try to win the point. The first player to reach 15 points wins.",
     "link": null,
     "category": "match"
   },
@@ -58,7 +58,7 @@
     "difficulty": ["intermediate", "advanced"],
     "title": "Inside Out",
     "details": {"forehand":  ["winner", "regularity"]},
-    "description": "Goal : Improve inside out forehand \n\n Description : Play 6 inside out forehands at full speed and at maximum intensity. Then have a small break (30s) and repeat the pattern at least 5 times. The footwork is the key here. If you feel physically well, you can increase the number of forehands in a row (e.g. 12).",
+    "description": "[font=fonts/ProximaNova-Bold.otf]Goal :[/font] Improve inside out forehand. \n\n [font=fonts/ProximaNova-Bold.otf]Description :[/font] Play 6 inside out forehands at full speed and at maximum intensity. Then have a small break (30s) and repeat the pattern at least 5 times. The footwork is the key here. If you feel physically well, you can increase the number of forehands in a row (e.g. 12).",
     "link": null,
     "category": "drill"
   },
@@ -67,16 +67,16 @@
     "difficulty": ["intermediate", "advanced"],
     "title": "Return and volley",
     "details": {"return":  ["return", "aggressiveness"], "net":  ["winner","winning_shot"]},
-    "description": "Goal : Improve return control and winning volley. \n\n Description : The coach or the sparring partner serves at a moderated speed. The player returns aggressively by taking the ball early and comes up to the net, and finally tries to finish the point by a winning volley. Repeat the pattern as long as you need.",
+    "description": "[font=fonts/ProximaNova-Bold.otf]Goal :[/font] Improve return control and winning volley. \n\n [font=fonts/ProximaNova-Bold.otf]Description :[/font] The coach or the sparring partner serves at a moderated speed. The player returns aggressively by taking the ball early, comes up to the net and finally tries to finish the point by a winning volley. Repeat this pattern at least 10 times.",
     "link": null,
     "category": "rally"
   },
   {
     "id" : 9,
     "difficulty": ["intermediate", "advanced"],
-    "title": "Longest rally",
+    "title": "Longest rally (forehand)",
     "details": {"forehand":  ["unforced_error", "regularity"]},
-    "description": "Goal : Improve footwork, regularity, and control. \n\n Description :  A and B play together and try to have the longest rally possible. A plays only forehands :  2 cross-courts and 1 down the line. On the other side B plays 2 cross court forehands and 1 down the line backhand. Then A and B repeat the pattern.  To make the exercise work, A must start the rally with the 1st cross court forehand. Note : If the ball is slightly out, the rally goes on. However, you should really avoid net balls!",
+    "description": "[font=fonts/ProximaNova-Bold.otf]Goal :[/font] Improve footwork, regularity, and control. \n\n [font=fonts/ProximaNova-Bold.otf]Description :[/font] A and B play together and try to have the longest rally possible. A plays only [font=fonts/ProximaNova-Bold.otf]forehands[/font] :  2 cross-courts and 1 down the line. On the other side B plays 2 cross court [font=fonts/ProximaNova-Bold.otf]forehands[/font] and 1 down the line [font=fonts/ProximaNova-Bold.otf]backhand[/font]. Then A and B repeat the pattern. To make the exercise work, A must start the rally with the 1st cross court forehand. \n\n [font=fonts/ProximaNova-Bold.otf]Note :[/font] If the ball is slightly out, the rally goes on. However, you should really avoid net balls!",
     "link": null,
     "category": "rally"
   },
@@ -85,7 +85,7 @@
     "difficulty": ["intermediate", "advanced"],
     "title": "Deep return",
     "details": {"service":  ["first_serve_won", "general"], "return":  ["return", "accuracy"]},
-    "description": "Goal : Improve service and return  \n\n Description :  This drill is like a single, but with bonus points. Players create a zone that is delimited by a line, which is drawn in the court, 1 meter from the baseline. If the return bounces in the zone, thus being long enough, the receiver earns 1 bonus point. And if the server makes an ace or winning service, the server earns 1 bonus point as well. The first player to reach 15 points wins the match. The server changes every 6 points.",
+    "description": "[font=fonts/ProximaNova-Bold.otf]Goal :[/font] Improve service and return.\n\n [font=fonts/ProximaNova-Bold.otf]Description :[/font] This drill is like a single, but with bonus points. Players create a zone that is delimited by a line, which is drawn inside the court, [font=fonts/ProximaNova-Bold.otf]1 metre[/font] from the baseline. If the return bounces in the zone, thus being long enough, the receiver earns 1 bonus point. And if the server makes an ace or a winning service, he earns 1 bonus point as well. The first player to reach 15 points wins the match. The server changes every 6 exchanges.",
     "link": null,
     "category": "match"
   },
@@ -94,7 +94,7 @@
     "difficulty": ["beginner"],
     "title": "Basic shot",
     "details": {"all":  "control"},
-    "description": "Goal : Develop the feeling with the racquet and the ball. \n\n Description : A and B stand face to face 10 metres away. This drill is progressive. First, A and B do not have a racquet and throw the ball to each other. They throw the ball by holding it with both hands and try to imitate a real shot by moving the hands from the bottom to the top. Then they take the racquet but hold it with both hands with the same previous movement as if they were holding a pan. If they feel confident, they can then do it with only one hand (but hold the top of the racquet handle). Finally, if the feeling is good, they can hold the handle of the racquet normally.",
+    "description": "[font=fonts/ProximaNova-Bold.otf]Goal :[/font] Develop the feeling with the racquet and the ball.\n\n [font=fonts/ProximaNova-Bold.otf]Description :[/font] A and B stand face to face 10 metres away. This drill is progressive. First, A and B do not have a racquet and throw the ball to each other. They throw the ball by holding it with both hands and try to imitate a real shot by moving the hands from the bottom to the top.\n\n Then they take the racquet but hold it with both hands with the same previous movement as if they were holding a pan. If they feel confident, they can do it with only one hand, but still hold the top of the racquet handle. Finally, if the feeling is good, they can hold the handle of the racquet normally.",
     "link": null,
     "category": "drill"
   },
@@ -103,7 +103,7 @@
     "difficulty": ["intermediate", "advanced"],
     "title": "Service and winner",
     "details": {"service":  ["first_serve_in", "first_serve"], "return": ["return","first_serve_return"], "forehand":  ["winner","winning_shot"]},
-    "description": "Goal : Improve first service, return on first service. \n\n Description : The game is like a single, but with bonus points. The server has 2 services, but even the second service must be played like a first service. If the server makes an ace or a winning service, he wins a bonus point. If the shot made by the server, following his service is a forehand and the server wins the points. He also receives a bonus point. Thus, the receiver must try to return on backhand side of the server.",
+    "description": "[font=fonts/ProximaNova-Bold.otf]Goal :[/font] Improve first service and return on first service. \n\n [font=fonts/ProximaNova-Bold.otf]Description :[/font] The game is like a single, but with bonus points. The server has 2 services, but even the second service must be played like a first serve. If the server makes an ace or a winning service, he wins a bonus point. If the next shot after the service made by the server is a forehand and the server wins the point. He also receives a bonus point. Thus, the receiver must try to return on the backhand side of the server.",
     "link": null,
     "category": "match"
   },
@@ -112,16 +112,16 @@
     "difficulty": ["intermediate", "advanced"],
     "title": "Service under pressure",
     "details": {"service" : ["second_serve_won","serve_game"]},
-    "description": "Goal: Improve the service game under pressure. \n\n Duration : 30-45min \n\n Description : It is a classic single match with 1 or 2 sets. The only difference is that the server must always be leading or be in a tie situation (15:15, 30:30…) during his service game. The only exception is that he can lose the first point (0:15). If the server is losing the game (15:30, 30:40, 40:AD), the game ends and is won by the receiver.",
+    "description": "[font=fonts/ProximaNova-Bold.otf]Goal :[/font] Improve the service game under pressure. \n\n [font=fonts/ProximaNova-Bold.otf]Duration :[/font] 30-45 min\n\n [font=fonts/ProximaNova-Bold.otf]Description :[/font] It is a classic single match with 1 or 2 sets. The only difference is that the server must always be leading or be in a tie situation (15:15, 30:30…) during his service game. The only exception is that he can lose the first point (0:15). If the server is losing the game (15:30, 30:40, 40:AD), the game ends and is won by the receiver.",
     "link": null,
     "category": "match"
   },
   {
     "id" : 14,
     "difficulty": ["intermediate", "advanced"],
-    "title": "Longest rally",
+    "title": "Longest rally (backhand)",
     "details": {"backhand":  ["unforced_error", "regularity"]},
-    "description": "Goal : Improve footwork, regularity, and control. \n\n Description :  A and B play together and try to have the longest rally possible. A plays only backhands :  2 cross-courts and 1 down the line. On the other side B plays 2 cross court backhands and 1 down the line forehand. Then A and B repeat the pattern. To make the exercise work, A must start the rally with the 1st cross court backhand Note : If the ball is slightly out, the rally goes on. However, you should really avoid net balls!",
+    "description": "[font=fonts/ProximaNova-Bold.otf]Goal :[/font] Improve footwork, regularity, and control. \n\n [font=fonts/ProximaNova-Bold.otf]Description :[/font] A and B play together and try to have the longest rally possible. A plays only [font=fonts/ProximaNova-Bold.otf]backhands[/font] :  2 cross-courts and 1 down the line. On the other side B plays 2 cross court [font=fonts/ProximaNova-Bold.otf]backhands[/font] and 1 down the line [font=fonts/ProximaNova-Bold.otf]forehand[/font]. Then A and B repeat the pattern. To make the exercise work, A must start the rally with the 1st cross court backhand. \n\n [font=fonts/ProximaNova-Bold.otf]Note :[/font] If the ball is slightly out, the rally goes on. However, you should really avoid net balls!",
     "link": null,
     "category": "rally"
   },
@@ -130,7 +130,7 @@
     "difficulty": ["intermediate", "advanced"],
     "title": "Backward / forward backhand",
     "details": {"backhand":  ["winner", "general"]},
-    "description": "Goal: Work on vertical movement while playing backhand \n\n Description : You do a series of backhands and after every shot you touch a cone (the coach tells you which one). Watch the video to see where are the cones.",
+    "description": "[font=fonts/ProximaNova-Bold.otf]Goal :[/font] Work on vertical movement while playing backhand.\n\n [font=fonts/ProximaNova-Bold.otf]Description :[/font] You do a series of backhands and after every shot you touch a cone (the coach tells you which one). Watch the video to see where are the cones.",
     "link": "https://youtu.be/qTmkr2tz_tE?t=11",
     "category": "drill"
   }
