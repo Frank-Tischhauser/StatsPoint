@@ -26,7 +26,7 @@ Available in the Google Play Store : <https://play.google.com/store/apps/details
   
   * Documentation : <https://kivymd.readthedocs.io/en/0.104.1/index.html>
 
-* Akivymd 1.1
+* akivymd 1.1
 
   * Download : <https://pypi.org/project/akivymd/1.1/>
   
