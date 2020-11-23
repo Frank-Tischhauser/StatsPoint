@@ -144,3 +144,10 @@
                         Rectangle:
                             pos: self.pos
                             size: self.size
+    MDFloatingActionButton:
+        icon: "plus"
+        id: analysis_button
+        on_release: root.show_confirmation_dialog()
+        pos_hint: {'center_x': .85, 'center_y': .17}
+        md_bg_color: app.theme_cls.primary_color
+        size: (dp(43), dp(43))

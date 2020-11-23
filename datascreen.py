@@ -158,7 +158,7 @@ class DataScreen(MDScreen):
     def on_pre_enter(self, *args):
         """Is called just before the user sees the screen"""
         self.app.root.ids.my_toolbar.right_action_items = [
-            ["magnify", lambda x: self.show_confirmation_dialog()]]
+            ["information-outline", lambda x: self.app.root.ids.my_toolbar.show_dialog_confirmation()]]
         self.confirmation_dialog = None
         self.app.root.ids.my_toolbar.title = 'Statistics'
         self.show_scoreboard()
