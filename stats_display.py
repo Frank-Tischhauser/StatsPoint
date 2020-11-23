@@ -73,8 +73,8 @@ class StatsDisplay:
             'Net unforced errors': 'min',
             'Return points won': 'ratio',
             'Unforced errors': 'min',
-            'Forehand unforced errors': 'min',
-            'Backhand unforced errors': 'min'
+            'Forehand unf. errors': 'min',
+            'Backhand unf. errors': 'min'
         }
         self.caption = list(self.settings.keys())[::-1]
         self.highlights = list(self.settings.values())[::-1]
