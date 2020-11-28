@@ -4,15 +4,19 @@ DataScreen
 This module contains the DataScreen class and all the classes which are related to it.
 This screen contains and shows all the statistics of a tennis match.
 """
+import json
 
 from kivy.properties import StringProperty
+from kivy.metrics import dp
+from kivy.uix.widget import Widget
+from kivy.clock import Clock
 
 from kivymd.app import MDApp
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.gridlayout import MDGridLayout
 from kivymd.uix.behaviors import RectangularElevationBehavior
-from kivymd.uix.button import MDRaisedButton, MDFlatButton
+from kivymd.uix.button import MDRaisedButton, MDFlatButton, MDFillRoundFlatButton
 from kivymd.uix.dialog import MDDialog
 
 from stats_display import StatsDisplay
@@ -31,8 +35,8 @@ def number_comparison(col1, col3, highlight='max'):
     result = None, None
     if highlight == 'ratio':  # Highlights the greatest number ratio
         ratio1 = col1.ids.label.text
-        col1.ids.label.font_size = '15sp'
-        col3.ids.label.font_size = '15sp'
+        col1.ids.label.font_size = '14sp'
+        col3.ids.label.font_size = '14sp'
         div_numbers1 = list(map(int, ratio1.split('/')))
         quotient1 = safe_div(div_numbers1[0], div_numbers1[1])
         ratio2 = col3.ids.label.text
@@ -83,7 +87,7 @@ class LeaderBoard(MDGridLayout):
         Adds the rows that will include all the stats.
     """
 
-    def add_rows(self, rows_number=18):
+    def add_rows(self, rows_number=19):
         """Add the rows that will include all the stats"""
         self.rows = rows_number
         rows_liste = []
@@ -118,6 +122,15 @@ class DataScreen(MDScreen):
     -------
     on_pre_enter():
         Is called just before the user sees the screen.
+
+    create_special_row():
+        Creates the last row, which contains the button to get the 'analysis'.
+
+    change_last_row():
+        Changes the last row of the stats_widget with the special row which contains a button.
+
+    scroll_animation():
+        Scrolls the screen from the top to the bottom, to make the user aware of the last row.
 
     start():
         Is called only once, at the start of the application to initialize widgets.
@@ -161,9 +174,47 @@ class DataScreen(MDScreen):
             ["information-outline", lambda x: self.app.root.ids.my_toolbar.show_dialog_confirmation()]]
         self.confirmation_dialog = None
         self.app.root.ids.my_toolbar.title = 'Statistics'
+        for i in range(4):  # To avoid duplicated widgets with the last row
+            self.stats_widgets[i].children[0].clear_widgets()
         self.show_scoreboard()
         self.show_stats()
         self.check_stat_winner()
+        self.change_last_row()
+
+    def create_special_row(self):
+        """Creates the last row, which contains the button to get the 'analysis' """
+        row = MDBoxLayout(spacing=dp(50))
+        button = MDFillRoundFlatButton(
+            text='Get more statistics',
+            on_release=lambda x: self.show_confirmation_dialog())
+        button.text_color = (1, 1, 1, 1)
+        button.font_name = 'fonts/Montserrat-Regular.ttf'
+        button.md_bg_color = (0.91, 0.46, 0.07, 1)
+        row.add_widget(Widget())  # To center the button
+        row.add_widget(button)
+        row.add_widget(Widget())
+        return row
+
+    def change_last_row(self):
+        """Changes the last row of the stats_widget with the special row which contains a button"""
+        for i in range(4):
+            self.stats_widgets[i].children[0].add_widget(self.create_special_row())
+
+    def scroll_animation(self):
+        """Scrolls the screen from the top to the bottom, to make the user aware of the last row"""
+
+        with open('JSON_files/settings.json', 'r') as r_json:
+            content = json.load(r_json)
+        if content['show_tutorial']:  # Make it happen only once
+            self.ids.set1_scroll.scroll_to(
+                self.stats_widgets[0].children[0], animate={'d': 0.5, 't': 'out_quad'})
+
+            Clock.schedule_once(
+                lambda x: self.ids.set1_scroll.scroll_to(
+                    self.stats_widgets[0].children[-1], animate={'d': 0.5, 't': 'out_quad'}), 3)
+            content['show_tutorial'] = False
+            with open('JSON_files/settings.json', 'w') as w_json:
+                json.dump(content, w_json, indent=4, sort_keys=True)
 
     def start(self):
         """Is called only once, at the start of the application to initialize widgets"""
@@ -218,22 +269,23 @@ class DataScreen(MDScreen):
 
         for manche in self.stats_widgets:
             for row in manche.children:
-                cols = [row.ids.col1, row.ids.col3]
-                winner_col, looser_col = number_comparison(cols[0], cols[1], row.highlight)
-                if winner_col is not None and looser_col is not None:
-                    winner_col.md_bg_color = (0.91, 0.46, 0.07, 1)
-                    winner_col.ids.label.text_color = (1, 1, 1, 1)
-                    winner_col.elevation = 5
-                    self.reset_square_design(looser_col)
-                else:
-                    self.reset_square_design(cols[0])
-                    self.reset_square_design(cols[1])
+                if len(row.children) > 0:
+                    cols = [row.ids.col1, row.ids.col3]
+                    winner_col, looser_col = number_comparison(cols[0], cols[1], row.highlight)
+                    if winner_col is not None and looser_col is not None:
+                        winner_col.md_bg_color = (0.91, 0.46, 0.07, 1)
+                        winner_col.ids.label.text_color = (1, 1, 1, 1)
+                        winner_col.elevation = 5
+                        self.reset_square_design(looser_col)
+                    else:
+                        self.reset_square_design(cols[0])
+                        self.reset_square_design(cols[1])
 
-                if row.highlight == 'name':
-                    cols[0].size_hint_x = 1
-                    cols[0].md_bg_color = (1, 1, 1, 1)
-                    cols[1].size_hint_x = 1
-                    cols[1].md_bg_color = (1, 1, 1, 1)
+                    if row.highlight == 'name':
+                        cols[0].size_hint_x = 1
+                        cols[0].md_bg_color = (1, 1, 1, 1)
+                        cols[1].size_hint_x = 1
+                        cols[1].md_bg_color = (1, 1, 1, 1)
 
     def reset_square_design(self, square):
         """Resets the design of the Square"""

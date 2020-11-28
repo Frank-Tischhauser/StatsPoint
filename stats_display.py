@@ -74,7 +74,8 @@ class StatsDisplay:
             'Return points won': 'ratio',
             'Unforced errors': 'min',
             'Forehand unf. errors': 'min',
-            'Backhand unf. errors': 'min'
+            'Backhand unf. errors': 'min',
+            'Blank': 'max',
         }
         self.caption = list(self.settings.keys())[::-1]
         self.highlights = list(self.settings.values())[::-1]
@@ -112,7 +113,7 @@ class StatsDisplay:
             full_stats['net_points'][manche], full_stats['net_winners'][manche],
             full_stats['net_unforced_errors'][manche], return_ratio,
             full_stats['unforced_errors'][manche], full_stats['forehand_unforced_errors'][manche],
-            full_stats['backhand_unforced_errors'][manche]][::-1]
+            full_stats['backhand_unforced_errors'][manche], 1][::-1]
         return stats
 
     def get_match_stats(self, player):
@@ -147,7 +148,7 @@ class StatsDisplay:
                  sum(full_stats['net_points']), sum(full_stats['net_winners']),
                  sum(full_stats['net_unforced_errors']), return_ratio,
                  sum(full_stats['unforced_errors']), sum(full_stats['forehand_unforced_errors']),
-                 sum(full_stats['backhand_unforced_errors'])][::-1]
+                 sum(full_stats['backhand_unforced_errors']), 1][::-1]
         return stats
 
     def display_stats(self, stats, leaderboard, player):
@@ -159,10 +160,15 @@ class StatsDisplay:
             for col in row.ids.values():
                 cols.append(col)
             cols.pop(1)
-            cols[self.players.index(player)].ids.label.text = stats[j]
-            if stats[j] == self.data[str(player + '_name')]:
-                cols[self.players.index(player)].size_hint = 1, 1
-                cols[self.players.index(player)].md_bg_color = (1, 1, 1, 1)
+            #  print(row.children, stats[j])
+            if len(row.children) > 0:
+                cols[self.players.index(player)].ids.label.text = stats[j]
+                if stats[j] == self.data[str(player + '_name')]:
+                    cols[self.players.index(player)].size_hint = 1, 1
+                    cols[self.players.index(player)].md_bg_color = (1, 1, 1, 1)
+                    cols[self.players.index(
+                        player)].ids.label.font_name = 'fonts/Montserrat-Regular.ttf'
+                    cols[self.players.index(player)].ids.label.font_size = '14sp'
 
     def write_captions(self, leaderboard):
         """Write all the captions on the screen"""
