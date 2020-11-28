@@ -201,11 +201,10 @@ class StatsPointApp(MDApp):
         self.theme_cls.primary_hue = '600'
         log.info(self.theme_cls.primary_color)
         LabelBase.register(
-            name='ProximaNova',
-            fn_regular="fonts/ProximaNova-Regular.otf")
-        theme_font_styles.append('ProximaNova')
+            name='Lato',
+            fn_regular="fonts/Lato-Regular.ttf")
         self.theme_cls.font_styles["H3"] = [
-            "ProximaNova",
+            "Lato",
             16,
             False,
             0.15,

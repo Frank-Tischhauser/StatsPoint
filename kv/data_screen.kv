@@ -21,7 +21,7 @@
         halign: 'center'
         size_hint: .3, None
         pos_hint: {'center_y':.5}
-        font_name: 'fonts/ProximaNova-Regular.otf'
+        font_name: 'fonts/Montserrat-Regular.ttf'
     Square:
         id: set1
         size_hint: .08, .5
@@ -44,8 +44,8 @@
         id: col2
         text: 'VS'
         halign: 'center'
-        font_name: 'fonts/ProximaNova-Regular.otf'
-        font_size: '15sp'
+        font_name: 'fonts/Montserrat-Regular.ttf'
+        font_size: '14sp'
     Square:
         id: col3
         size_hint: .4, .7
@@ -55,6 +55,7 @@
     on_pre_enter: bottom_navigation._refresh_tabs()
     on_pre_enter: set1_scroll.scroll_y = 1 ; set2_scroll.scroll_y = 1 ; set3_scroll.scroll_y = 1 ; total_scroll.scroll_y = 1
     on_pre_enter: bottom_navigation.switch_tab('set1')
+    on_enter: root.scroll_animation()
     MDBoxLayout:
         orientation: 'vertical'
         padding: [0 ,'12dp', 0, 0]
@@ -79,6 +80,7 @@
                 text: 'Set 1'
                 icon: 'tennis'
                 on_pre_enter: set1_scroll.scroll_y = 1
+
                 pos_hint: {'center_x':.5}
                 RecycleView:
                     id: set1_scroll
@@ -144,10 +146,3 @@
                         Rectangle:
                             pos: self.pos
                             size: self.size
-    MDFloatingActionButton:
-        icon: "plus"
-        id: analysis_button
-        on_release: root.show_confirmation_dialog()
-        pos_hint: {'center_x': .85, 'center_y': .17}
-        md_bg_color: app.theme_cls.primary_color
-        size: (dp(43), dp(43))
