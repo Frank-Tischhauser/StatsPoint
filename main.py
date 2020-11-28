@@ -142,6 +142,10 @@ class HomeScreen(MDScreen):
                 ["information-outline", lambda x: self.app.root.ids.my_toolbar.show_dialog_confirmation()]]
 
     def on_leave(self, *args):
+        if self.app.root.ids.manager.current != 'save_screen':
+            self.check_json_save()
+
+    def check_json_save(self):
         """Is called when the user leaves the screen"""
         if not self.condition:
             self.condition = True

@@ -67,9 +67,11 @@ class SaveScreen(MDScreen):
 
     def on_pre_enter(self, *args):
         """Is called just before the user sees the screen"""
+        self.app.root.ids.home_screen.check_json_save()
         self.app.root.ids.my_toolbar.right_action_items = [
             ["information-outline", lambda x: self.app.root.ids.my_toolbar.show_dialog_confirmation()]]
         self.app.root.ids.my_toolbar.title = 'Saves'
+        self.saved_match_list()
 
     def saved_match_list(self):
         """Creates a list with all saved games"""
