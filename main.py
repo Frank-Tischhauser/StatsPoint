@@ -19,7 +19,6 @@ from os import path
 from kivymd.app import MDApp
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.navigationdrawer import MDNavigationDrawer
-from kivymd.font_definitions import theme_font_styles
 from kivymd.color_definitions import palette, colors
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
@@ -142,18 +141,17 @@ class HomeScreen(MDScreen):
                 ["information-outline", lambda x: self.app.root.ids.my_toolbar.show_dialog_confirmation()]]
 
     def on_leave(self, *args):
+        self.condition = True
         if self.app.root.ids.manager.current != 'save_screen':
             self.check_json_save()
 
     def check_json_save(self):
         """Is called when the user leaves the screen"""
-        if not self.condition:
-            self.condition = True
-            if not path.exists('../statspoint_data.json'):
-                with open('JSON_files/data_template.json', 'r') as template_file:
-                    template = json.load(template_file)
-                with open('../statspoint_data.json', 'w') as save_file:
-                    json.dump(template, save_file, indent=4, sort_keys=True)
+        if not path.exists('../statspoint_data.json'):
+            with open('json_files/data_template.json', 'r') as template_file:
+                template = json.load(template_file)
+            with open('../statspoint_data.json', 'w') as save_file:
+                json.dump(template, save_file, indent=4, sort_keys=True)
 
 
 class SettingScreen(MDScreen):

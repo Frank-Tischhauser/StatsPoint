@@ -203,7 +203,7 @@ class DataScreen(MDScreen):
     def scroll_animation(self):
         """Scrolls the screen from the top to the bottom, to make the user aware of the last row"""
 
-        with open('JSON_files/settings.json', 'r') as r_json:
+        with open('json_files/settings.json', 'r') as r_json:
             content = json.load(r_json)
         if content['show_tutorial']:  # Make it happen only once
             self.ids.set1_scroll.scroll_to(
@@ -213,7 +213,7 @@ class DataScreen(MDScreen):
                 lambda x: self.ids.set1_scroll.scroll_to(
                     self.stats_widgets[0].children[-1], animate={'d': 0.5, 't': 'out_quad'}), 3)
             content['show_tutorial'] = False
-            with open('JSON_files/settings.json', 'w') as w_json:
+            with open('json_files/settings.json', 'w') as w_json:
                 json.dump(content, w_json, indent=4, sort_keys=True)
 
     def start(self):
