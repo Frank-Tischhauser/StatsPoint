@@ -74,7 +74,7 @@ class SaveScreen(MDScreen):
     def saved_match_list(self):
         """Creates a list with all saved games"""
         self.ids.match_list.clear_widgets()  # To avoid duplication of widgets
-        with open('JSON_files/data.json', 'r') as file:
+        with open('../statspoint_data.json', 'r') as file:
             data = json.load(file)
         for match_info in data:  # For every match saved in the JSON file
             self.empty = False
@@ -212,12 +212,12 @@ class DeleteSave(IconRightWidget):
     def delete_data(self, to_remove_data):
         """Deletes the selected game"""
         if self.delete_confirmation is not None:
-            with open('JSON_files/data.json', 'r') as js_file:
+            with open('../statspoint_data.json', 'r') as js_file:
                 file = json.load(js_file)
             for game in file:
                 if to_remove_data == game:  # Removes the right dictionary
                     file.remove(to_remove_data)
-            with open('JSON_files/data.json', 'w') as js_file:  # Rewrites the file without the removed dict
+            with open('../statspoint_data.json', 'w') as js_file:  # Rewrites the file without the removed dict
                 json.dump(file, js_file, indent=4, sort_keys=True)
             self.app.root.ids.save_screen.saved_match_list()  # Updates the screen
             self.cancel()

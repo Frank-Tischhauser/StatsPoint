@@ -252,7 +252,7 @@ class GameScreen(MDScreen):
                 for i in full_list:
                     if to_remove_dict == i:
                         full_list.remove(self.app.root.ids.save_screen.picked_game_data)
-                        with open('JSON_files/data.json', 'w') as file:
+                        with open('../statspoint_data.json', 'w') as file:
                             json.dump(full_list, file, indent=4, sort_keys=True)
                             # Rewrite the json file, without the duplication
             self.app.change_screen('home_screen')

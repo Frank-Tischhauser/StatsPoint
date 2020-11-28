@@ -13,6 +13,8 @@ The app also helps the player by giving interesting drills depending on the resu
 Author : Frank Tischhauser
 """
 import logging as log
+import json
+from os import path
 
 from kivymd.app import MDApp
 from kivymd.uix.screen import MDScreen
@@ -138,8 +140,16 @@ class HomeScreen(MDScreen):
         if self.condition:  # Makes sure it doesn't happen the first time
             self.app.root.ids.my_toolbar.right_action_items = [
                 ["information-outline", lambda x: self.app.root.ids.my_toolbar.show_dialog_confirmation()]]
-        else:
+
+    def on_leave(self, *args):
+        """Is called when the user leaves the screen"""
+        if not self.condition:
             self.condition = True
+            if not path.exists('../statspoint_data.json'):
+                with open('JSON_files/data_template.json', 'r') as template_file:
+                    template = json.load(template_file)
+                with open('../statspoint_data.json', 'w') as save_file:
+                    json.dump(template, save_file, indent=4, sort_keys=True)
 
 
 class SettingScreen(MDScreen):

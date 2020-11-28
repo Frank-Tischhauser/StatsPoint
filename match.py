@@ -234,10 +234,10 @@ class Match:
                        "sets_winners": self.sets_winners,
                        "match_ended": match_ended,
                        }
-        with open('JSON_files/data.json', 'r') as file:
+        with open('../statspoint_data.json', 'r') as file:
             existant_data = json.load(file)
             existant_data.append(dictionnary)
-        with open('JSON_files/data.json', 'w') as js_file:
+        with open('../statspoint_data.json', 'w') as js_file:
             json.dump(existant_data, js_file, indent=4, sort_keys=True)
 
     def change_server(self):
