@@ -66,7 +66,7 @@ class InputScreen(MDScreen):
             if field.text == '' or field.text == ' ':  # If a field is empty
                 self.ids.error_message.text = 'A field is empty!'
                 field.error = True
-            elif len(field.text) > 20:  # If names are too long (creates graphic bugs)
+            elif len(field.text) > 8:  # If names are too long (creates graphic bugs)
                 self.ids.error_message.text = 'Names are too long!'
                 field.error = True
             if field.error:

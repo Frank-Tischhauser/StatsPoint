@@ -171,7 +171,7 @@ class DataScreen(MDScreen):
     def on_pre_enter(self, *args):
         """Is called just before the user sees the screen"""
         self.app.root.ids.my_toolbar.right_action_items = [
-            ["information-outline", lambda x: self.app.root.ids.my_toolbar.show_dialog_confirmation()]]
+            ["plus", lambda x: self.show_confirmation_dialog()]]
         self.confirmation_dialog = None
         self.app.root.ids.my_toolbar.title = 'Statistics'
         for i in range(4):  # To avoid duplicated widgets with the last row
@@ -282,10 +282,9 @@ class DataScreen(MDScreen):
                         self.reset_square_design(cols[1])
 
                     if row.highlight == 'name':
-                        cols[0].size_hint_x = 1
-                        cols[0].md_bg_color = (1, 1, 1, 1)
-                        cols[1].size_hint_x = 1
-                        cols[1].md_bg_color = (1, 1, 1, 1)
+                        for i in range(2):
+                            cols[i].size_hint_x = 1
+                            cols[i].md_bg_color = (1, 1, 1, 1)
 
     def reset_square_design(self, square):
         """Resets the design of the Square"""

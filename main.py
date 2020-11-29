@@ -128,6 +128,12 @@ class HomeScreen(MDScreen):
     -------
     on_pre_enter():
         Is called just before the user sees the screen.
+
+    on_leave():
+        Is called when the user leaves the screen.
+
+    check_json_save():
+        Checks if the save file exists, and if not creates it.
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -141,12 +147,13 @@ class HomeScreen(MDScreen):
                 ["information-outline", lambda x: self.app.root.ids.my_toolbar.show_dialog_confirmation()]]
 
     def on_leave(self, *args):
+        """Is called when the user leaves the screen"""
         self.condition = True
         if self.app.root.ids.manager.current != 'save_screen':
             self.check_json_save()
 
     def check_json_save(self):
-        """Is called when the user leaves the screen"""
+        """Checks if the save file exists, and if not creates it"""
         if not path.exists('../statspoint_data.json'):
             with open('json_files/data_template.json', 'r') as template_file:
                 template = json.load(template_file)
