@@ -170,6 +170,9 @@ class SettingScreen(MDScreen):
     app : object
         Instance of the class StatsPointApp.
 
+    dialog : object
+        Instance of MDDialog class. It is a UI widget.
+
     Methods
     -------
     on_pre_enter():
@@ -179,10 +182,29 @@ class SettingScreen(MDScreen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.app = StatsPointApp.get_running_app()
+        self.dialog = None
 
     def on_pre_enter(self, *args):
         """Is called just before the user sees the screen"""
         self.app.root.ids.my_toolbar.title = 'Help'
+        self.app.root.ids.my_toolbar.right_action_items = [
+            ["home", lambda x: self.app.change_screen('home_screen')]]
+
+    def show_dialog(self):
+        """Shows a dialog box to confirm the user's choice"""
+
+        if not self.dialog:
+            self.dialog = MDDialog(
+                title="Do you want to quit StatsPoint?",
+                size_hint=(0.7, 1), buttons=[
+                    MDFlatButton(text='[size=16sp]Yes[/size]', text_color=self.app.theme_cls.primary_color,
+                                 on_release=lambda x: quit(),
+                                 markup=True),
+                    MDFlatButton(text='[size=16sp]No, Cancel[/size]',
+                                 text_color=self.app.theme_cls.primary_color,
+                                 markup=True,
+                                 on_release=lambda x: self.dialog.dismiss())])
+        self.dialog.open()
 
 
 class StatsPointApp(MDApp):

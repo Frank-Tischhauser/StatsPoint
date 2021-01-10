@@ -44,8 +44,6 @@ class InputScreen(MDScreen):
         """Creates a match when button pressed"""
         player1 = Player(self.ids.entry1.text)
         player2 = Player(self.ids.entry2.text)
-        self.app.root.ids.game_screen.player1 = player1
-        self.app.root.ids.game_screen.player2 = player2
         self.app.root.ids.game_screen.match = Match(player1, player2, self.ids.entry3.text)
         self.app.root.ids.game_screen.ids.score_line1.ids.server.opacity = 0
         # Fixes small graphic bug
@@ -66,7 +64,7 @@ class InputScreen(MDScreen):
             if field.text == '' or field.text == ' ':  # If a field is empty
                 self.ids.error_message.text = 'A field is empty!'
                 field.error = True
-            elif len(field.text) > 8:  # If names are too long (creates graphic bugs)
+            elif len(field.text) > 8 and field != self.ids.entry3:  # If names are too long (creates graphic bugs)
                 self.ids.error_message.text = 'Names are too long!'
                 field.error = True
             if field.error:

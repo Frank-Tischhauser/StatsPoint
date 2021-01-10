@@ -185,7 +185,7 @@ class DataScreen(MDScreen):
         """Creates the last row, which contains the button to get the 'analysis' """
         row = MDBoxLayout(spacing=dp(50))
         button = MDFillRoundFlatButton(
-            text='Get more statistics',
+            text='Get more info!',
             on_release=lambda x: self.show_confirmation_dialog())
         button.text_color = (1, 1, 1, 1)
         button.font_name = 'fonts/Montserrat-Regular.ttf'

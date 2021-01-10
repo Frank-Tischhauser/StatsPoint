@@ -9,10 +9,10 @@
       "second_serve_won": [30, 35]
     },
     "winner": {
-      "general": [7, 15]
+      "general": [7, 12]
     },
     "unforced_error": {
-      "general": [20, 15]
+      "general": [15, 15]
     },
     "return": {
       "general": [60, 60]
@@ -28,10 +28,10 @@
       "second_serve_won": [35, 40]
     },
     "winner": {
-      "general": [7, 15]
+      "general": [5, 10]
     },
     "unforced_error": {
-      "general": [20, 15]
+      "general": [12, 12]
     },
     "return": {
       "general": [65, 65]
@@ -50,7 +50,7 @@
       "general": [7, 15]
     },
     "unforced_error": {
-      "general": [20, 15]
+      "general": [8, 8]
     },
     "return": {
       "general": [65, 65]
@@ -66,10 +66,10 @@
       "second_serve_won": [35, 40]
     },
     "winner": {
-      "general": [5, 7]
+      "general": [3, 5]
     },
     "unforced_error": {
-      "general": [10, 5]
+      "general": [5, 5]
     },
     "return": {
       "general": [60, 60]

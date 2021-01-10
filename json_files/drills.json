@@ -3,7 +3,7 @@
     "id" : 1,
     "difficulty": ["intermediate", "advanced"],
     "title": "Bryan Brothers drill",
-    "details": {"net" : ["unforced_error", "control"]},
+    "details": {"unforced_error" : ["net", "control"]},
     "description": "[font=fonts/Montserrat-Bold.ttf]Goal :[/font] Improve footwork, volley accuracy and mental focus.\n\n [font=fonts/Montserrat-Bold.ttf]Description :[/font] This exercise is about cooperation and footwork. A and B stand diagonally on the service line. They play volleys. While doing so, each player moves from his side to the other. \n\n[font=fonts/Montserrat-Bold.ttf]Example :[/font] If A starts on the left side and B on the right, then A moves to the right and B simultaneously to the left during the rally. Then A and B come back and repeat the pattern until there is a mistake.",
     "link": "https://www.youtube.com/watch?v=yArf4uOcC5k",
     "category": "drill"
@@ -12,7 +12,7 @@
     "id": 2,
     "difficulty": ["intermediate", "advanced"],
     "title": "Rain of volleys",
-    "details": {"net":  ["winner", "winning_shot"]},
+    "details": {"winner":  ["net", "winning_shot"]},
     "description": "[font=fonts/Montserrat-Bold.ttf]Goal :[/font] Improve reaction time, volley accuracy and cooperation.\n\n [font=fonts/Montserrat-Bold.ttf]Description :[/font] The drill is a double, but all players must play volleys in the service box (no doubles tramlines). Everyone starts on the service line. After the first hit, the aim is to finish the point as soon as possible with a “decisive” volley, thus if the exercise is well done, the average rally length should be short.\n\n [font=fonts/Montserrat-Bold.ttf]Note :[/font] If you are only 2 players, do the same, but use only one half of the service box.",
     "link": null,
     "category": "rally"
@@ -21,7 +21,7 @@
     "id" : 3,
     "difficulty": ["beginner", "intermediate"],
     "title": "Stop and Go",
-    "details": {"net": ["unforced_error", "control"]},
+    "details": {"unforced_error": ["net", "control"]},
     "description": "[font=fonts/Montserrat-Bold.ttf]Goal :[/font] Improve ball control and coordination.\n\n [font=fonts/Montserrat-Bold.ttf]Duration :[/font] 5 min\n\n [font=fonts/Montserrat-Bold.ttf]Description :[/font] A and B must play volleys in the service box. The aim is to keep the ball in play as long as possible, thus it’s a cooperation game. Before his volley, every player should bounce the ball once with his racquet.\n\n [font=fonts/Montserrat-Bold.ttf]Example :[/font] A hits the ball, B bounces the ball once with his racquet and hits the ball back, A does the same thing, and the pattern repeats till there is a mistake.",
     "link": null,
     "category": "drill"
@@ -30,7 +30,7 @@
     "id" : 4,
     "difficulty": ["beginner", "intermediate", "advanced"],
     "title": "High Five Doubles",
-    "details": {"forehand" :  ["winner", "strength"]},
+    "details": {"winner" :  ["forehand", "strength"]},
     "description": "[font=fonts/Montserrat-Bold.ttf]Goal :[/font] Strengthen muscles used in forehand, increase hitting speed.\n\n [font=fonts/Montserrat-Bold.ttf]Duration :[/font] 10 min\n\n [font=fonts/Montserrat-Bold.ttf]Description :[/font] Players play a double in the service box, but they have no [font=fonts/Montserrat-Bold.ttf]racquets[/font], no [font=fonts/Montserrat-Bold.ttf]balls[/font] and only a [font=fonts/Montserrat-Bold.ttf]heavy ball[/font] (2/3kg). This ball should be thrown imitating a [font=fonts/Montserrat-Bold.ttf]forehand[/font] : then the player catches the ball and throw it by rotating his chest and doing a 'from bottom to top' movement, thus copying a forehand. After every shot, the player gives a [font=fonts/Montserrat-Bold.ttf]high five[/font] to his teammate. If the heavy ball bounces twice, outside the service box or goes into the net, the rally is finished. The first team to reach 15 points wins.",
     "link": null,
     "category": "drill"
@@ -39,7 +39,7 @@
     "id" : 5,
     "difficulty": ["intermediate", "advanced"],
     "title": "Go Cocktail (forehand)",
-    "details": {"forehand":  ["unforced_error","tactics"]},
+    "details": {"unforced_error":  ["forehand","tactics"]},
     "description": "[font=fonts/Montserrat-Bold.ttf]Goal :[/font] Improve forehand. \n\n [font=fonts/Montserrat-Bold.ttf]Duration :[/font] 12 min \n\n [font=fonts/Montserrat-Bold.ttf]Description :[/font] A and B play cross court [font=fonts/Montserrat-Bold.ttf]forehands[/font] and try not to make any mistakes. The coach shouts [font=fonts/Montserrat-Bold.ttf]“GO”[/font] after at least 5 hits : the following hit is down the line. The rally goes on freely, and players try to win the point. The first player to reach 15 points wins.",
     "link": null,
     "category": "match"
@@ -48,7 +48,7 @@
     "id" : 6,
     "difficulty": ["intermediate", "advanced"],
     "title": "Go Cocktail (Backhand)",
-    "details": {"backhand":  ["unforced_error","tactics"]},
+    "details": {"unforced_error":  ["backhand","tactics"]},
     "description": "[font=fonts/Montserrat-Bold.ttf]Goal :[/font] Improve backhand. \n\n [font=fonts/Montserrat-Bold.ttf]Duration :[/font] 12 min \n\n [font=fonts/Montserrat-Bold.ttf]Description :[/font] A and B play cross court [font=fonts/Montserrat-Bold.ttf]backhands[/font] and try not to make any mistakes. The coach shouts [font=fonts/Montserrat-Bold.ttf]“GO”[/font] after at least 5 hits : the following hit is down the line. The rally goes on freely, and players try to win the point. The first player to reach 15 points wins.",
     "link": null,
     "category": "match"
@@ -57,7 +57,7 @@
     "id" : 7,
     "difficulty": ["intermediate", "advanced"],
     "title": "Inside Out",
-    "details": {"forehand":  ["winner", "regularity"]},
+    "details": {"winner":  ["forehand", "regularity"]},
     "description": "[font=fonts/Montserrat-Bold.ttf]Goal :[/font] Improve inside out forehand. \n\n [font=fonts/Montserrat-Bold.ttf]Description :[/font] Play 6 inside out forehands at full speed and at maximum intensity. Then have a small break (30s) and repeat the pattern at least 5 times. The footwork is the key here. If you feel physically well, you can increase the number of forehands in a row (e.g. 12).",
     "link": null,
     "category": "drill"
@@ -66,7 +66,7 @@
     "id" : 8,
     "difficulty": ["intermediate", "advanced"],
     "title": "Return and volley",
-    "details": {"return":  ["return", "aggressiveness"], "net":  ["winner","winning_shot"]},
+    "details": {"return":  ["return", "aggressiveness"], "winner":  ["net","winning_shot"]},
     "description": "[font=fonts/Montserrat-Bold.ttf]Goal :[/font] Improve return control and winning volley. \n\n [font=fonts/Montserrat-Bold.ttf]Description :[/font] The coach or the sparring partner serves at a moderated speed. The player returns aggressively by taking the ball early, comes up to the net and finally tries to finish the point by a winning volley. Repeat this pattern at least 10 times.",
     "link": null,
     "category": "rally"
@@ -75,7 +75,7 @@
     "id" : 9,
     "difficulty": ["intermediate", "advanced"],
     "title": "Longest rally (forehand)",
-    "details": {"forehand":  ["unforced_error", "regularity"]},
+    "details": {"unforced_error":  ["forehand", "regularity"]},
     "description": "[font=fonts/Montserrat-Bold.ttf]Goal :[/font] Improve footwork, regularity, and control. \n\n [font=fonts/Montserrat-Bold.ttf]Description :[/font] A and B play together and try to have the longest rally possible. A plays only [font=fonts/Montserrat-Bold.ttf]forehands[/font] :  2 cross-courts and 1 down the line. On the other side B plays 2 cross court [font=fonts/Montserrat-Bold.ttf]forehands[/font] and 1 down the line [font=fonts/Montserrat-Bold.ttf]backhand[/font]. Then A and B repeat the pattern. To make the exercise work, A must start the rally with the 1st cross court forehand. \n\n [font=fonts/Montserrat-Bold.ttf]Note :[/font] If the ball is slightly out, the rally goes on. However, you should really avoid net balls!",
     "link": null,
     "category": "rally"
@@ -102,7 +102,7 @@
     "id" : 12,
     "difficulty": ["intermediate", "advanced"],
     "title": "Service and winner",
-    "details": {"service":  ["first_serve_in", "first_serve"], "return": ["return","first_serve_return"], "forehand":  ["winner","winning_shot"]},
+    "details": {"service":  ["first_serve_in", "first_serve"], "return": ["return","first_serve_return"], "winnner":  ["forehand","winning_shot"]},
     "description": "[font=fonts/Montserrat-Bold.ttf]Goal :[/font] Improve first service and return on first service. \n\n [font=fonts/Montserrat-Bold.ttf]Description :[/font] The game is like a single, but with bonus points. The server has 2 services, but even the second service must be played like a first serve. If the server makes an ace or a winning service, he wins a bonus point. If the next shot after the service made by the server is a forehand and the server wins the point. He also receives a bonus point. Thus, the receiver must try to return on the backhand side of the server.",
     "link": null,
     "category": "match"
@@ -120,7 +120,7 @@
     "id" : 14,
     "difficulty": ["intermediate", "advanced"],
     "title": "Longest rally (backhand)",
-    "details": {"backhand":  ["unforced_error", "regularity"]},
+    "details": {"unforced_error":  ["backhand", "regularity"]},
     "description": "[font=fonts/Montserrat-Bold.ttf]Goal :[/font] Improve footwork, regularity, and control. \n\n [font=fonts/Montserrat-Bold.ttf]Description :[/font] A and B play together and try to have the longest rally possible. A plays only [font=fonts/Montserrat-Bold.ttf]backhands[/font] :  2 cross-courts and 1 down the line. On the other side B plays 2 cross court [font=fonts/Montserrat-Bold.ttf]backhands[/font] and 1 down the line [font=fonts/Montserrat-Bold.ttf]forehand[/font]. Then A and B repeat the pattern. To make the exercise work, A must start the rally with the 1st cross court backhand. \n\n [font=fonts/Montserrat-Bold.ttf]Note :[/font] If the ball is slightly out, the rally goes on. However, you should really avoid net balls!",
     "link": null,
     "category": "rally"
@@ -129,7 +129,7 @@
     "id" : 15,
     "difficulty": ["intermediate", "advanced"],
     "title": "Backward / forward backhand",
-    "details": {"backhand":  ["winner", "general"]},
+    "details": {"winner":  ["backhand", "general"]},
     "description": "[font=fonts/Montserrat-Bold.ttf]Goal :[/font] Work on vertical movement while playing backhand.\n\n [font=fonts/Montserrat-Bold.ttf]Description :[/font] You do a series of backhands and after every shot you touch a cone (the coach tells you which one). Watch the video to see where are the cones.",
     "link": "https://youtu.be/qTmkr2tz_tE?t=11",
     "category": "drill"

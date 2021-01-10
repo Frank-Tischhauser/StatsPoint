@@ -3,7 +3,6 @@ StatsDisplay
 
 Displays the statistics of a match for both players set by set (and total).
 """
-from kivymd.app import MDApp
 
 
 def safe_div(num1, num2):
@@ -20,9 +19,6 @@ class StatsDisplay:
     ...
     Attributes
     ----------
-    app : object
-        Instance of the class StatsPointApp.
-
     data : dict
         Data of the match.
 
@@ -53,7 +49,6 @@ class StatsDisplay:
         Write all the captions on the screen.
     """
     def __init__(self, data):
-        self.app = MDApp.get_running_app()
         self.data = data
         self.players = ['player1', 'player2']
         self.settings = {
@@ -97,8 +92,6 @@ class StatsDisplay:
             serving_stats['second_service_won'][manche] * 100,
             serving_stats['second_service_in'][manche]))
         break_points = full_stats['break_points'][manche]
-        #  break_points_conv = int(safe_div(
-        #  full_stats['return_game_won'][manche] * 100, break_points))
         break_points_ratio = '{}/{}'.format(
             full_stats['return_game_won'][manche], break_points)
 
@@ -133,8 +126,6 @@ class StatsDisplay:
             sum(serving_stats['second_service_won']) * 100,
             sum(serving_stats['second_service_in'])))
         break_points = sum(full_stats['break_points'])
-        #  break_points_conv = int(safe_div(
-        #  full_stats['return_game_won'][manche] * 100, break_points))
         break_points_ratio = '{}/{}'.format(
             sum(full_stats['return_game_won']), break_points)
 
@@ -160,10 +151,9 @@ class StatsDisplay:
             for col in row.ids.values():
                 cols.append(col)
             cols.pop(1)
-            #  print(row.children, stats[j])
             if len(row.children) > 0:
                 cols[self.players.index(player)].ids.label.text = stats[j]
-                if stats[j] == self.data[str(player + '_name')]:
+                if stats[j] == self.data[str(player + '_name')]:  # Special format for Players name
                     cols[self.players.index(player)].size_hint = 1, 1
                     cols[self.players.index(player)].md_bg_color = (1, 1, 1, 1)
                     cols[self.players.index(

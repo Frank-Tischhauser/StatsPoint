@@ -1,5 +1,5 @@
 """
-DrillManger
+DrillManager
 
 Finds 3 drills depending on a player's stats.
 Using a sorting algorithm that is based on a player's :
@@ -7,7 +7,7 @@ Level, Style and result.
 """
 
 import json
-import itertools
+import logging as log
 import random
 
 from kivymd.app import MDApp
@@ -41,9 +41,6 @@ class DrillManager:
     sorted_drills: list
         The list of all drills that corresponds to a player's level.
 
-    picked_drills: list
-        All the drills that are picked by the sorting module.
-
     drill_schedule: dict
         Contains all the weaknesses of a player found by the module.
 
@@ -65,16 +62,15 @@ class DrillManager:
 
         with open('json_files/drills.json', 'r', encoding='utf-8') as drills_file:
             self.drills = json.load(drills_file)
-
         with open('json_files/conditions.json', 'r', encoding='utf-8') as conditions_file:
             self.conditions = json.load(conditions_file)
 
+        random.shuffle(self.drills)
         self.app = MDApp.get_running_app()
         self.player_info = self.app.root.ids.form_screen.player_info
         self.analysis_info = self.app.root.ids.form_screen.analysis_info
         self.avg_stats = self.get_average_stats()
         self.sorted_drills = []
-        self.picked_drills = []
         self.drill_schedule = {}
 
     def sort_drills(self, level):
@@ -142,9 +138,9 @@ class DrillManager:
 
         if self.avg_stats['winners'] < parameters['winner']['general'][index]:
             winners = {
-                'backhand': self.avg_stats['backhand_winners'],
+                'backhand': self.avg_stats['backhand_winners'] + 1,  # Overall players tend to do less backhand winners
                 'forehand': self.avg_stats['forehand_winners'],
-                'net': self.avg_stats['net_winners']
+                'net': self.avg_stats['net_winners'] + 1  # There is usually less volleys in a match
             }
             winners = sorted(winners.items(), key=lambda kv: (kv[1], kv[0]))
             winner_order = []
@@ -167,34 +163,63 @@ class DrillManager:
 
     def pick_drill(self):
         """Picks 3 drills depending on the statistics of a player"""
+        picked_drills = []
+        first_selection = []
         if self.analysis_info['level'] == 'beginner':
-            self.picked_drills = self.sorted_drills.copy()
+            picked_drills = self.sorted_drills.copy()
+            return picked_drills
         else:
+            # Selects only drills that belong to a category that is a weakness
+            for drill in self.sorted_drills:
+                corresponds = False
+                for category in self.drill_schedule.keys():
+                    if category in drill["details"].keys():
+                        corresponds = True
+                if corresponds:
+                    first_selection.append(drill)
+            log.info(self.drill_schedule)
             compteur = 0
-            while len(self.picked_drills) < 3 and compteur < 3:
-                for key, value in self.drill_schedule.items():
-                    #  print(key, value)
-                    for shot, drill in itertools.product(value, self.sorted_drills):
-                        for shot_drill, category in drill['details'].items():
-                            #  print(shot_drill, category)
-                            if shot_drill == shot and key in category \
-                                    and drill not in self.picked_drills:
-                                self.picked_drills.append(drill)
-                                new_ordered_list = value.copy()
-                                new_ordered_list.remove(shot)
-                                new_ordered_list.append(shot)  # To move it at the end of the list
-                                self.drill_schedule[key] = new_ordered_list
+            if len(first_selection) > 3:
+                while len(picked_drills) < 3 and compteur <= 3*len(self.drill_schedule):
+                    item_to_move = []
+                    for weak_type, weak_shots in self.drill_schedule.items():
+                        corresponds = False  # True if a drill has been chosen
+                        for weak_shot in weak_shots:
+                            for drill in first_selection:
+                                drill_shots = []  # Shots that the drill trains
+                                for drill_details in drill['details'].values():
+                                    drill_shots.append(drill_details[0])
+
+                                if weak_shot in drill_shots:  # A weak shot corresponds to a drill_shot
+                                    picked_drills.append(drill)
+                                    item_to_move.append([weak_type, weak_shot])
+                                    corresponds = True
+                                    break
+                            if corresponds:
                                 break
-                        else:
-                            continue
-                        break
+                        if corresponds:
+                            first_selection.remove(picked_drills[-1])  # Avoids doubles
+                    for item in item_to_move:  # prioritises shots that have not been chosen yet
+                        self.drill_schedule[item[0]].remove(item[1])
+                        self.drill_schedule[item[0]].append(item[1])
+                    compteur += 1
+            else:
+                picked_drills = first_selection.copy()
 
-                compteur += 1
-
-            while len(self.picked_drills) < 3:  # Backup if not enough drill chosen
+            while len(picked_drills) < 3:  # Backup if not enough drill chosen
                 drill = self.sorted_drills[random.randint(0, len(self.sorted_drills) - 1)]
-                if drill not in self.picked_drills:
-                    self.picked_drills.append(drill)
+                if drill not in picked_drills:
+                    picked_drills.append(drill)
 
-            if len(self.picked_drills) > 3:  # Backup if too many drills chosen
-                random.shuffle(self.picked_drills)
+            if len(picked_drills) > 3:  # Backup if too many drills chosen
+                priority_drills = picked_drills[:len(self.drill_schedule)]
+
+                if len(priority_drills) > 3:
+                    random.shuffle(priority_drills)
+
+                while len(priority_drills) < 3:
+                    priority_drills.append(random.choice(picked_drills[len(self.drill_schedule):]))
+
+                return priority_drills
+
+            return picked_drills

@@ -2,7 +2,7 @@
 """
 GameScreen
 
-Module that manges the scoreboard system and the input of the information for every point.
+Module that manages the scoreboard system and the input of the information for every point.
 """
 
 
@@ -136,15 +136,16 @@ class GameScreen(MDScreen):
         self.winner = None
         self.looser = None
         self.dialog = None
+        self.match = None
         self.confirmation_save_match = None
         self.app = MDApp.get_running_app()
 
     def on_pre_enter(self, *args):
         """Is called just before the user sees the screen"""
-        self.ids.score_line1.ids.player_name.text = self.player1.get_name()
-        self.ids.score_line2.ids.player_name.text = self.player2.get_name()
-        self.ids.pl1_btn.text = self.player1.get_name()
-        self.ids.pl2_btn.text = self.player2.get_name()
+        self.ids.score_line1.ids.player_name.text = self.match.player1.get_name()
+        self.ids.score_line2.ids.player_name.text = self.match.player2.get_name()
+        self.ids.pl1_btn.text = self.match.player1.get_name()
+        self.ids.pl2_btn.text = self.match.player2.get_name()
         self.update_scoreboard(self.winner, self.looser, self.match, False)
         self.app.root.ids.my_toolbar.title = 'Game'
 
@@ -202,11 +203,11 @@ class GameScreen(MDScreen):
                 MDFlatButton(text=self.app.root.ids.input_screen.ids.entry1.text,
                              text_color=self.app.theme_cls.primary_color,
                              on_release=lambda x: self.server(
-                                 self.player1, self.player2)),
+                                 self.match.player1, self.match.player2)),
                 MDFlatButton(text=self.app.root.ids.input_screen.ids.entry2.text,
                              text_color=self.app.theme_cls.primary_color,
                              on_release=lambda x: self.server(
-                                 self.player2, self.player1))])
+                                 self.match.player2, self.match.player1))])
         self.dialog.open()
 
     def server(self, server, receiver):

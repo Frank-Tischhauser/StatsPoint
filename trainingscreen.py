@@ -72,8 +72,8 @@ class TrainingScreen(MDScreen):
             ["information-outline", lambda x: self.app.root.ids.my_toolbar.show_dialog_confirmation()]]
         self.app.root.ids.my_toolbar.title = 'Training'
         self.ids.android_tabs.background_color = self.app.root.ids.my_toolbar.md_bg_color
-        self.choose_drill()
-        self.show_drill()
+        picked_drills = self.choose_drill()
+        self.show_drill(picked_drills)
 
     def choose_drill(self):
         """Picks the 3 drills with the DrillManager class"""
@@ -81,21 +81,21 @@ class TrainingScreen(MDScreen):
         self.drill_manager.sort_drills(self.drill_manager.analysis_info['level'])
         if self.drill_manager.analysis_info['level'] != 'beginner':
             self.drill_manager.make_drill_schedule()
-        self.drill_manager.pick_drill()
+        return self.drill_manager.pick_drill()
 
-    def show_drill(self):
+    def show_drill(self, chosen_drills):
         """Shows all the chosen drills on the screen"""
         i = 0
         for page in [self.ids.drill1, self.ids.drill2, self.ids.drill3]:
-            page.ids.title.text = self.drill_manager.picked_drills[i]['title']
-            page.ids.body.text = self.drill_manager.picked_drills[i]['description']
-            if self.drill_manager.picked_drills[i]['link'] is not None:
+            page.ids.title.text = chosen_drills[i]['title']
+            page.ids.body.text = chosen_drills[i]['description']
+            if chosen_drills[i]['link'] is not None:
                 floating_button = MDFloatingActionButton(
                     pos_hint={'center_x': 0.8, 'center_y': 0.1},
                     icon='youtube')
                 floating_button.md_bg_color = self.app.theme_cls.primary_color
                 floating_button.bind(
-                    on_release=lambda x, link=self.drill_manager.picked_drills[i]['link']:
+                    on_release=lambda x, link=chosen_drills[i]['link']:
                     open_url(link))
                 page.add_widget(floating_button)
                 self.youtube_button[i] = floating_button
