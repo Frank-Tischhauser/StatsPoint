@@ -58,6 +58,7 @@ class DrillManager:
     pick_drill():
         Picks 3 drills depending on the statistics of a player.
     """
+
     def __init__(self):
 
         with open('json_files/drills.json', 'r', encoding='utf-8') as drills_file:
@@ -180,17 +181,19 @@ class DrillManager:
             log.info(self.drill_schedule)
             compteur = 0
             if len(first_selection) > 3:
-                while len(picked_drills) < 3 and compteur <= 3*len(self.drill_schedule):
+                while len(picked_drills) < 3 and compteur <= 3 * len(self.drill_schedule):
                     item_to_move = []
                     for weak_type, weak_shots in self.drill_schedule.items():
                         corresponds = False  # True if a drill has been chosen
                         for weak_shot in weak_shots:
                             for drill in first_selection:
                                 drill_shots = []  # Shots that the drill trains
+                                drill_types = list(drill['details'].keys())  # Types of the drill
                                 for drill_details in drill['details'].values():
                                     drill_shots.append(drill_details[0])
 
-                                if weak_shot in drill_shots:  # A weak shot corresponds to a drill_shot
+                                if weak_shot in drill_shots and weak_type in drill_types:
+                                    # A weak shot corresponds to a drill_shot
                                     picked_drills.append(drill)
                                     item_to_move.append([weak_type, weak_shot])
                                     corresponds = True
@@ -205,7 +208,6 @@ class DrillManager:
                     compteur += 1
             else:
                 picked_drills = first_selection.copy()
-
             while len(picked_drills) < 3:  # Backup if not enough drill chosen
                 drill = self.sorted_drills[random.randint(0, len(self.sorted_drills) - 1)]
                 if drill not in picked_drills:
