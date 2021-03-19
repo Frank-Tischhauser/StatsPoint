@@ -141,10 +141,10 @@ class HomeScreen(MDScreen):
 
     def check_json_save(self):
         """Checks if the save file exists, and if not creates it"""
-        if not path.exists('../Tennistats_data.json'):
+        if not path.exists('../tennistats_data.json'):
             with open('json_files/data_template.json', 'r') as template_file:
                 template = json.load(template_file)
-            with open('../Tennistats_data.json', 'w') as save_file:
+            with open('../tennistats_data.json', 'w') as save_file:
                 json.dump(template, save_file, indent=4, sort_keys=True)
 
 
