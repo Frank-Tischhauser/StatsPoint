@@ -1,13 +1,13 @@
 [app]
 
 # (str) Title of your application
-title = StatsPoint
+title = Tennistats
 
 # (str) Package name
-package.name = statspointapp
+package.name = tennistatsapp
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = org.statspoint
+package.domain = org.tennistats
 
 # (str) Source code where the main.py live
 source.dir = .
@@ -28,7 +28,7 @@ source.include_exts = py,png,jpg,kv,atlas,json,ttf
 #source.exclude_patterns = license,images/*/*.jpg
 
 # (str) Application versioning (method 1)
-version = 1.4.0
+version = 1.4.1
 
 # (str) Application versioning (method 2)
 # version.regex = __version__ = ['"](.*)['"]
@@ -46,7 +46,7 @@ requirements = python3==3.7.7, hostpython3==3.7.7,kivy==2.0.0rc3,akivymd, https:
 #garden_requirements =
 
 # (str) Presplash of the application
-presplash.filename = %(source.dir)s/assets/splash.png
+presplash.filename = %(source.dir)s/assets/logo.png
 
 # (str) Icon of the application
 icon.filename = %(source.dir)s/assets/logo.png
