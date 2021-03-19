@@ -36,7 +36,7 @@ class GameScreen(MDScreen):
     Attributes
     ----------
     app : object
-        Instance of the class StatsPointApp.
+        Instance of the class TennistatsApp.
 
     winner : object
         Instance of the class Player. The player who won the point.
@@ -49,77 +49,6 @@ class GameScreen(MDScreen):
 
     confirmation_save_match : object
         Instance of MDDialog class. It is a UI widget.
-
-    Methods
-    -------
-    on_pre_enter():
-        Is called just before the user sees the screen.
-
-    on_pre_leave():
-        Is called just before leaving the screen.
-
-    update_scoreboard(winner, opponent, match, score_change=True):
-        Updates the scoreboard each time a player wins a point.
-
-    square_design(player, line_score):
-        Change the design of the square object when a player wins a set.
-
-    check_server(match):
-        Hide or show the tennis-ball icon depending on which player serves.
-
-    set_winner(winner, looser):
-        Sets which player wins the point.
-
-    show_dialog_server():
-        Shows a dialog box to ask which player serves first.
-
-    server(server, receiver):
-        Sets which player serves or receives, depending on user's choice.
-
-    show_dialog_save_match_confirmation():
-        Shows a dialog box to ask if the player wants to save the match.
-
-    cancel():
-        Cancels the confirmation_save_match dialog.
-
-    leave_match(match_end=False):
-        Leaves and saves the match.
-
-    check_service_degree():
-        Checks if it's a first or second serve.
-
-    press_ace():
-        Called at each ace.
-
-    press_rally():
-        Called each time there is a rally.
-
-    press_fault():
-        Called each time there is a fault in the service.
-
-    press_save():
-        Called each time the user wants to save the match.
-
-    press_player(winner_pl, looser_pl):
-        Called when the user chose the winner of the point.
-
-    press_unforced_error():
-        Called when there is an unforced error.
-
-    press_forced_error():
-        Called when there is a forced error.
-
-    press_winner():
-        Called when there is a winner.
-
-    press_volley():
-        Called if the last shot was a volley.
-
-    press_backhand():
-        Called if the last shot was a backhand.
-
-    press_forehand():
-        Called if the last shot was a forehand.
     """
 
     detail_context = StringProperty('')
@@ -253,7 +182,7 @@ class GameScreen(MDScreen):
                 for i in full_list:
                     if to_remove_dict == i:
                         full_list.remove(self.app.root.ids.save_screen.picked_game_data)
-                        with open('../statspoint_data.json', 'w') as file:
+                        with open('../tennistats_data.json', 'w') as file:
                             json.dump(full_list, file, indent=4, sort_keys=True)
                             # Rewrite the json file, without the duplication
             self.app.change_screen('home_screen')

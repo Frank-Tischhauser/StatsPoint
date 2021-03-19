@@ -31,27 +31,13 @@ class TrainingScreen(MDScreen):
     Attributes
     ----------
     app : object
-        Instance of the class StatsPointApp.
+        Instance of the class TennistatsApp.
 
     drill_manager : object
         Instance of the class DrillManager.
 
     youtube_button : list
         Contains the youtube button to open a youtube link if there is one.
-
-    Methods
-    -------
-    on_pre_enter():
-        Is called just before the user sees the screen.
-
-    choose_drill():
-        Picks the 3 drills with the DrillManager class.
-
-    show_drill():
-        Shows all the chosen drills on the screen.
-
-    on_tab_switch(instance_tabs, instance_tab, instance_tab_label, tab_text):
-        Called when the user switches the drill.
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

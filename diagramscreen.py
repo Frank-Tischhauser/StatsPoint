@@ -29,24 +29,13 @@ class DiagramScreen(MDScreen):
     Attributes
     ----------
     app : object
-        Instance of the class StatsPointApp.
+        Instance of the class TennistatsApp.
 
     player_info : dict
         Contains all the information about the chosen player in order to provide a good analysis.
 
     piecharts : list
         Contains all the piechart widgets (UI).
-
-    Methods
-    -------
-    on_pre_enter():
-        Is called just before the user sees the screen.
-
-    get_piechart_stats():
-        Get all the stats necessary for the 3 piecharts.
-
-    make_piechart():
-        Creates the piechart.
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
