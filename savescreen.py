@@ -201,7 +201,7 @@ class DeleteSave(IconRightWidget):
             for game in file:
                 if to_remove_data == game:  # Removes the right dictionary
                     file.remove(to_remove_data)
-            with open('..tennistats_data.json', 'w') as js_file:  # Rewrites the file without the removed dict
+            with open('../tennistats_data.json', 'w') as js_file:  # Rewrites the file without the removed dict
                 json.dump(file, js_file, indent=4, sort_keys=True)
             self.app.root.ids.save_screen.saved_match_list()  # Updates the screen
             self.cancel()
