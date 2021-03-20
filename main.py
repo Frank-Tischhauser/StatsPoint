@@ -1,5 +1,5 @@
 """
-Tennistats.
+StatsPoint.
 
 This module helps tennis players to improve their game by saving the data of their games.
 The user / spectator enters the result of every point until the end of the match.
@@ -9,6 +9,8 @@ Example : Bob wins the first point (Backhand winner)
 
 Then the app saves all the data and shows interesting and useful statistics.
 The app also helps the player by giving interesting drills depending on the results.
+
+Author : Frank Tischhauser
 """
 import logging as log
 import json
@@ -56,14 +58,25 @@ class NavDrawer(MDNavigationDrawer):
     Attributes
     ----------
     app : object
-        Instance of the class TennistatsApp.
+        Instance of the class StatsPointApp.
 
     confirmation_leave : object
         Instance of MDDialog.
+
+    Methods
+    -------
+    check_game_screen(screen_name):
+        Shows a dialog if the user is on the game_screen.
+
+    show_confirmation_leave(screen_name):
+        Shows a dialog box to confirm the user's choice.
+
+    dismiss_confirmation_leave():
+        Dismisses confirmation leave dialog box.
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.app = TennistatsApp.get_running_app()
+        self.app = StatsPointApp.get_running_app()
         self.confirmation_leave = None
 
     def check_game_screen(self, screen_name):
@@ -106,7 +119,7 @@ class HomeScreen(MDScreen):
     Attributes
     ----------
     app : object
-        Instance of the class TennistatsApp.
+        Instance of the class StatsPointApp.
 
     condition : bool
         Condition to avoid the calling of some functions during app launch (could cause crash).
@@ -124,7 +137,7 @@ class HomeScreen(MDScreen):
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.app = TennistatsApp.get_running_app()
+        self.app = StatsPointApp.get_running_app()
         self.condition = False
 
     def on_pre_enter(self, *args):
@@ -141,10 +154,10 @@ class HomeScreen(MDScreen):
 
     def check_json_save(self):
         """Checks if the save file exists, and if not creates it"""
-        if not path.exists('../tennistats_data.json'):
+        if not path.exists('../statspoint_data.json'):
             with open('json_files/data_template.json', 'r') as template_file:
                 template = json.load(template_file)
-            with open('../tennistats_data.json', 'w') as save_file:
+            with open('../statspoint_data.json', 'w') as save_file:
                 json.dump(template, save_file, indent=4, sort_keys=True)
 
 
@@ -155,7 +168,7 @@ class SettingScreen(MDScreen):
     Attributes
     ----------
     app : object
-        Instance of the class TennistatsApp.
+        Instance of the class StatsPointApp.
 
     dialog : object
         Instance of MDDialog class. It is a UI widget.
@@ -168,7 +181,7 @@ class SettingScreen(MDScreen):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.app = TennistatsApp.get_running_app()
+        self.app = StatsPointApp.get_running_app()
         self.dialog = None
 
     def on_pre_enter(self, *args):
@@ -182,7 +195,7 @@ class SettingScreen(MDScreen):
 
         if not self.dialog:
             self.dialog = MDDialog(
-                title="Do you want to quit Tennistats?",
+                title="Do you want to quit StatsPoint?",
                 size_hint=(0.7, 1), buttons=[
                     MDFlatButton(text='[size=16sp]Yes[/size]', text_color=self.app.theme_cls.primary_color,
                                  on_release=lambda x: quit(),
@@ -194,7 +207,7 @@ class SettingScreen(MDScreen):
         self.dialog.open()
 
 
-class TennistatsApp(MDApp):
+class StatsPointApp(MDApp):
     """
     This class represents the app.
     It is necessary in order to use the kivy/kivyMD module.
@@ -265,4 +278,4 @@ class TennistatsApp(MDApp):
 
 
 if __name__ == "__main__":
-    TennistatsApp().run()
+    StatsPointApp().run()
