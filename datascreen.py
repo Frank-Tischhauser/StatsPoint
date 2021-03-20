@@ -104,7 +104,7 @@ class DataScreen(MDScreen):
     Attributes
     ----------
     app : object
-        Instance of the class TennistatsApp.
+        Instance of the class StatsPointApp.
 
     stats_widgets : list
         Contains the four widgets which display the stats.
@@ -117,6 +117,45 @@ class DataScreen(MDScreen):
 
     confirmation_dialog : object
         Instance of MDDialog class. It is a UI widget.
+
+    Methods
+    -------
+    on_pre_enter():
+        Is called just before the user sees the screen.
+
+    create_special_row():
+        Creates the last row, which contains the button to get the 'analysis'.
+
+    change_last_row():
+        Changes the last row of the stats_widget with the special row which contains a button.
+
+    scroll_animation():
+        Scrolls the screen from the top to the bottom, to make the user aware of the last row.
+
+    start():
+        Is called only once, at the start of the application to initialize widgets.
+
+    show_scoreboard():
+        Shows a scoreboard displaying the result of the tennis match.
+
+    change_square_design(player_name, line_score, data):
+        Changes the square design if a player wins a set.
+
+    show_stats():
+        Shows all statistics of a tennis match.
+
+    check_stat_winner():
+        Highlights the best statistic between both players.
+
+    reset_square_design(square):
+        Resets the design of a square.
+
+    show_confirmation_dialog():
+        Shows the confirmation dialog (MDDialog class).
+
+    go_to_form():
+        Switches to the form screen and dismisses the dialog box.
+
     """
 
     def __init__(self, **kwargs):

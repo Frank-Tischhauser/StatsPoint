@@ -17,7 +17,18 @@ class InputScreen(MDScreen):
     Attributes
     ----------
     app : object
-        Instance of the class TennistatsApp.
+        Instance of the class StatsPointApp.
+
+    Methods
+    -------
+    on_pre_enter():
+        Is called just before the user sees the screen.
+
+    create_match():
+        Creates a match when button pressed.
+
+    check_text():
+        Checks if the text written respects the all the conditions.
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

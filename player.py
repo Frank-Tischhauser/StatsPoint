@@ -34,6 +34,26 @@ class Player:
 
     service_stats : dict
         Service statistics of a player for one match (set by set).
+
+    Methods
+    -------
+    get_name():
+        returns the name of the player.
+
+    get_points_amount():
+        returns the current points amount of the player.
+
+    get_games_amount():
+        returns the current games amount of the player.
+
+    get_sets_amount():
+        returns the current sets amount of the player.
+
+    get_total_points_amount():
+        returns the total points amount of the player in the entire match.
+
+    get_total_games_amount():
+        returns the total games amount of the player in the entire match.
     """
 
     def __init__(self, name='', stats=None):

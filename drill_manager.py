@@ -20,7 +20,7 @@ class DrillManager:
     Attributes
     ----------
     app : object
-        Instance of the class TennistatsApp.
+        Instance of the class StatsPointApp.
 
     analysis_info : dict
         Contains all the information about the chosen player in order to provide a good analysis.
@@ -43,6 +43,20 @@ class DrillManager:
 
     drill_schedule: dict
         Contains all the weaknesses of a player found by the module.
+
+    Methods
+    -------
+    sort_drills(level):
+        Sort drills depending on the player's level.
+
+    get_average_stats():
+        Get the value of the avg_stats attribute.
+
+    make_drill_schedule():
+        Get the value of the drill_schedule attribute using the conditions attribute.
+
+    pick_drill():
+        Picks 3 drills depending on the statistics of a player.
     """
 
     def __init__(self):

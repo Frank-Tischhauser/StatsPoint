@@ -33,6 +33,20 @@ class StatsDisplay:
 
     highlights: list
         Highlighting systems for each stat.
+
+    Methods
+    -------
+    get_stats_sets(manche, player):
+        Get the stats of the match for each set.
+
+    get_match_stats(player):
+        Get the stats of the entire match.
+
+    display_stats(stats, leaderboard, player)
+        Displays the statistics on the screen.
+
+    write_captions(leaderboard):
+        Write all the captions on the screen.
     """
     def __init__(self, data):
         self.data = data

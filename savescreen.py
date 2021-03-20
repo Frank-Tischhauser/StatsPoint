@@ -25,7 +25,7 @@ class SaveScreen(MDScreen):
     Attributes
     ----------
     app : object
-        Instance of the class TennistatsApp.
+        Instance of the class StatsPointApp.
 
     save : object
         Instance of the class MDDialog.
@@ -38,6 +38,24 @@ class SaveScreen(MDScreen):
 
     full_list : list
         Contains all saves.
+
+    Methods
+    -------
+    on_pre_enter():
+        Is called just before the user sees the screen.
+
+    saved_match_list():
+        Creates a list with all saved games.
+
+    show_dialog_saves(data, full_list):
+        Gives the choice to the user :
+        Whether he continues the game, or he checks the stats of the game.
+
+    data_choice(data):
+        Goes to the data screen depending on the user choice.
+
+    continue_game(data, full_list):
+        Continues the game.
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -58,7 +76,7 @@ class SaveScreen(MDScreen):
     def saved_match_list(self):
         """Creates a list with all saved games"""
         self.ids.match_list.clear_widgets()  # To avoid duplication of widgets
-        with open('../tennistats_data.json', 'r') as file:
+        with open('../statspoint_data.json', 'r') as file:
             data = json.load(file)
         for match_info in data:  # For every match saved in the JSON file
             self.empty = False
@@ -151,7 +169,7 @@ class DeleteSave(IconRightWidget):
     Attributes
     ----------
     app : object
-        Instance of the class TennistatsApp.
+        Instance of the class StatsPointApp.
 
     Methods
     -------
@@ -196,12 +214,12 @@ class DeleteSave(IconRightWidget):
     def delete_data(self, to_remove_data):
         """Deletes the selected game"""
         if self.delete_confirmation is not None:
-            with open('../tennistats_data.json', 'r') as js_file:
+            with open('../statspoint_data.json', 'r') as js_file:
                 file = json.load(js_file)
             for game in file:
                 if to_remove_data == game:  # Removes the right dictionary
                     file.remove(to_remove_data)
-            with open('..tennistats_data.json', 'w') as js_file:  # Rewrites the file without the removed dict
+            with open('../statspoint_data.json', 'w') as js_file:  # Rewrites the file without the removed dict
                 json.dump(file, js_file, indent=4, sort_keys=True)
             self.app.root.ids.save_screen.saved_match_list()  # Updates the screen
             self.cancel()

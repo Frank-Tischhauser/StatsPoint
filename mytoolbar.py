@@ -17,10 +17,18 @@ class MyToolbar(MDToolbar):
     Attributes
     ----------
     app : object
-        Instance of the class TennistatsApp.
+        Instance of the class StatsPointApp.
 
     confirmation : object
         Instance of the class MDDialog.
+
+    Methods
+    -------
+    show_dialog_confirmation():
+        Shows a dialog box to confirm the user's choice.
+
+    dismiss_confirmation():
+        Dismisses confirmation dialog box.
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

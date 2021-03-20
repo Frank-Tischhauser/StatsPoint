@@ -25,7 +25,7 @@ class FormScreen(MDScreen):
     Attributes
     ----------
     app : object
-        Instance of the class TennistatsApp.
+        Instance of the class StatsPointApp.
 
     player_info : dict
         Contains all the information about the chosen player in order to provide a good analysis.
@@ -35,6 +35,20 @@ class FormScreen(MDScreen):
 
     analysis_info : dict
         Contains all the information input in the form by the user.
+
+    Methods
+    -------
+    on_pre_enter(*args):
+        Is called just before the user sees the screen.
+
+    get_checkbox_info():
+        Get the information of the checkboxes.
+
+    question_done():
+        Checks that the user fulfills all the fields of the form.
+
+    check_enough_data():
+        Checks that enough data is available to provide a good analysis.
     """
 
     ids_names = {'check_player1': 'player1',
